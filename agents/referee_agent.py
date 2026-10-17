@@ -16,10 +16,12 @@ from uagents import Agent, Context, Protocol
 from uagents_core.contrib.protocols.chat import ChatAcknowledgement, ChatMessage, chat_protocol_spec
 
 import config
-from agents import brains, event_loop
+from agents import event_loop
 from agents.chat import acknowledge, find_client, receipt_text, say, text_of
 from agents.messages import ErrorMsg, ReceiptMsg, VerifyRequestMsg, pack, unpack
 from models import VerifyRequest
+# A5b: the Referee Agent always uses the REAL referee (the other agents stay on brains.py / fakes).
+from referee.receipt import referee
 from referee.schema import Proposal
 
 REFEREE_HELP = (
@@ -55,7 +57,7 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
     async def on_verify(ctx: Context, sender: str, msg: VerifyRequestMsg):
         try:
             req = unpack(VerifyRequest, msg.payload)
-            receipt = await asyncio.to_thread(brains.referee, req.client, req.proposal)
+            receipt = await asyncio.to_thread(referee, req.client, req.proposal)
             await ctx.send(sender, ReceiptMsg(payload=pack(receipt)))
         except Exception as e:  # never crash: tell the Chair what went wrong
             ctx.logger.error(f"verify failed: {e}")
@@ -72,7 +74,7 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
             await say(ctx, sender, REFEREE_HELP, end=True)
             return
         try:
-            receipt = await asyncio.to_thread(brains.referee, req.client, req.proposal)
+            receipt = await asyncio.to_thread(referee, req.client, req.proposal)
             await say(ctx, sender, receipt_text(receipt), end=True)
         except Exception as e:
             await say(ctx, sender, f"⚠️ Sorry, I couldn't check that: {e}", end=True)

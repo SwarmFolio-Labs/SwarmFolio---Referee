@@ -81,3 +81,18 @@ def test_committee_reply_format():
     assert "• JNJ 30.0%" in text
     assert result.receipt.receipt_id in text
     assert "Referee Agent unavailable: test." in text
+
+
+def test_referee_agent_uses_real_referee_on_pasted_chat():
+    """A5b: the chat JSON a judge pastes into ASI:One goes through the REAL referee, not the fake."""
+    import json
+    from referee.receipt import referee as real_referee
+
+    assert referee_agent.referee is real_referee
+    text = json.dumps({"client_id": "C02", "proposal": {
+        "weights": {"NVDA": 0.41, "JNJ": 0.30, "GOOGL": 0.15, "XOM": 0.14},
+        "thesis": "AI and healthcare growth.", "reasons": {}}})
+    req = referee_agent.parse_chat_request(text)
+    receipt = referee_agent.referee(req.client, req.proposal)
+    assert receipt.verdict == "VIOLATIONS_REPAIRED"
+    assert {c.rule_id for c in receipt.checks if not c.passed} == {"R1", "R2", "R7"}
