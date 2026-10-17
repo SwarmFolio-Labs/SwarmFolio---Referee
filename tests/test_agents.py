@@ -96,3 +96,12 @@ def test_referee_agent_uses_real_referee_on_pasted_chat():
     receipt = referee_agent.referee(req.client, req.proposal)
     assert receipt.verdict == "VIOLATIONS_REPAIRED"
     assert {c.rule_id for c in receipt.checks if not c.passed} == {"R1", "R2", "R7"}
+
+
+def test_chat_request_ignores_asi1_mentions():
+    """ASI:One sends '@swarmfolio-referee @swarmfolio-referee {...}'; the mentions must not break parsing."""
+    text = ('@swarmfolio-referee @swarmfolio-referee {"client_id":"C02","proposal":{"weights":'
+            '{"NVDA":0.41,"JNJ":0.30,"GOOGL":0.15,"XOM":0.14},"thesis":"test","reasons":{}}}')
+    req = referee_agent.parse_chat_request(text)
+    assert req is not None and req.client.client_id == "C02"
+    assert referee_agent.parse_chat_request("@swarmfolio-referee hello") is None

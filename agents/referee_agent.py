@@ -33,8 +33,12 @@ REFEREE_HELP = (
 
 def parse_chat_request(text: str) -> VerifyRequest | None:
     """Turn pasted chat JSON into a VerifyRequest, or None if it doesn't look like one."""
+    # ASI:One puts "@swarmfolio-referee" mentions in front of the JSON, so keep only the {...} part.
+    start, end = text.find("{"), text.rfind("}")
+    if start == -1 or end < start:
+        return None
     try:
-        data = json.loads(text)
+        data = json.loads(text[start:end + 1])
         if "client" in data:
             return VerifyRequest.model_validate(data)
         client = find_client(str(data.get("client_id", "")))
