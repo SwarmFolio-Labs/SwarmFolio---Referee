@@ -1,0 +1,11 @@
+{
+  "id": "R4",
+  "type": "sector_max",
+  "params": {
+    "sector": "Healthcare",
+    "max": 0.35
+  },
+  "priority": 4,
+  "hard": false,
+  "source": "Healthcare at most 35%."
+}

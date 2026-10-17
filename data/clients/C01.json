@@ -1,0 +1,13 @@
+{
+  "client_id": "C01",
+  "name": "Maya Chen (synthetic)",
+  "story": "34-year-old software engineer saving for retirement; wants a diversified mix with a tilt to tech, no tobacco or energy worries.",
+  "universe": ["AAPL","MSFT","GOOGL","NVDA","AMZN","META","JPM","GS","BAC","JNJ","UNH","PFE","PG","KO","WMT","XOM","CVX","GLD","TLT"],
+  "current_weights": {},
+  "rules": [
+    {"id": "R1", "type": "max_weight",    "params": {"ticker": "*", "max": 0.20},    "priority": 5, "hard": false, "source": "No single stock above 20%."},
+    {"id": "R2", "type": "sector_max",    "params": {"sector": "Tech", "max": 0.50}, "priority": 4, "hard": false, "source": "Keep tech at half the money or less."},
+    {"id": "R3", "type": "min_holdings",  "params": {"k": 6},                        "priority": 3, "hard": false, "source": "Own at least 6 different things."},
+    {"id": "R4", "type": "max_volatility","params": {"max": 0.25},                   "priority": 6, "hard": false, "source": "Annual volatility at most 25%."}
+  ]
+}

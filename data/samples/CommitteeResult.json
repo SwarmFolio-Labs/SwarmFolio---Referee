@@ -1,0 +1,288 @@
+{
+  "client_id": "C02",
+  "final_proposal": {
+    "weights": {
+      "JNJ": 0.3,
+      "UNH": 0.05,
+      "MSFT": 0.15,
+      "AAPL": 0.1,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "PG": 0.15,
+      "KO": 0.05
+    },
+    "thesis": "Same plan, with UNH trimmed to 5% and KO added so Healthcare sits at the 35% cap.",
+    "reasons": {
+      "JNJ": "Legacy position the client must keep at 30% for tax reasons.",
+      "UNH": "Kept a smaller 5% stake so Healthcare stays at the 35% cap.",
+      "MSFT": "Steady cloud growth with high margins.",
+      "AAPL": "Cash-rich, lower volatility than most tech.",
+      "GOOGL": "Cheap relative to earnings growth.",
+      "JPM": "Best-run large bank; adds a non-tech sector.",
+      "PG": "Defensive staple that keeps volatility down.",
+      "KO": "Defensive staple to absorb the 5% trimmed from UNH."
+    }
+  },
+  "receipt": {
+    "receipt_id": "RCPT-C02-0002",
+    "timestamp": "2026-10-17T14:00:00Z",
+    "client_id": "C02",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.35,
+        "violation": 0.0,
+        "explain": "Largest position is JNJ at 30.0%, under the 35.0% cap."
+      },
+      {
+        "rule_id": "R2",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "No money in XOM or CVX."
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "JNJ is 30.0%, meeting the 30.0% minimum."
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.35,
+        "limit": 0.35,
+        "violation": 0.0,
+        "explain": "Healthcare is 35.0%, at the 35.0% cap."
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 8.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "8 holdings, at the limit of 8."
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.05,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "Smallest position is 5.0%, meeting the 5.0% minimum."
+      },
+      {
+        "rule_id": "R7",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.162,
+        "limit": 0.18,
+        "violation": 0.0,
+        "explain": "Annual volatility is 16.2%, under the 18.0% limit."
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "JNJ": 0.3,
+      "UNH": 0.05,
+      "MSFT": 0.15,
+      "AAPL": 0.1,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "PG": 0.15,
+      "KO": 0.05
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 0.81,
+    "sharpe_after": 0.81,
+    "vol_after": 0.162,
+    "summary": "All 7 rules pass. No changes needed.",
+    "notes": []
+  },
+  "first_receipt": {
+    "receipt_id": "RCPT-C02-0001",
+    "timestamp": "2026-10-17T14:00:00Z",
+    "client_id": "C02",
+    "verdict": "VIOLATIONS_REPAIRED",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.35,
+        "violation": 0.0,
+        "explain": "Largest position is JNJ at 30.0%, under the 35.0% cap."
+      },
+      {
+        "rule_id": "R2",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "No money in XOM or CVX."
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "JNJ is 30.0%, meeting the 30.0% minimum."
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": false,
+        "actual": 0.4,
+        "limit": 0.35,
+        "violation": 0.05,
+        "explain": "Healthcare is 40.0% (JNJ 30% + UNH 10%), above the 35.0% cap by 5.0 points."
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 7.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "7 holdings, under the limit of 8."
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "Smallest position is 10.0%, above the 5.0% minimum."
+      },
+      {
+        "rule_id": "R7",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.165,
+        "limit": 0.18,
+        "violation": 0.0,
+        "explain": "Annual volatility is 16.5%, under the 18.0% limit."
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "JNJ": 0.3,
+      "UNH": 0.05,
+      "MSFT": 0.15,
+      "AAPL": 0.1,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "PG": 0.15,
+      "KO": 0.05
+    },
+    "capital_moved": 0.05,
+    "sharpe_before": 0.84,
+    "sharpe_after": 0.81,
+    "vol_after": 0.162,
+    "summary": "1 of 7 rules failed: Healthcare is 40%, cap is 35%. Nearest compliant portfolio moves 5% of capital (UNH 10% -> 5%, KO +5%).",
+    "notes": [
+      "Rules are feasible together.",
+      "Repair kept JNJ at its 30% minimum."
+    ]
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor MSFT, GOOGL, JPM; avoid TLT.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor UNH, GOOGL, AAPL; avoid PFE.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor PG, KO, JNJ; avoid NVDA.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Keep the legacy JNJ, add quality growth (MSFT, GOOGL, UNH) and defensive PG.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "1 of 7 rules failed: Healthcare is 40%, cap is 35%. Nearest compliant portfolio moves 5% of capital (UNH 10% -> 5%, KO +5%).",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "macro",
+      "kind": "stance",
+      "text": "Move the freed 5% to KO. A staple keeps volatility low while staying out of Healthcare.",
+      "stance": "modify"
+    },
+    {
+      "round": 1,
+      "agent": "fundamentals",
+      "kind": "stance",
+      "text": "Keep some UNH. UNH is the cheapest quality name in Healthcare; don't drop it entirely.",
+      "stance": "defend"
+    },
+    {
+      "round": 1,
+      "agent": "risk",
+      "kind": "stance",
+      "text": "Cut UNH to 5%. Healthcare is over the 35% cap; JNJ can't move, so UNH has to.",
+      "stance": "concede"
+    },
+    {
+      "round": 2,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Same plan, with UNH trimmed to 5% and KO added so Healthcare sits at the 35% cap.",
+      "stance": null
+    },
+    {
+      "round": 2,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "All 7 rules pass. No changes needed.",
+      "stance": null
+    }
+  ],
+  "rounds": 2,
+  "self_corrected": true,
+  "notes": []
+}

@@ -1,0 +1,100 @@
+{
+  "as_of": "2026-10-17",
+  "tickers": {
+    "AAPL": {
+      "pe": 39.38761,
+      "revenue_growth": 0.164,
+      "profit_margin": 0.27618998
+    },
+    "MSFT": {
+      "pe": 29.805634,
+      "revenue_growth": 0.177,
+      "profit_margin": 0.40305
+    },
+    "GOOGL": {
+      "pe": 17.089312,
+      "revenue_growth": 0.242,
+      "profit_margin": 0.54771
+    },
+    "NVDA": {
+      "pe": 27.070797,
+      "revenue_growth": 1.059,
+      "profit_margin": 0.63663
+    },
+    "AMZN": {
+      "pe": 20.11263,
+      "revenue_growth": 0.196,
+      "profit_margin": 0.1744
+    },
+    "META": {
+      "pe": 26.726639,
+      "revenue_growth": 0.28,
+      "profit_margin": 0.29834998
+    },
+    "JPM": {
+      "pe": 14.25,
+      "revenue_growth": 0.102,
+      "profit_margin": 0.34592
+    },
+    "GS": {
+      "pe": 12.670884,
+      "revenue_growth": 0.233,
+      "profit_margin": 0.31208
+    },
+    "BAC": {
+      "pe": 12.22673,
+      "revenue_growth": 0.071,
+      "profit_margin": 0.28064
+    },
+    "JNJ": {
+      "pe": 38.77997,
+      "revenue_growth": 0.059,
+      "profit_margin": 0.16203
+    },
+    "UNH": {
+      "pe": 25.815434,
+      "revenue_growth": -0.004,
+      "profit_margin": 0.03529
+    },
+    "PFE": {
+      "pe": 38.921055,
+      "revenue_growth": 0.026,
+      "profit_margin": 0.06804
+    },
+    "PG": {
+      "pe": 24.071,
+      "revenue_growth": 0.015,
+      "profit_margin": 0.18437
+    },
+    "KO": {
+      "pe": 28.1982,
+      "revenue_growth": 0.067,
+      "profit_margin": 0.28558
+    },
+    "WMT": {
+      "pe": 43.0471,
+      "revenue_growth": 0.059,
+      "profit_margin": 0.03
+    },
+    "XOM": {
+      "pe": 23.034748,
+      "revenue_growth": 0.441,
+      "profit_margin": 0.09072
+    },
+    "CVX": {
+      "pe": 21.654476,
+      "revenue_growth": 0.535,
+      "profit_margin": 0.09834
+    },
+    "GLD": {
+      "pe": null,
+      "revenue_growth": null,
+      "profit_margin": null
+    },
+    "TLT": {
+      "pe": null,
+      "revenue_growth": null,
+      "profit_margin": null
+    }
+  }
+}

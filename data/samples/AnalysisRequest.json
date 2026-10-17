@@ -1,0 +1,14 @@
+{
+  "client_id": "C02",
+  "client_story": "Retired surgeon, wants growth but no fossil fuels; holds legacy JNJ stock from her career.",
+  "rules_text": [
+    "No single position above 35%.",
+    "No fossil fuel companies.",
+    "Keep at least 30% in legacy JNJ (tax reasons).",
+    "Healthcare at most 35%.",
+    "At most 8 holdings.",
+    "No position smaller than 5%.",
+    "Annual volatility at most 18%."
+  ],
+  "as_of": "2026-10-16"
+}

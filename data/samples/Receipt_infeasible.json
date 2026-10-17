@@ -1,0 +1,105 @@
+{
+  "receipt_id": "RCPT-C03-0001",
+  "timestamp": "2026-10-17T14:00:00Z",
+  "client_id": "C03",
+  "verdict": "RULES_INFEASIBLE",
+  "checks": [
+    {
+      "rule_id": "R1",
+      "type": "max_weight",
+      "passed": true,
+      "actual": 0.3,
+      "limit": 0.35,
+      "violation": 0.0,
+      "explain": "Largest position is JNJ at 30.0%, under the 35.0% cap."
+    },
+    {
+      "rule_id": "R2",
+      "type": "exclude",
+      "passed": true,
+      "actual": 0.0,
+      "limit": 0.0,
+      "violation": 0.0,
+      "explain": "No money in XOM or CVX."
+    },
+    {
+      "rule_id": "R3",
+      "type": "min_weight",
+      "passed": true,
+      "actual": 0.3,
+      "limit": 0.3,
+      "violation": 0.0,
+      "explain": "JNJ is 30.0%, meeting the 30.0% minimum."
+    },
+    {
+      "rule_id": "R4",
+      "type": "sector_max",
+      "passed": false,
+      "actual": 0.4,
+      "limit": 0.35,
+      "violation": 0.05,
+      "explain": "Healthcare is 40.0% (JNJ 30% + UNH 10%), above the 35.0% cap by 5.0 points."
+    },
+    {
+      "rule_id": "R5",
+      "type": "max_holdings",
+      "passed": true,
+      "actual": 7.0,
+      "limit": 8.0,
+      "violation": 0.0,
+      "explain": "7 holdings, under the limit of 8."
+    },
+    {
+      "rule_id": "R6",
+      "type": "buy_in",
+      "passed": true,
+      "actual": 0.1,
+      "limit": 0.05,
+      "violation": 0.0,
+      "explain": "Smallest position is 10.0%, above the 5.0% minimum."
+    },
+    {
+      "rule_id": "R7",
+      "type": "max_volatility",
+      "passed": true,
+      "actual": 0.165,
+      "limit": 0.18,
+      "violation": 0.0,
+      "explain": "Annual volatility is 16.5%, under the 18.0% limit."
+    }
+  ],
+  "dust_removed": [],
+  "rules_feasible": false,
+  "conflict_set": [
+    "R3",
+    "R4",
+    "R8"
+  ],
+  "conflict_explain": "JNJ at least 30% (R3) plus UNH at least 10% (R8) is 40% Healthcare, but Healthcare is capped at 35% (R4). No portfolio can satisfy all three.",
+  "cheapest_relaxation": [
+    {
+      "rule_id": "R4",
+      "old_limit": 0.35,
+      "new_limit": 0.4,
+      "cost": 0.2,
+      "explain": "Raise the Healthcare cap from 35% to 40% (priority 4 x 0.05 = 0.20)."
+    }
+  ],
+  "repaired_weights": {
+    "JNJ": 0.3,
+    "UNH": 0.1,
+    "MSFT": 0.15,
+    "AAPL": 0.1,
+    "GOOGL": 0.1,
+    "JPM": 0.1,
+    "PG": 0.15
+  },
+  "capital_moved": 0.0,
+  "sharpe_before": 0.84,
+  "sharpe_after": 0.84,
+  "vol_after": 0.165,
+  "summary": "These rules can't all be met: R3, R4 and R8 clash. Cheapest fix: raise the Healthcare cap to 40%.",
+  "notes": [
+    "Ask the client which rule to loosen."
+  ]
+}

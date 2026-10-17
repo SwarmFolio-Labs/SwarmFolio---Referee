@@ -1,0 +1,9 @@
+{
+  "rule_id": "R4",
+  "type": "sector_max",
+  "passed": false,
+  "actual": 0.4,
+  "limit": 0.35,
+  "violation": 0.05,
+  "explain": "Healthcare is 40.0% (JNJ 30% + UNH 10%), above the 35.0% cap by 5.0 points."
+}

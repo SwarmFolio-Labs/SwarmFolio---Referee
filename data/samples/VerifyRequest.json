@@ -1,0 +1,133 @@
+{
+  "client": {
+    "client_id": "C02",
+    "name": "Dr. Patel (synthetic)",
+    "story": "Retired surgeon, wants growth but no fossil fuels; holds legacy JNJ stock from her career.",
+    "universe": [
+      "AAPL",
+      "MSFT",
+      "GOOGL",
+      "NVDA",
+      "AMZN",
+      "META",
+      "JPM",
+      "GS",
+      "BAC",
+      "JNJ",
+      "UNH",
+      "PFE",
+      "PG",
+      "KO",
+      "WMT",
+      "XOM",
+      "CVX",
+      "GLD",
+      "TLT"
+    ],
+    "current_weights": {
+      "JNJ": 0.4,
+      "TLT": 0.3,
+      "KO": 0.3
+    },
+    "rules": [
+      {
+        "id": "R1",
+        "type": "max_weight",
+        "params": {
+          "ticker": "*",
+          "max": 0.35
+        },
+        "priority": 5,
+        "hard": false,
+        "source": "No single position above 35%."
+      },
+      {
+        "id": "R2",
+        "type": "exclude",
+        "params": {
+          "tickers": [
+            "XOM",
+            "CVX"
+          ]
+        },
+        "priority": 10,
+        "hard": true,
+        "source": "No fossil fuel companies."
+      },
+      {
+        "id": "R3",
+        "type": "min_weight",
+        "params": {
+          "ticker": "JNJ",
+          "min": 0.3
+        },
+        "priority": 7,
+        "hard": false,
+        "source": "Keep at least 30% in legacy JNJ (tax reasons)."
+      },
+      {
+        "id": "R4",
+        "type": "sector_max",
+        "params": {
+          "sector": "Healthcare",
+          "max": 0.35
+        },
+        "priority": 4,
+        "hard": false,
+        "source": "Healthcare at most 35%."
+      },
+      {
+        "id": "R5",
+        "type": "max_holdings",
+        "params": {
+          "k": 8
+        },
+        "priority": 3,
+        "hard": false,
+        "source": "At most 8 holdings."
+      },
+      {
+        "id": "R6",
+        "type": "buy_in",
+        "params": {
+          "min": 0.05
+        },
+        "priority": 3,
+        "hard": false,
+        "source": "No position smaller than 5%."
+      },
+      {
+        "id": "R7",
+        "type": "max_volatility",
+        "params": {
+          "max": 0.18
+        },
+        "priority": 6,
+        "hard": false,
+        "source": "Annual volatility at most 18%."
+      }
+    ],
+    "planted_conflict": null
+  },
+  "proposal": {
+    "weights": {
+      "JNJ": 0.3,
+      "UNH": 0.1,
+      "MSFT": 0.15,
+      "AAPL": 0.1,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "PG": 0.15
+    },
+    "thesis": "Keep the legacy JNJ, add quality growth (MSFT, GOOGL, UNH) and defensive PG.",
+    "reasons": {
+      "JNJ": "Legacy position the client must keep at 30% for tax reasons.",
+      "UNH": "Strong earnings growth and pricing power in managed care.",
+      "MSFT": "Steady cloud growth with high margins.",
+      "AAPL": "Cash-rich, lower volatility than most tech.",
+      "GOOGL": "Cheap relative to earnings growth.",
+      "JPM": "Best-run large bank; adds a non-tech sector.",
+      "PG": "Defensive staple that keeps volatility down."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+cvxpy
+pyscipopt
+numpy
+pandas
+yfinance
+pydantic
+python-dotenv
+fastapi
+uvicorn
+pytest
+matplotlib
+uagents
+langchain-core
+langchain-openai
+langchain-google-genai
+langchain-anthropic

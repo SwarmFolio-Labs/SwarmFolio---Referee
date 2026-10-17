@@ -1,0 +1,21 @@
+{
+  "AAPL": "Tech",
+  "MSFT": "Tech",
+  "GOOGL": "Tech",
+  "NVDA": "Tech",
+  "META": "Tech",
+  "AMZN": "Consumer",
+  "WMT": "Consumer",
+  "PG": "Consumer",
+  "KO": "Consumer",
+  "JPM": "Financials",
+  "GS": "Financials",
+  "BAC": "Financials",
+  "JNJ": "Healthcare",
+  "UNH": "Healthcare",
+  "PFE": "Healthcare",
+  "XOM": "Energy",
+  "CVX": "Energy",
+  "GLD": "Gold",
+  "TLT": "Bonds"
+}

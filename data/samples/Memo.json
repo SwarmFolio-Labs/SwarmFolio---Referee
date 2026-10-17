@@ -1,0 +1,20 @@
+{
+  "agent": "fundamentals",
+  "favor": [
+    "UNH",
+    "GOOGL",
+    "AAPL"
+  ],
+  "avoid": [
+    "PFE"
+  ],
+  "sector_views": {
+    "Healthcare": "overweight",
+    "Tech": "neutral"
+  },
+  "reasons": {
+    "UNH": "P/E below its 5-year average with 8% revenue growth.",
+    "PFE": "Revenue shrinking after the vaccine boom."
+  },
+  "confidence": 0.7
+}
