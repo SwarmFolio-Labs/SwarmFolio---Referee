@@ -24,6 +24,7 @@ from referee.schema import Client, Rule
 
 SOLVED = {cp.OPTIMAL, cp.OPTIMAL_INACCURATE}
 INFEASIBLE = {cp.INFEASIBLE, cp.INFEASIBLE_INACCURATE}
+SOLVER_TIME_LIMIT = 15  # seconds per SCIP attempt
 
 
 @dataclass
@@ -125,7 +126,8 @@ def _buy_in(rule: Rule, v: Variables, client: Client) -> list:
 
 def _max_volatility(rule: Rule, v: Variables, client: Client) -> list:
     # ||L^T w|| equals sqrt(w^T Sigma w), the portfolio's volatility. This is a "cone" constraint.
-    return [cp.norm(v.market.L.T @ v.w, 2) <= rule.params["max"]]
+    # Aim a tiny bit under the cap (VOL_MARGIN = 0.001 points) so solver rounding never lands above it.
+    return [cp.norm(v.market.L.T @ v.w, 2) <= rule.params["max"] - config.VOL_MARGIN]
 
 
 def _max_turnover(rule: Rule, v: Variables, client: Client) -> list:
@@ -181,15 +183,30 @@ def build_problem(client: Client, active_rule_ids: list[str] | None = None, obje
 
 
 def solve(problem: cp.Problem) -> bool:
-    """Solve with SCIP. True = solved, False = proven infeasible, anything else = error."""
-    # SCIP's default feasibility tolerance (1e-6) can leave the volatility cone a hair
-    # over its cap (e.g. 18.0002%), which check() would then call broken. Tighten it.
-    problem.solve(solver=cp.SCIP, scip_params={"numerics/feastol": 1e-9})
-    if problem.status in SOLVED:
-        return True
-    if problem.status in INFEASIBLE:
-        return False
-    raise RuntimeError(f"Solver returned an unexpected status: {problem.status}")
+    """Solve with SCIP. True = solved, False = proven infeasible, anything else = error.
+
+    First try: a tight feasibility tolerance (1e-9), because SCIP's default (1e-6) can
+    leave the volatility cone a hair over its cap. On some problems that tight setting
+    causes "numerical troubles", so if it fails we retry once with SCIP's defaults.
+    Both tries stop after SOLVER_TIME_LIMIT seconds so one hard client can't hang a demo.
+    """
+    attempts = [
+        {"numerics/feastol": 1e-9, "limits/time": SOLVER_TIME_LIMIT},
+        {"limits/time": SOLVER_TIME_LIMIT},
+    ]
+    status = None
+    for params in attempts:
+        try:
+            problem.solve(solver=cp.SCIP, scip_params=params)
+        except cp.error.SolverError as e:
+            status = f"solver error ({e})"
+            continue
+        status = problem.status
+        if status in SOLVED:
+            return True
+        if status in INFEASIBLE:
+            return False
+    raise RuntimeError(f"Solver returned an unexpected status: {status}")
 
 
 def is_feasible(client: Client, rule_ids: list[str] | None = None) -> bool:

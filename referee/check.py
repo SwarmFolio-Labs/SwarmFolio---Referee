@@ -53,8 +53,8 @@ def clean_dust(weights: dict[str, float], universe: list[str]) -> tuple[dict[str
 # of the sentence, e.g. "NVDA is 41.0% of the portfolio".
 
 def _held(weights: dict[str, float]) -> dict[str, float]:
-    """Only the positions that count as held (at least DUST)."""
-    return {t: w for t, w in weights.items() if w >= config.DUST}
+    """Only the positions that count as held (at least DUST, minus TOL for solver rounding)."""
+    return {t: w for t, w in weights.items() if w >= config.DUST - config.TOL}
 
 
 def _check_max_weight(rule: Rule, weights: dict[str, float], client: Client):

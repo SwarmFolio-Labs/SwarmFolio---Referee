@@ -50,6 +50,7 @@ AGENT_RETRIES = 1     # retry once, then fall back
 # --- Referee math (MASTER 6.2) ---
 DUST = 0.005       # weights below 0.5% count as "not held"
 TOL = 1e-6         # tolerance for "rule passed"
+VOL_MARGIN = 1e-5  # the solver aims this far under a volatility cap (0.001 points) to absorb rounding
 RISK_FREE = 0.04   # risk-free rate for Sharpe
 LOOKBACK_DAYS = 756  # ~3 years of trading days for returns and risk
 

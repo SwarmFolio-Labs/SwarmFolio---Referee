@@ -82,7 +82,7 @@ def _elastic_constraints(rule: Rule, v, client: Client, s) -> list:
     if rule.type == "buy_in":
         return [v.w >= p["min"] * v.z - s]
     if rule.type == "max_volatility":
-        return [cp.norm(v.market.L.T @ v.w, 2) <= p["max"] + s]
+        return [cp.norm(v.market.L.T @ v.w, 2) <= p["max"] - config.VOL_MARGIN + s]
     if rule.type == "max_turnover":
         c = np.array([client.current_weights.get(t, 0.0) for t in v.tickers])
         forced_sales = sum(w for t, w in client.current_weights.items() if t not in v.tickers)
