@@ -384,9 +384,13 @@ both submissions by 11:30 AM Sunday.
    Round 2: the Risk agent concedes, Fundamentals defends GOOGL. Final receipt: compliant, 6% of capital moved.
 3. **The twist (30s):** the impossible client. "No portfolio exists. These 3 rules can't all hold.
    Cheapest fix: raise the Healthcare cap to 40%." "Most systems silently drift. We tell the advisor why."
-4. **Proof (30s):** eval chart: X% violation rate → 100% compliant; 5/5 impossible clients caught exactly.
+4. **The finding (30s):** the learning-curve chart (MASTER 10.3): "With rules only in the prompt, the AI fixed
+   X% of its violations in 3 tries. When the Referee **explained** what broke and by how much, it fixed Y%." Plus
+   "the Referee caught every impossible client exactly."
+4b. **Price tags (15s):** "And it tells the client what each rule costs: Dr. Patel's 'keep 30% in JNJ' costs
+   0.85 points a year; her Healthcare cap costs nothing." 
 5. **Close (15s):** "The Referee is its own agent on Agentverse. Any AI that drafts portfolios can call it.
-   AI proposes. Math decides."
+   AI proposes. Math decides. And when the math explains itself, the AI learns."
 
 Have the web app open in a second tab: it's the visual story for judges and the backup if ASI:One is slow.
 
@@ -399,6 +403,8 @@ Have the web app open in a second tab: it's the visual story for judges and the 
 - **Why a solver and not PSO or the LLM?** A verifier must be reproducible and able to *prove* that no valid portfolio exists. PSO is random and can only say "didn't find one." My SwarmFolio repo showed exactly this: the old swarm check called a feasible rule set impossible.
 - **How do you find the conflicting rules?** Deletion filter: remove rules one at a time; if the problem stays infeasible without a rule, that rule wasn't needed for the conflict. What's left is minimal.
 - **Why five separate agents?** Each has one job and its own address, so they can run, fail and be replaced independently, and the Referee is a reusable service any other agent can call. If an analyst times out, the Chair continues and says so.
+- **What did you actually find?** We ran a paired experiment: the same first drafts, then three kinds of feedback (self-check, bare "rule broken", the Referee's full explanation), 3 trials per client, with bootstrap confidence intervals. [State the real result, e.g. "explained feedback made the AI compliant in X% vs Y%."] Whatever the numbers say, we report them honestly.
+- **How do the price tags work?** Find the best risk-adjusted portfolio under all the rules, then re-solve without each rule. The improvement is that rule's exact cost. Removing a rule can only help, so the price is never negative. Rules that cost nothing "don't bind": useful advice too.
 - **Isn't this investment advice?** It's a tool for advisors, who are fiduciaries, and it uses synthetic clients. The Referee only checks rules; humans decide.
 - **Who pays?** My research says the best fit is per-verification pricing for wealthtech platforms and AI-agent builders, not standalone software for advisors (StratiFi, the closest comparable, is ~$4M revenue). Fetch's Payment Protocol makes per-check payment natural.
 - **Competitors?** Vestmark Pulse (May 2026) screens trades against investment policies; Gurobi can find conflicting constraints. Nobody publicly connects AI proposals → conflict explanation → cheapest fix → audit receipt.

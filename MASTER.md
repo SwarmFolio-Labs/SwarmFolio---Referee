@@ -39,10 +39,15 @@ Section 12 are run in Claude Code instead; ignore "open a PR", just commit). **A
 | 3 | Real Referee Agent | **A5b** | |
 | 4 | AI brains + loop | **A6 → A8** (skip the "web app" sentence in A8) | |
 | 5 | Connect real brains | **C1** | **Fetch-qualified: submit to the Fetch Submission Agent now** |
-| 6 | Clients + evaluation | **B2 with only 10 clients** (7 feasible, 3 planted conflicts) → **A9 → A10** | The headline number |
-| 7 | Analyst agents | rest of **B3** (macro/fundamentals/risk agents) → **C2** | 5-agent bonus; stop at 4 AM |
-| 8 | UI (only if usage remains) | **B1-lite**: `api.py` + ONE static `frontend/index.html` (no React build) | Paper only if this exists by ~10 PM |
-| 9 | README + submit | **B4/F1** | |
+| 6 | Clients + **the feedback experiment** | **B2 with 18 clients** (15 feasible, 3 planted conflicts) → **A9 → A10** (MASTER 10.3) | ⭐ Depth: the headline *finding* |
+| 7 | **Rule price tags** | **A11** (MASTER 6.10) | ⭐ Depth: "what each rule costs you" |
+| 8 | Analyst agents | rest of **B3** (macro/fundamentals/risk agents) → **C2** | 5-agent bonus; stop at 4 AM |
+| 9 | UI (only if usage remains) | **B1-lite**: `api.py` + ONE static `frontend/index.html` (no React build), showing the price tags and the learning-curve chart | Paper only if this exists by ~10 PM |
+| 10 | README + submit | **B4/F1** | |
+
+**Why steps 6–7 (technical depth):** judges know AI can write an agent wrapper in an hour. What they can't get
+from "AI can code" is **insight**: a question answered with evidence (6) and an analysis advisors have never seen
+(7). New pitch: *"AI proposes. Math decides. And when the math **explains** itself, the AI learns to follow the rules."*
 
 **Dropped in Plan B:** the Devin prize, React, and Paper unless step 8 happens.
 **Usage rules:** `/clear` before every step; strongest model only for A1–A5 and A8; a cheaper one for the rest.
@@ -445,6 +450,39 @@ with fresher prices; test the properties (rules pass, sums to 1), not exact numb
 
 ---
 
+### 6.10 Rule price tags: what each rule costs (`referee/prices.py`)
+Advisors and clients never see what a rule *costs*. Institutional tools (e.g. Axioma) sell this as
+"constraint attribution". Here's our version:
+
+1. **Best portfolio under all the rules.** Maximize mean-variance utility (concave, so exact with SCIP):
+   ```
+   maximize  U(w) = μᵀw − (γ/2)·‖Lᵀw‖²        γ = RISK_AVERSION = 3 (config)
+   subject to base constraints + all rules
+   ```
+   Call the optimum U* and its Sharpe S*.
+2. **Price of rule r.** Re-solve without rule r → U*₋ᵣ and S*₋ᵣ. Since removing a rule can only help,
+   **price_r = U*₋ᵣ − U* ≥ 0** (up to solver tolerance; clip at 0). Report it in **percentage points of
+   risk-adjusted return per year** (price × 100) together with the Sharpe change S*₋ᵣ − S*.
+3. **binds** = price_r > 0.0001 (0.01 points). Non-binding rules "cost nothing": the client could keep or
+   drop them freely. That's useful advice too.
+4. If the client's rules are infeasible, compute the prices on the **relaxed** client (6.6) and say so.
+5. **Solver settings (verified on C02 with real prices):** solve these utility problems with SCIP params
+   `{"limits/time": 15, "limits/gap": 1e-3}` and SCIP's default feasibility tolerance. Do **not** use the strict
+   `feastol 1e-9` first attempt from `solver.solve()`: with this quadratic objective it runs into the 15 s limit on
+   every solve (2 minutes per client, unproven answers), while the settings above take ~0.1 s for all 8 solves with
+   the same prices. Use `build_problem(client, ids)` for the constraints and your own objective + solve call.
+   Verified result for Dr. Patel (C02): 'Keep at least 30% in legacy JNJ' costs **0.85 pts**, 'Annual volatility at
+   most 18%' costs **0.70 pts** (Sharpe 1.95 → 1.79 without it, because it takes more risk), the other 5 rules
+   cost ~0 (they don't bind). Use these as test expectations (±0.1).
+
+**Output** (new model `RulePrice` in `models.py`, an additive change, announced loudly):
+`rule_id, source, binds: bool, utility_cost_pts: float, sharpe_with: float, sharpe_without: float, explain: str`,
+sorted by cost. Example sentence: *"'No fossil fuel companies' costs 0.8 points of risk-adjusted return a
+year (Sharpe 1.21 → 1.29 without it)."* / *"'Healthcare at most 35%' costs nothing: it never binds."*
+
+Function: `rule_prices(client) -> list[RulePrice]`. Not part of the receipt (the receipt stays frozen); the Chair
+and the web app call it separately.
+
 ## 7. The committee
 
 ### 7.1 What each analyst sees (computed in Python, passed in the prompt)
@@ -592,6 +630,41 @@ Outputs: `results.json`, `results.md` (table), `violations.png` (bar chart: M1 �
 
 ---
 
+### 10.3 The feedback experiment (`eval/experiment.py`): the headline *finding*
+**Research question:** can math feedback teach an AI to follow a client's rules, and does it matter whether
+the math *explains* itself?
+
+**Design (paired, so the comparison is fair):**
+- **Clients:** feasible clients only (C01, C02 + the 15 feasible generated ones). Infeasible clients can't
+  comply, so they're judged separately by M5.
+- **Trials:** T = 3 per client. The trial number goes into the prompt (so the cache key differs) and eval
+  calls use temperature 0.7, so the trials are genuinely different samples.
+- **Shared start:** per client-trial, the 3 memos and the Chair's **first draft** are made once and reused by all
+  three conditions. Every condition starts from exactly the same draft.
+- **Three conditions,** each = up to 3 rounds of *Chair-only* revision (no analyst stances, to isolate the
+  effect of the feedback), checked by the Referee after every round, stopping early once compliant:
+  | Condition | What the Chair is told each round |
+  |---|---|
+  | **A. Self-check** | "Re-check your portfolio against the client's rules and fix anything that breaks them." No Referee info. (What most AI products do today.) |
+  | **B. Bare verdict** | The ids + client wording of the rules that failed. No numbers. |
+  | **C. Explained** | The Referee's explain sentences (actual vs limit, e.g. "NVDA is 41.0%, limit 35%") + the conflict explanation if any. **Never the repaired weights** (that would just be copying). |
+- **Budget:** 17 clients × 3 trials × (4 shared calls + 3 conditions × ≤3 revisions) ≈ 650 LLM calls, run with
+  4 at a time. Add `--clients N --trials T` flags and smoke-test with `--clients 3 --trials 1` first.
+
+**Metrics** for each condition at round 0, 1, 2, 3:
+- **Compliance rate** (all checks pass), **mean # broken rules**, **mean total violation** (weight rules in
+  percentage points; count rules reported separately)
+- **Intent kept:** capital moved between the first draft and the final revision (lower = more of the AI's idea kept)
+- **Uncertainty:** 95% bootstrap confidence intervals over client-trials
+- **Paired test:** for C vs B and C vs A, the number of client-trials where C became compliant in fewer /
+  the same / more rounds, plus a sign-test p-value
+
+**Outputs:** `eval/results/experiment.json`, `experiment.md` (table + a 3-sentence plain-English finding) and
+`learning_curves.png` (compliance rate vs round, one line per condition, shaded CIs).
+
+**Honesty rule:** report whatever comes out. If B ≈ C, that's a finding too ("telling the AI *which* rule broke
+is enough; the numbers don't help"). The finding just needs to be true and clearly stated.
+
 ## 11. Prompts for Claude Code (Part A)
 
 Paste one at a time. Start a **fresh session** (`/clear`) for each to save usage. Commit after each.
@@ -681,7 +754,10 @@ tickers outside the universe and note it). Run on C02 and print the 3 memos and 
 **A8: loop + LocalTransport (6:45)**
 ```
 Build committee/transport_local.py (async LocalTransport using asyncio.to_thread) and committee/loop.py
-with async run_committee per MASTER 5.4 and 7.3. Run C01, C02, C03 and print readable transcripts. Then switch USE_FAKES to False only for
+with async run_committee per MASTER 5.4 and 7.3. Also committee/feedback.py: format_feedback(receipt, client,
+mode) with the three modes of MASTER 10.3 ("self", "bare", "explained"), and in committee/chair.py a
+chair_revise_with(client, proposal, feedback_text, stances=None) that chair_revise uses with mode "explained".
+The experiment (A10) will call these directly. Run C01, C02, C03 and print readable transcripts. Then switch USE_FAKES to False only for
 api.py and confirm the web app (built by Devin) runs on real brains.
 ```
 ✅ **Tier 1 done (~9:30 PM): push.**
@@ -693,10 +769,26 @@ planted_conflict check that find_conflicts returns exactly that set. Fix clients
 (change the client file, not the Referee) and print a summary table.
 ```
 
-**A10: evaluation (9:30 PM)**
+**A10: evaluation + the feedback experiment (after A9)**
 ```
-Build eval/run_eval.py per MASTER 10.2 using run_committee with LocalTransport. Save results.json,
-results.md and violations.png, and give me the headline sentence with the real numbers.
+Read MASTER 10.2 and 10.3 only. 1) Build eval/run_eval.py for metrics M1–M6 (run_committee with
+LocalTransport). 2) Build eval/experiment.py exactly per MASTER 10.3: paired design (shared memos and first
+draft per client-trial), conditions self/bare/explained via format_feedback and chair_revise_with, Referee
+check after every round, temperature 0.7 and the trial number in the prompt, 4 calls at a time,
+--clients/--trials flags, bootstrap CIs, the paired sign test, and the outputs experiment.json,
+experiment.md and learning_curves.png. Smoke-test with --clients 3 --trials 1, show me the table, then run
+the full experiment in the background and tell me how to check on it. Finish with the plain-English
+finding and the demo headline sentence, using only the real numbers.
+```
+
+**A11: rule price tags (after A10 starts running)**
+```
+Read MASTER 6.10 only. Add RulePrice to models.py (additive; say so loudly) and build referee/prices.py:
+rule_prices(client) -> list[RulePrice] with the utility objective (RISK_AVERSION = 3 in config.py), one
+re-solve per rule, price clipped at 0, binds threshold 0.0001, relaxed client if infeasible, sorted by cost.
+Tests: removing a rule never lowers utility; a rule that can't bind (e.g. a 99% cap) costs ~0; C02's prices
+are computed in under 5 s and match MASTER 6.10's verified C02 numbers (JNJ ~0.85, volatility ~0.70, others ~0). Then make the Chair Agent's reply include the top 3 price tags, and let it answer
+"price tags for <client>". Run pytest, commit and push.
 ```
 
 ---
