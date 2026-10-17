@@ -6,6 +6,7 @@ This is the single source of truth for the build. Where it disagrees with PLAN.m
 PROMPTS.md and SPLIT.md pointers), **this file wins**. PLAN.md keeps the background (why, demo, judge Q&A).
 
 Contents
+0. PLAN B: Claude Code only (no Devin)
 1. The project in 60 seconds
 2. Who builds what (the split)
 3. Today's timeline with owners
@@ -23,6 +24,28 @@ Contents
 14. Checkpoints, fallbacks, cut order
 14b. Rescue prompts
 15. Ship: README, video, the submissions
+
+---
+
+## 0. PLAN B: Claude Code only (no Devin)
+
+If Devin credits aren't available, Claude Code builds everything, in this **leaner order** (the "B" prompts in
+Section 12 are run in Claude Code instead; ignore "open a PR", just commit). **A0 is already done (commit 594733a).**
+
+| # | Step | Prompt | Notes |
+|---|---|---|---|
+| 1 | Referee | **A1 → A5** | The core. Strongest model. Push at the end. |
+| 2 | Referee + Chair agents on fakes | **B3, reduced**: only `referee_agent.py`, `chair_agent.py`, `transport.py`, `run_all.py` | Fetch checkpoint: chat with the Chair in ASI:One |
+| 3 | Real Referee Agent | **A5b** | |
+| 4 | AI brains + loop | **A6 → A8** (skip the "web app" sentence in A8) | |
+| 5 | Connect real brains | **C1** | **Fetch-qualified: submit to the Fetch Submission Agent now** |
+| 6 | Clients + evaluation | **B2 with only 10 clients** (7 feasible, 3 planted conflicts) → **A9 → A10** | The headline number |
+| 7 | Analyst agents | rest of **B3** (macro/fundamentals/risk agents) → **C2** | 5-agent bonus; stop at 4 AM |
+| 8 | UI (only if usage remains) | **B1-lite**: `api.py` + ONE static `frontend/index.html` (no React build) | Paper only if this exists by ~10 PM |
+| 9 | README + submit | **B4/F1** | |
+
+**Dropped in Plan B:** the Devin prize, React, and Paper unless step 8 happens.
+**Usage rules:** `/clear` before every step; strongest model only for A1–A5 and A8; a cheaper one for the rest.
 
 ---
 
