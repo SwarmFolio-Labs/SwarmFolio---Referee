@@ -182,7 +182,9 @@ def build_problem(client: Client, active_rule_ids: list[str] | None = None, obje
 
 def solve(problem: cp.Problem) -> bool:
     """Solve with SCIP. True = solved, False = proven infeasible, anything else = error."""
-    problem.solve(solver=cp.SCIP)
+    # SCIP's default feasibility tolerance (1e-6) can leave the volatility cone a hair
+    # over its cap (e.g. 18.0002%), which check() would then call broken. Tighten it.
+    problem.solve(solver=cp.SCIP, scip_params={"numerics/feastol": 1e-9})
     if problem.status in SOLVED:
         return True
     if problem.status in INFEASIBLE:
