@@ -323,6 +323,13 @@ To start a single agent, use `python -m agents.referee_agent` (or `chair_agent`,
 ### 3. The web app (FastAPI + React)
 
 ```bash
+scripts/demo.sh             # API (:8000) + web app (http://localhost:5173); Ctrl+C stops both
+scripts/demo.sh --agents    # also the 5 Fetch agents (needs the .env setup from step 2)
+```
+
+Or start them by hand:
+
+```bash
 uvicorn api:app --reload --port 8000                 # API (repo root, inside .venv)
 cd frontend && npm install && npm run dev            # http://localhost:5173, proxies /api -> :8000
 ```
@@ -331,6 +338,7 @@ cd frontend && npm install && npm run dev            # http://localhost:5173, pr
 - It replays saved committee runs from `data/demo_runs/`. Live runs take minutes. Regenerate them with `python data/demo_runs/save_demo_run.py C02 C91`, which needs `ASI1_API_KEY`.
 - `POST /referee` and `GET /prices/{id}` call the real Referee live.
 - After `npm run build`, `uvicorn api:app` serves the whole app on one port.
+- To put it online (Render for the API, Vercel for the app, your own domain), follow [docs/DEPLOY.md](docs/DEPLOY.md). The public API needs no API keys and never calls an LLM.
 
 ### 4. Tests
 
