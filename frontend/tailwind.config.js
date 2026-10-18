@@ -92,6 +92,9 @@ export default {
       gridTemplateColumns: {
         'price-tag': '1fr var(--price-meter-width)',
         stance: 'calc(var(--space-unit) * 2) 1fr',
+        conflict: '1fr var(--aside-width)',
+        receipt: 'var(--receipt-width) 1fr',
+        'receipt-row': '1fr auto',
       },
       borderWidth: { 3: '3px' },
       keyframes: {

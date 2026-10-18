@@ -52,8 +52,25 @@ export function splitConflict(explain = '') {
 }
 
 /** "his" / "her" / "their" from the client's title, for headings like "His 8 rules". */
-export function pronoun(name = '') {
+export function pronoun(name = '', story = '') {
   if (/^mr\.?\s/i.test(name)) return 'his'
   if (/^(ms|mrs|miss)\.?\s/i.test(name)) return 'her'
-  return 'their'
+  // "Dr." and first names: fall back to how the client's story refers to them.
+  const her = (story.match(/\b(her|she)\b/gi) ?? []).length
+  const his = (story.match(/\b(his|he|him)\b/gi) ?? []).length
+  return her > his ? 'her' : his > her ? 'his' : 'their'
+}
+
+const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+
+/** 3 → "three" (up to ten), for sentences like "Three of her rules can't all be true at once." */
+export const numberWord = (n) => WORDS[n] ?? String(n)
+
+/** What a rule is about, for the receipt's small print: "JNJ", "Healthcare", "XOM, CVX" (or null). */
+export function ruleSubject(rule) {
+  const p = rule?.params ?? {}
+  if (p.ticker && p.ticker !== '*') return p.ticker
+  if (p.sector) return p.sector
+  if (p.tickers) return p.tickers.join(', ')
+  return null
 }

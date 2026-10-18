@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { getClients, getDemo, getSettings } from '../api.js'
+import ConflictPanel from '../components/ConflictPanel.jsx'
 import DebateTimeline from '../components/DebateTimeline.jsx'
 import LiveRun from '../components/LiveRun.jsx'
 import PriceTags from '../components/PriceTags.jsx'
@@ -50,6 +51,16 @@ function useReplay(steps, startDone) {
     skip: () => { setPlaying(false); setVisible(steps.length) },
     replay: () => { setVisible(0); setPlaying(true) },
   }
+}
+
+/** What the receipt's "holdings changed" table compares: proposal → repair, or starting book → final. */
+function receiptChanges(client, demo) {
+  if (demo.receipt.verdict === 'VIOLATIONS_REPAIRED') {
+    return { before: demo.final_proposal.weights, after: demo.receipt.repaired_weights, beforeLabel: 'Proposed', afterLabel: 'Repaired' }
+  }
+  if (demo.receipt.verdict === 'RULES_INFEASIBLE') return {}
+  const start = Object.keys(client.current_weights).length ? client.current_weights : demo.extras?.proposals?.[0]
+  return { before: start, after: demo.final_proposal.weights, beforeLabel: 'Start', afterLabel: 'Final' }
 }
 
 const brokenCount = (r) => r.checks.filter((c) => !c.passed).length
@@ -179,6 +190,22 @@ function RunView({ client, demo, demoError, steps, replay, onTab }) {
         </span>
       </div>
 
+      {replay.done && !demo.receipt.rules_feasible && (
+        <div className="animate-reveal">
+          <ConflictPanel
+            layout="page"
+            explain={demo.receipt.conflict_explain}
+            relaxations={demo.receipt.cheapest_relaxation}
+            conflictSet={demo.receipt.conflict_set}
+            rules={client.rules}
+            checks={demo.receipt.checks}
+            clientName={displayName(client.name)}
+            clientStory={client.story}
+            onEdit={() => onTab('try')}
+          />
+        </div>
+      )}
+
       <DebateTimeline
         steps={steps}
         visible={replay.visible}
@@ -278,7 +305,7 @@ function ClientDetail({ id }) {
   ]
   const tabs = TABS.filter((t) => (t.id !== 'live' || liveRuns) && (t.id !== 'receipt' || demo))
   const current = tabs.find((t) => t.id === tab) ?? tabs[0]
-  const showRules = current.id === 'run'
+  const showRules = current.id === 'run' && demo?.receipt?.rules_feasible !== false
 
   return (
     <div className={page}>
@@ -290,7 +317,7 @@ function ClientDetail({ id }) {
         <span className="text-ink">{current.label}</span>
       </nav>
 
-      <div className="mt-5 flex flex-wrap items-start justify-between gap-8">
+      <div className={`mt-5 flex-wrap items-start justify-between gap-8 ${current.id === 'receipt' ? 'hidden' : 'flex'}`}>
         <div className="max-w-lede">
           <div className="flex flex-wrap items-baseline gap-3">
             <h1 className="font-display text-6xl font-semibold tracking-tight">{displayName(client.name)}</h1>
@@ -309,7 +336,7 @@ function ClientDetail({ id }) {
       {showRules && (
         <section className="mt-10">
           <div className="label border-b border-ink pb-2.5">
-            {pronoun(displayName(client.name))} {client.rules.length} rules, in {pronoun(displayName(client.name))} own words
+            {pronoun(displayName(client.name), client.story)} {client.rules.length} rules, in {pronoun(displayName(client.name), client.story)} own words
           </div>
           <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
             {client.rules.map((r) => (
@@ -347,9 +374,9 @@ function ClientDetail({ id }) {
             receipt={demo.receipt}
             rules={client.rules}
             client={client}
-            before={Object.keys(client.current_weights).length ? client.current_weights : demo.extras?.proposals?.[0]}
-            after={demo.final_proposal.weights}
+            {...receiptChanges(client, demo)}
             onBack={() => setTab('run')}
+            onEdit={() => setTab('try')}
           />
         </div>
       )}

@@ -176,6 +176,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           <ReceiptCard
             variant={receiptVariant}
             receipt={result.receipt}
+            client={client}
             rules={client.rules}
             before={client.current_weights}
             after={result.final_proposal.weights}

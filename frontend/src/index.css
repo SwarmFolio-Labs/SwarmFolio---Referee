@@ -107,6 +107,8 @@
   --page-width: 1200px;
   --prose-width: 46rem;
   --lede-width: 720px; /* page intro column */
+  --aside-width: 416px; /* Screen C: the cheapest way out */
+  --receipt-width: 620px; /* Screen B: the printed receipt */
   --price-meter-width: 220px;
 
   /* Shape: hairlines and near-square corners, no shadows */
@@ -179,20 +181,22 @@ body {
 }
 
 /*
- * Receipt variants: <ReceiptCard variant="printed"> renders data-variant="printed" on its root.
- * Override tokens inside it to restyle the receipt alone. This is a placeholder starting point
- * for the printed audit receipt; preview it with ?receipt=printed on a client URL.
+ * Receipt variants: <ReceiptCard variant="printed"> (the default) renders data-variant="printed": receipt paper
+ * with an ink bar on top and a torn bottom edge. variant="card" drops the bar and the edge.
  */
-[data-component='receipt'] {
-  font-family: var(--font-sans);
+[data-component='receipt-paper'][data-variant='printed'] {
+  border-top: 4px solid rgb(var(--ink));
 }
-[data-component='receipt'][data-variant='printed'] {
-  --font-sans: var(--font-mono);
-  --font-display: var(--font-mono);
-  --surface: 255 255 252;
-  --radius-card: 2px;
-  --shadow-card: 0 2px 8px rgb(0 0 0 / 0.08);
-  border-style: dashed;
+[data-component='receipt-paper'][data-variant='printed']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background:
+    linear-gradient(-45deg, transparent 5px, rgb(var(--surface)) 0) 0 0 / 10px 10px repeat-x,
+    linear-gradient(45deg, transparent 5px, rgb(var(--surface)) 0) 0 0 / 10px 10px repeat-x;
 }
 
 /* ---------- Print: "Print receipt" prints only the receipt that asked for it ---------- */
