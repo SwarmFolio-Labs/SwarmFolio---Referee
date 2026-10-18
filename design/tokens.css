@@ -1,0 +1,81 @@
+/*
+ * SwarmFolio Referee: final design tokens (Direction A "Research report"), exported from Paper.
+ * The frames in design/frames/*.html use the --color-* / --font-* names in block 1.
+ * Block 2 is the same palette in the frontend's "R G B" triple format, ready to paste into
+ * frontend/src/index.css :root (tailwind.config.js maps those names; no component changes needed).
+ */
+
+/* 1. Paper token names (used by the exported frames) */
+:root {
+  /* neutrals */
+  --color-bg: #F6F3EC;          /* paper page */
+  --color-surface: #FDFBF6;     /* receipt paper, cards */
+  --color-sunken: #EFEBE2;      /* bar tracks, insets */
+  --color-ink: #1B1B1A;         /* text, primary button */
+  --color-muted: #5E5A52;       /* secondary text, AA on bg + surface */
+  --color-faint: #6F6A60;       /* tertiary text, still AA (5:1 on bg) */
+  --color-line: #D9D3C7;        /* 1px hairlines */
+  --color-accent: #1B1B1A;      /* primary action = ink, no brand blue */
+
+  /* meaning colors (always paired with a text label and a shape) */
+  --color-pass: #2F6B3F;        /* compliant · concede ● */
+  --color-fail: #B5432B;        /* broken / impossible · defend ■ */
+  --color-warn: #9A6A12;        /* repaired / needs approval · modify ◆ */
+  --color-concede: var(--color-pass);
+  --color-defend: var(--color-fail);
+  --color-modify: var(--color-warn);
+  --color-pass-tint: #E3ECE2;
+  --color-fail-tint: #F3E1DB;
+  --color-warn-tint: #F2E8D3;   /* changed-row highlight, working-agent row */
+
+  /* extras used in frames */
+  --color-warn-text: #86600F;   /* ochre text / stamp word (AA) */
+  --color-warn-text-small: #7A560E; /* stamp sub-line, 10px */
+  --color-prose: #3A3732;       /* long serif paragraphs */
+  --color-before-bar: #C9C1B2;  /* "before" weight bar */
+  --color-chart-before: #A79E8E;
+  --color-perforation: #B9B1A2; /* dashed receipt separators */
+
+  /* type */
+  --font-display: Newsreader, Georgia, serif;                         /* headings, client quotes (italic) */
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; /* UI */
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;       /* every measured number */
+  /* scale: 12 / 14 / 16 / 20 / 28 / 40 (+48 page titles); labels 11px caps, 0.12em */
+
+  --radius-card: 2px;
+  --radius-chip: 2px;
+}
+
+/* 2. Paste into frontend/src/index.css :root (R G B triples) */
+/*
+  --bg: 246 243 236;
+  --surface: 253 251 246;
+  --sunken: 239 235 226;
+  --ink: 27 27 26;
+  --muted: 94 90 82;
+  --line: 217 211 199;
+  --accent: 27 27 26;
+
+  --pass: 47 107 63;
+  --fail: 181 67 43;
+  --warn: 154 106 18;
+
+  --concede: 47 107 63;
+  --defend: 181 67 43;
+  --modify: 154 106 18;
+
+  --chart-before: rgb(201 193 178);
+  --chart-after: rgb(var(--ink));
+  --chart-self: rgb(167 158 142);
+  --chart-bare: rgb(154 106 18);
+  --chart-explained: rgb(var(--ink));
+  --chart-grid: rgb(var(--line));
+
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: Newsreader, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  --radius-card: 2px;
+  --radius-chip: 2px;
+  --shadow-card: none;
+*/
