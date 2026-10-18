@@ -15,9 +15,11 @@ class Answer(BaseModel):
 class CountingFake(FakeListChatModel):
     """A fake LLM that replies from a list and counts how often it was called."""
     calls: int = 0
+    prompts: list = []
 
     def invoke(self, *args, **kwargs):
         self.calls += 1
+        self.prompts.append(args[0][-1][1])  # the human message text
         return super().invoke(*args, **kwargs)
 
 
@@ -62,3 +64,21 @@ def test_second_identical_call_comes_from_cache(fake):
 def test_strip_fences():
     assert llm._strip_fences('```json\n{"a": 1}\n```') == '{"a": 1}'
     assert llm._strip_fences('{"a": 1}') == '{"a": 1}'
+
+
+def test_sampling_changes_temperature_and_prompt(fake):
+    """Inside llm.sampling(), prompts carry the trial tag, so each trial gets its own cache entry."""
+    model = fake(['{"ticker": "JNJ", "weight": 0.3}', '{"ticker": "MSFT", "weight": 0.7}'])
+    first = llm.complete_json("chair", "sys", "user", Answer)
+    with llm.sampling(0.7, "Trial 2"):
+        second = llm.complete_json("chair", "sys", "user", Answer)
+    assert first.ticker == "JNJ" and second.ticker == "MSFT"  # not served from the first call's cache
+    assert model.prompts[-1].startswith("user\n\n(Trial 2)")
+
+
+def test_sampling_sets_model_temperature(monkeypatch):
+    monkeypatch.setattr(llm.config, "LLM_PROVIDER", "asi1")
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    with llm.sampling(0.7, "Trial 1"):
+        assert llm.get_model("chair").temperature == 0.7
+    assert llm.get_model("chair").temperature == 0.0

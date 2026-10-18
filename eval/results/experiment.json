@@ -1,0 +1,980 @@
+{
+  "summary": {
+    "self": {
+      "per_round": [
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        }
+      ],
+      "capital_moved": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "bare": {
+      "per_round": [
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        }
+      ],
+      "capital_moved": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "explained": {
+      "per_round": [
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        },
+        {
+          "compliance": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "n_broken": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "violation_pp": [
+            0,
+            0,
+            0
+          ],
+          "violation_count": 0
+        }
+      ],
+      "capital_moved": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "C_vs_B": {
+      "fewer": 0,
+      "same": 3,
+      "more": 0,
+      "p_value": 1.0
+    },
+    "C_vs_A": {
+      "fewer": 0,
+      "same": 3,
+      "more": 0,
+      "p_value": 1.0
+    },
+    "n_trials": 3,
+    "n_draft_violates": 0
+  },
+  "trials": [
+    {
+      "client_id": "C01",
+      "trial": 1,
+      "draft": {
+        "MSFT": 0.2,
+        "AAPL": 0.18,
+        "NVDA": 0.07,
+        "JPM": 0.12,
+        "JNJ": 0.1,
+        "KO": 0.09,
+        "PG": 0.06,
+        "TLT": 0.12,
+        "GLD": 0.06
+      },
+      "conditions": {
+        "self": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "bare": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "explained": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "MSFT": 0.2,
+                "AAPL": 0.18,
+                "NVDA": 0.07,
+                "JPM": 0.12,
+                "JNJ": 0.1,
+                "KO": 0.09,
+                "PG": 0.06,
+                "TLT": 0.12,
+                "GLD": 0.06
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        }
+      }
+    },
+    {
+      "client_id": "C02",
+      "trial": 1,
+      "draft": {
+        "GLD": 0.05,
+        "GOOGL": 0.1,
+        "JNJ": 0.3,
+        "KO": 0.15,
+        "MSFT": 0.15,
+        "NVDA": 0.05,
+        "PG": 0.1,
+        "TLT": 0.1
+      },
+      "conditions": {
+        "self": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "bare": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "explained": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "GLD": 0.05,
+                "GOOGL": 0.1,
+                "JNJ": 0.3,
+                "KO": 0.15,
+                "MSFT": 0.15,
+                "NVDA": 0.05,
+                "PG": 0.1,
+                "TLT": 0.1
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        }
+      }
+    },
+    {
+      "client_id": "C04",
+      "trial": 1,
+      "draft": {
+        "AAPL": 0.135,
+        "AMZN": 0.1,
+        "JNJ": 0.1,
+        "JPM": 0.1,
+        "KO": 0.1,
+        "MSFT": 0.19,
+        "NVDA": 0.05,
+        "PFE": 0.075,
+        "PG": 0.075,
+        "TLT": 0.075
+      },
+      "conditions": {
+        "self": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "bare": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        },
+        "explained": {
+          "rounds": [
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            },
+            {
+              "compliant": true,
+              "n_broken": 0,
+              "violation_pp": 0,
+              "violation_count": 0,
+              "weights": {
+                "AAPL": 0.135,
+                "AMZN": 0.1,
+                "JNJ": 0.1,
+                "JPM": 0.1,
+                "KO": 0.1,
+                "MSFT": 0.19,
+                "NVDA": 0.05,
+                "PFE": 0.075,
+                "PG": 0.075,
+                "TLT": 0.075
+              }
+            }
+          ],
+          "rounds_to_comply": 0,
+          "capital_moved": 0.0
+        }
+      }
+    }
+  ]
+}

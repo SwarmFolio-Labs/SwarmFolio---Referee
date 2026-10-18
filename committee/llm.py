@@ -6,10 +6,12 @@ This is the ONLY file that imports LangChain. The provider (asi1, gemini, anthro
 is a single setting in config.py, so the rest of the committee never cares which LLM it is.
 """
 
+import contextvars
 import hashlib
 import json
 import os
 import re
+from contextlib import contextmanager
 
 from langchain_core.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, ValidationError
@@ -21,12 +23,29 @@ CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file_
 # Analysts get a little creativity; the Chair should be steady and repeatable.
 TEMPERATURE = {"analyst": 0.2, "chair": 0.0}
 
+# The experiment (MASTER 10.3) needs several genuinely different samples of the same question:
+# a higher temperature, and a trial tag in the prompt so each trial gets its own cache entry.
+# A context variable carries this through asyncio.to_thread without changing any signatures.
+_sampling: contextvars.ContextVar[dict | None] = contextvars.ContextVar("sampling", default=None)
+
+
+@contextmanager
+def sampling(temperature: float, tag: str):
+    """Inside this block every LLM call uses `temperature` and ends its prompt with `tag`."""
+    token = _sampling.set({"temperature": temperature, "tag": tag})
+    try:
+        yield
+    finally:
+        _sampling.reset(token)
+
 
 def get_model(role: str):
     """Build the LangChain chat model for this role ("analyst" or "chair") and the current provider."""
     provider = config.LLM_PROVIDER
     model_id = config.MODELS[provider][role]
     temperature = TEMPERATURE[role]
+    if _sampling.get() is not None:
+        temperature = _sampling.get()["temperature"]
 
     # Imports live inside each branch so you only need the package for the provider you use.
     if provider == "asi1":
@@ -107,6 +126,8 @@ def complete_json(role: str, system: str, user: str, schema: type[BaseModel]) ->
     Ask the LLM and return a validated `schema` object.
     Same question twice -> the second answer comes from cache/ instantly (free and reproducible).
     """
+    if _sampling.get() is not None:
+        user = f"{user}\n\n({_sampling.get()['tag']})"  # different trial -> different prompt -> own cache entry
     path = _cache_path(role, system, user)
     if os.path.exists(path):
         with open(path) as f:

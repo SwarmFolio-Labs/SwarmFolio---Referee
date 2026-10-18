@@ -1,0 +1,99 @@
+{
+  "metrics": {
+    "n_clients": 4,
+    "n_feasible": 3,
+    "n_infeasible": 1,
+    "M1_first_violates": 0.0,
+    "M1_mean_failed": 0,
+    "M2_last_own_violates": 0.0,
+    "M2_mean_failed": 0,
+    "M3_final_passes": 1.0,
+    "M4_median_capital_moved": null,
+    "M4_mean_sharpe_change": null,
+    "M4_n_repaired": 0,
+    "M5_infeasible_detected": 1,
+    "M5_conflict_matches_planted": 1,
+    "M5_n_planted": 1,
+    "M6_concede": null,
+    "M6_defend": null,
+    "M6_modify": null,
+    "M6_n_stances": 0,
+    "M6_mean_rounds": 1
+  },
+  "clients": [
+    {
+      "client_id": "C01",
+      "feasible": true,
+      "planted_conflict": null,
+      "first_failed": 0,
+      "last_failed": 0,
+      "final_failed": 0,
+      "verdict": "PASS",
+      "conflict_set": [],
+      "repaired": false,
+      "capital_moved_by_repair": null,
+      "sharpe_change": null,
+      "rounds": 1,
+      "stances": [],
+      "notes": []
+    },
+    {
+      "client_id": "C02",
+      "feasible": true,
+      "planted_conflict": null,
+      "first_failed": 0,
+      "last_failed": 0,
+      "final_failed": 0,
+      "verdict": "PASS",
+      "conflict_set": [],
+      "repaired": false,
+      "capital_moved_by_repair": null,
+      "sharpe_change": null,
+      "rounds": 1,
+      "stances": [],
+      "notes": []
+    },
+    {
+      "client_id": "C03",
+      "feasible": false,
+      "planted_conflict": [
+        "R3",
+        "R4",
+        "R8"
+      ],
+      "first_failed": 1,
+      "last_failed": 1,
+      "final_failed": null,
+      "verdict": "RULES_INFEASIBLE",
+      "conflict_set": [
+        "R3",
+        "R4",
+        "R8"
+      ],
+      "repaired": false,
+      "capital_moved_by_repair": null,
+      "sharpe_change": null,
+      "rounds": 1,
+      "stances": [],
+      "notes": [
+        "Needs advisor approval: the client's rules conflict."
+      ]
+    },
+    {
+      "client_id": "C04",
+      "feasible": true,
+      "planted_conflict": null,
+      "first_failed": 0,
+      "last_failed": 0,
+      "final_failed": 0,
+      "verdict": "PASS",
+      "conflict_set": [],
+      "repaired": false,
+      "capital_moved_by_repair": null,
+      "sharpe_change": null,
+      "rounds": 1,
+      "stances": [],
+      "notes": []
+    }
+  ]
+}
