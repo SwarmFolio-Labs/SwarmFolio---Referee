@@ -26,12 +26,21 @@ class AgentTransport:
         self.notes: list[str] = []
 
     async def analyze(self, agent: str, req: AnalysisRequest) -> Memo | None:
-        """Ask one analyst for a memo (local brain for now; analyst agents come in Plan B step 7)."""
-        return await asyncio.to_thread(brains.analyze, agent, req)
+        """Ask one analyst for a memo (local brain for now; analyst agents come in Plan B step 7).
+        None if it fails, so the committee carries on without that analyst (contract.py)."""
+        try:
+            return await asyncio.to_thread(brains.analyze, agent, req)
+        except Exception as e:
+            self.notes.append(f"The {agent} analyst failed: {e}")
+            return None
 
     async def review(self, agent: str, req: ReviewRequest) -> Stance | None:
-        """Ask one analyst to respond to the Referee (local brain for now)."""
-        return await asyncio.to_thread(brains.review, agent, req)
+        """Ask one analyst to respond to the Referee (local brain for now). None if it fails."""
+        try:
+            return await asyncio.to_thread(brains.review, agent, req)
+        except Exception as e:
+            self.notes.append(f"The {agent} analyst failed to review: {e}")
+            return None
 
     async def verify(self, req: VerifyRequest) -> Receipt:
         """Ask the Referee Agent to check a proposal. Verification is never skipped:

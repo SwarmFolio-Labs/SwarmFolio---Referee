@@ -14,7 +14,7 @@ load_dotenv()
 
 # --- Wiring switches ---
 # True = app and agents use the fake brains in fakes.py (so Devin can build without the real math).
-USE_FAKES = True
+USE_FAKES = False
 # False = the Chair's loop calls the brains directly (LocalTransport); True = over Fetch agents.
 USE_AGENT_NETWORK = False
 
