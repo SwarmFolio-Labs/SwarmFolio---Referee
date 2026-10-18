@@ -12,9 +12,10 @@ const TONES = {
   accent: 'bg-accent/10 text-accent border-accent/30',
 }
 
-export function Badge({ tone = 'neutral', children, className = '' }) {
+export function Badge({ tone = 'neutral', children, className = '', ...rest }) {
   return (
     <span
+      {...rest}
       className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide ${TONES[tone]} ${className}`}
     >
       {children}

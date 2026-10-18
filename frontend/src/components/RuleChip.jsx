@@ -10,6 +10,7 @@ export default function RuleChip({ rule, state }) {
           : 'border-line bg-surface'
   return (
     <span
+      data-component="rule-chip"
       title={`${rule.id} · ${rule.type} · priority ${rule.priority}${rule.hard ? ' · hard rule (never relaxed)' : ''}`}
       className={`inline-flex items-center gap-1.5 rounded-chip border px-2.5 py-1 text-xs ${ring}`}
     >
