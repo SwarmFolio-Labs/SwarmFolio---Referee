@@ -65,8 +65,9 @@ def rule_prices(client: Client) -> list[RulePrice]:
         cost = max(0.0, u_without - u_all)  # removing a rule can only help; clip solver noise
         binds = cost > BINDS_THRESHOLD
         if binds:
-            explain = (f"'{rule.source}' costs {cost * 100:.2f} points of risk-adjusted return a year "
-                       f"(Sharpe {s_all:.2f} → {s_without:.2f} without it){note}.")
+            # No Sharpe here: the cost is in risk-adjusted return (utility), and dropping a volatility cap
+            # can raise return while lowering Sharpe, which reads like a contradiction in one sentence.
+            explain = f"'{rule.source}' costs {cost * 100:.2f} points of risk-adjusted return a year{note}."
         else:
             explain = f"'{rule.source}' costs nothing: it never binds{note}."
         prices.append(RulePrice(rule_id=rule.id, source=rule.source, binds=binds,
