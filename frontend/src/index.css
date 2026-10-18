@@ -192,6 +192,21 @@ body {
   [data-print-target] .no-print {
     display: none !important;
   }
+  /* Recharts sizes its SVG in px for the screen; scale it (it has a viewBox) to the page width. */
+  [data-print-target] [data-component='weights-chart'] .recharts-responsive-container,
+  [data-print-target] [data-component='weights-chart'] .recharts-responsive-container > div,
+  [data-print-target] [data-component='weights-chart'] .recharts-wrapper,
+  [data-print-target] [data-component='weights-chart'] .recharts-wrapper > svg.recharts-surface {
+    width: 100% !important;
+    height: auto !important;
+  }
+  [data-print-target] [data-component='weights-chart'] .recharts-legend-wrapper {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  [data-print-target] .recharts-tooltip-wrapper {
+    display: none !important;
+  }
   [data-print-target] [data-component='rule-check'],
   [data-print-target] [data-component='weights-chart'],
   [data-print-target] [data-component='conflict-panel'] {
