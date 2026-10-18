@@ -1,10 +1,10 @@
 // One client: the committee run (replayed step by step), the receipt, rule prices, and the live Referee.
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { getClients, getDemo } from '../api.js'
 import DebateTimeline from '../components/DebateTimeline.jsx'
 import PriceTags from '../components/PriceTags.jsx'
-import ReceiptView from '../components/ReceiptView.jsx'
+import ReceiptCard from '../components/ReceiptCard.jsx'
 import RuleChip from '../components/RuleChip.jsx'
 import TryReferee from '../components/TryReferee.jsx'
 import { ErrorNote, SectionTitle, Spinner } from '../components/ui.jsx'
@@ -18,7 +18,7 @@ const TABS = [
   { id: 'try', label: 'Try the Referee' },
 ]
 
-function RunView({ client, demo, demoError }) {
+function RunView({ client, demo, demoError, receiptVariant }) {
   const steps = useMemo(() => (demo ? buildSteps(demo) : []), [demo])
   const [visible, setVisible] = useState(0)
   const [playing, setPlaying] = useState(false)
@@ -70,7 +70,7 @@ function RunView({ client, demo, demoError }) {
           {!playing && visible > 0 && !done && `Paused at step ${visible} of ${steps.length}`}
           {done && `${demo.rounds} round${demo.rounds > 1 ? 's' : ''} · ${steps.length} steps`}
           {demo.extras?.source === 'dev-fakes' && (
-            <span className="ml-2 text-[11px] text-muted">(development run: scripted analysts, real Referee)</span>
+            <span className="ml-2 text-2xs text-muted">(development run: scripted analysts, real Referee)</span>
           )}
         </div>
         <div className="flex gap-2">
@@ -107,7 +107,8 @@ function RunView({ client, demo, demoError }) {
           {demo.notes.length > 0 && (
             <ul className="mb-3 text-sm text-muted">{demo.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
           )}
-          <ReceiptView
+          <ReceiptCard
+            variant={receiptVariant}
             receipt={demo.receipt}
             rules={client.rules}
             headline={finalHeadline}
@@ -125,10 +126,12 @@ function RunView({ client, demo, demoError }) {
 // Keyed by id so switching clients starts from a clean slate (tab, replay, receipt).
 export default function ClientPage() {
   const { id } = useParams()
-  return <ClientDetail key={id} id={id} />
+  // ?receipt=printed previews the printed-receipt variant (see index.css).
+  const [params] = useSearchParams()
+  return <ClientDetail key={id} id={id} receiptVariant={params.get('receipt') ?? 'card'} />
 }
 
-function ClientDetail({ id }) {
+function ClientDetail({ id, receiptVariant }) {
   const [client, setClient] = useState(null)
   const [demo, setDemo] = useState(null)
   const [demoError, setDemoError] = useState(null)
@@ -165,7 +168,7 @@ function ClientDetail({ id }) {
           <h1 className="font-display text-3xl font-bold tracking-tight">{displayName(client.name)}</h1>
           <span className="num text-sm text-muted">{client.client_id}</span>
         </div>
-        <p className="mt-2 text-muted max-w-3xl">{client.story}</p>
+        <p className="mt-2 text-muted max-w-prose">{client.story}</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {client.rules.map((r) => (
             <RuleChip key={r.id} rule={r} />
@@ -189,13 +192,13 @@ function ClientDetail({ id }) {
 
       {/* Keep tabs mounted so the replay and the editor keep their state when switching. */}
       <div className={tab === 'run' ? '' : 'hidden'}>
-        <RunView client={client} demo={demo} demoError={demoError} />
+        <RunView client={client} demo={demo} demoError={demoError} receiptVariant={receiptVariant} />
       </div>
       <div className={tab === 'prices' ? '' : 'hidden'}>
         <PriceTags clientId={client.client_id} />
       </div>
       <div className={tab === 'try' ? '' : 'hidden'}>
-        {(demo || demoError) && <TryReferee key={demo ? 'demo' : 'nodemo'} client={client} presets={presets} />}
+        {(demo || demoError) && <TryReferee key={demo ? 'demo' : 'nodemo'} client={client} presets={presets} receiptVariant={receiptVariant} />}
       </div>
     </div>
   )

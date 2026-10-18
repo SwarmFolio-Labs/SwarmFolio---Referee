@@ -21,7 +21,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between">
+        <div className="mx-auto max-w-page px-6 h-14 flex items-center justify-between">
           <NavLink to="/" className="flex items-center gap-2.5">
             <span className="h-7 w-7 rounded-md bg-ink text-bg grid place-items-center font-mono text-xs font-bold">
               SR
@@ -34,7 +34,7 @@ export default function App() {
           </nav>
         </div>
       </header>
-      <main className="flex-1 mx-auto w-full max-w-6xl px-6 py-8">
+      <main className="flex-1 mx-auto w-full max-w-page px-6 py-8">
         <Routes>
           <Route path="/" element={<ClientsPage />} />
           <Route path="/client/:id" element={<ClientPage />} />
@@ -42,7 +42,7 @@ export default function App() {
         </Routes>
       </main>
       <footer className="border-t border-line text-xs text-muted">
-        <div className="mx-auto max-w-6xl px-6 py-4 flex justify-between">
+        <div className="mx-auto max-w-page px-6 py-4 flex justify-between">
           <span>AI committee proposes. An exact solver (CVXPY + SCIP) referees.</span>
           <span>LA Hacks 2026</span>
         </div>
