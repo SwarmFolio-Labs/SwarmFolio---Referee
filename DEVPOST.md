@@ -64,7 +64,7 @@ All 5 agents and the Interactive Cards are live in ASI:One. The answers come wit
   - 26 synthetic clients, including seeded "hard" clients whose volatility caps sit 0.5–1.0 points above the solver's minimum, and clients with planted conflicts.
   - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests. The run reported here covers the 4 hard clients C91–C94 × 3 trials (12 client-trials, `asi1`). A larger run with `asi1-mini` on 19 clients is in progress: `TODO: results`.
 - **Web app:** FastAPI + React (Vite, Tailwind, Recharts), designed in Paper (**TODO-confirm**).
-- **Tests:** `__` pytest tests (currently 237), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
+- **Tests:** `__` pytest tests (currently 239), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
 
 ## Challenges we ran into
 

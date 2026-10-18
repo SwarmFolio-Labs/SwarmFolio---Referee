@@ -311,7 +311,7 @@ It prints each agent's address and **Inspector** link. For each agent:
 
 To turn on pay-per-check for outside users, also set `REFEREE_PAYMENTS=true`, `STRIPE_SECRET_KEY=sk_test_...` and `STRIPE_PUBLISHABLE_KEY=pk_test_...`. Test it from the Referee's Inspector chat (Fetch's docs say plain ASI:One chat may not show the checkout): paste a portfolio, pay with test card 4242 4242 4242 4242 (any future date, any CVC, any ZIP), and approve.
 
-`run_all` stops all 5 agents on Ctrl+C, `kill <pid>` (SIGTERM) or a closed terminal (SIGHUP).
+`run_all` stops all 5 agents on Ctrl+C, `kill <pid>` (SIGTERM) or a closed terminal (SIGHUP). Started with `nohup python -m agents.run_all &`, it keeps running after the terminal closes; stop it with `kill <pid>`.
 
 Then chat with the Chair in ASI:One:
 - `list clients`

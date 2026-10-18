@@ -3,7 +3,7 @@ Start the Fetch.ai agents, one process each (MASTER 9.2).
 
 All 5 agents: Referee, the three analysts, then the Chair (ports 8001-8005).
 Prints each agent's address and Inspector link, then waits. Ctrl+C, `kill <pid>` (SIGTERM) or
-closing the terminal (SIGHUP) stops them all.
+closing the terminal (SIGHUP) stops them all. Started with `nohup`, closing the terminal doesn't.
 Run it from the project folder with:  python -m agents.run_all
 """
 
@@ -53,11 +53,23 @@ def stop_all(procs: list[subprocess.Popen], grace_s: float = 10) -> None:
             p.wait()
 
 
+def install_stop_handlers() -> None:
+    """Make SIGTERM and SIGHUP stop everything like Ctrl+C.
+
+    If SIGHUP is already ignored (we were started with `nohup`), leave it ignored, so the
+    agents keep running after the terminal closes."""
+    for name in STOP_SIGNALS:
+        sig = getattr(signal, name, None)
+        if sig is None:
+            continue
+        if name == "SIGHUP" and signal.getsignal(sig) == signal.SIG_IGN:
+            continue
+        signal.signal(sig, _stop)
+
+
 def main() -> None:
     """Start every agent, print where to find it, and stop them all on Ctrl+C, SIGTERM or SIGHUP."""
-    for name in STOP_SIGNALS:
-        if hasattr(signal, name):
-            signal.signal(getattr(signal, name), _stop)
+    install_stop_handlers()
     project = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     procs = []
     try:
