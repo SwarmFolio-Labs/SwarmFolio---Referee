@@ -3,9 +3,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { getClients, getDemo } from '../api.js'
 import DebateTimeline from '../components/DebateTimeline.jsx'
+import LiveRun from '../components/LiveRun.jsx'
 import PriceTags from '../components/PriceTags.jsx'
 import ReceiptCard from '../components/ReceiptCard.jsx'
 import RuleChip from '../components/RuleChip.jsx'
+import StartingWeights from '../components/StartingWeights.jsx'
 import TryReferee from '../components/TryReferee.jsx'
 import { ErrorNote, SectionTitle, Spinner } from '../components/ui.jsx'
 import { displayName } from '../format.js'
@@ -14,6 +16,7 @@ import { buildSteps } from '../steps.js'
 const STEP_MS = 900
 const TABS = [
   { id: 'run', label: 'Committee run' },
+  { id: 'live', label: 'Live run' },
   { id: 'prices', label: 'What each rule costs' },
   { id: 'try', label: 'Try the Referee' },
 ]
@@ -104,6 +107,12 @@ function RunView({ client, demo, demoError, receiptVariant }) {
               ? "No debate can fix rules that contradict each other. The Referee proves which rules clash and the cheapest way to loosen them."
               : 'What the Referee certified for the committee\'s final portfolio.'}
           </SectionTitle>
+          {Object.keys(client.current_weights).length > 0 && (
+            <div className="mb-6">
+              <div className="label mb-2">Starting → final holdings</div>
+              <StartingWeights start={client.current_weights} final={demo.final_proposal.weights} />
+            </div>
+          )}
           {demo.notes.length > 0 && (
             <ul className="mb-3 text-sm text-muted">{demo.notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
           )}
@@ -193,6 +202,9 @@ function ClientDetail({ id, receiptVariant }) {
       {/* Keep tabs mounted so the replay and the editor keep their state when switching. */}
       <div className={tab === 'run' ? '' : 'hidden'}>
         <RunView client={client} demo={demo} demoError={demoError} receiptVariant={receiptVariant} />
+      </div>
+      <div className={tab === 'live' ? '' : 'hidden'}>
+        <LiveRun client={client} receiptVariant={receiptVariant} />
       </div>
       <div className={tab === 'prices' ? '' : 'hidden'}>
         <PriceTags clientId={client.client_id} />

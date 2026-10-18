@@ -15,8 +15,11 @@ Every route is also available under /api (that's what the frontend calls).
 If frontend/dist exists (after `npm run build`), it is served at / so one process runs the whole app.
 """
 
+import asyncio
 import json
 import os
+import time
+import uuid
 from functools import lru_cache
 
 from fastapi import APIRouter, FastAPI, HTTPException
@@ -24,6 +27,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+import config
+from committee import loop as committee_loop
 from models import Receipt, RulePrice
 from referee.prices import rule_prices
 from referee.receipt import referee
@@ -126,6 +131,145 @@ def get_experiment() -> dict:
         raise HTTPException(404, "No experiment results yet. Run: python -m eval.experiment")
     with open(EXPERIMENT_PATH) as f:
         return json.load(f)
+
+
+# ---------- Live committee runs (background job + progress events) ----------
+# committee/ is not edited: progress is captured by wrapping the transport and the Chair calls.
+
+JOBS: dict[str, dict] = {}
+_RUN_LOCK = asyncio.Lock()  # the Chair is patched on committee.loop, so one live run at a time
+
+
+def _event(job: dict, type_: str, **fields) -> None:
+    job["events"].append({"seq": len(job["events"]), "t": round(time.time() - job["started"], 2),
+                          "type": type_, **fields})
+
+
+class ProgressTransport:
+    """Wraps any transport (LocalTransport or the fakes) and records a progress event per call."""
+
+    def __init__(self, inner, job: dict):
+        self.inner, self.job, self.name = inner, job, getattr(inner, "name", "local")
+        self.round = 0
+
+    async def _working(self, **fields) -> None:
+        # step_delay keeps "who is working" visible when the fakes answer instantly.
+        _event(self.job, "working", **fields)
+        await asyncio.sleep(self.job["step_delay"])
+
+    async def analyze(self, agent, req):
+        await self._working(agent=agent, round=0, task="memo")
+        memo = await self.inner.analyze(agent, req)
+        _event(self.job, "memo", agent=agent, round=0, ok=memo is not None,
+               text=getattr(memo, "thesis", None) if memo is not None else None)
+        return memo
+
+    async def review(self, agent, req):
+        await self._working(agent=agent, round=req.round, task="stance")
+        stance = await self.inner.review(agent, req)
+        _event(self.job, "stance", agent=agent, round=req.round, ok=stance is not None,
+               stance=getattr(stance, "stance", None), text=getattr(stance, "change", None))
+        return stance
+
+    async def verify(self, req):
+        await self._working(agent="referee", round=self.round, task="check")
+        receipt = await self.inner.verify(req)
+        failed = [c.rule_id for c in receipt.checks if not c.passed]
+        _event(self.job, "referee", agent="referee", round=self.round, verdict=receipt.verdict,
+               failed=failed, passed=len(receipt.checks) - len(failed), total=len(receipt.checks),
+               text=receipt.summary)
+        return receipt
+
+
+class _FakeTransport:
+    """The scripted fakes from fakes.py for the analysts; the real Referee."""
+
+    name = "local"
+
+    async def analyze(self, agent, req):
+        import fakes
+        return await asyncio.to_thread(fakes.analyze, agent, req)
+
+    async def review(self, agent, req):
+        import fakes
+        return await asyncio.to_thread(fakes.review, agent, req)
+
+    async def verify(self, req):
+        return await asyncio.to_thread(referee, req.client, req.proposal)
+
+
+def _brains(use_fakes: bool):
+    """(transport, chair_propose, chair_revise) for a real or a fake run."""
+    if use_fakes:
+        import fakes
+        return _FakeTransport(), fakes.chair_propose, fakes.chair_revise
+    from committee.transport_local import LocalTransport
+    return LocalTransport(), committee_loop.chair_propose, committee_loop.chair_revise
+
+
+async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) -> None:
+    inner, propose, revise = _brains(use_fakes)
+    transport = ProgressTransport(inner, job)
+    delay = job["step_delay"]
+
+    def chair_propose(c, memos):
+        _event(job, "working", agent="chair", round=1, task="draft")
+        time.sleep(delay)
+        p = propose(c, memos)
+        transport.round = 1
+        _event(job, "chair_draft", agent="chair", round=1, weights=p.weights, text=p.thesis)
+        return p
+
+    def chair_revise(c, proposal, receipt, stances):
+        r = transport.round + 1
+        _event(job, "working", agent="chair", round=r, task="revise")
+        time.sleep(delay)
+        p = revise(c, proposal, receipt, stances)
+        transport.round = r
+        _event(job, "chair_draft", agent="chair", round=r, weights=p.weights, text=p.thesis)
+        return p
+
+    async with _RUN_LOCK:
+        original = (committee_loop.chair_propose, committee_loop.chair_revise)
+        committee_loop.chair_propose, committee_loop.chair_revise = chair_propose, chair_revise
+        try:
+            result = await committee_loop.run_committee(client, transport, max_rounds=max_rounds)
+            job["result"] = result.model_dump(mode="json")
+            job["status"] = "done"
+            _event(job, "done", verdict=result.receipt.verdict, rounds=result.rounds,
+                   self_corrected=result.self_corrected)
+        except Exception as e:  # surface the failure to the UI instead of hanging
+            job["status"], job["error"] = "error", f"{type(e).__name__}: {e}"
+            _event(job, "error", text=job["error"])
+        finally:
+            committee_loop.chair_propose, committee_loop.chair_revise = original
+
+
+@api.post("/run/{client_id}")
+async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0) -> dict:
+    """Start run_committee for a client in the background; poll GET /run/{job_id} for progress."""
+    client = load_client(client_id)
+    use_fakes = fakes or config.USE_FAKES
+    if not use_fakes and not os.getenv("ASI1_API_KEY"):
+        raise HTTPException(400, "Live runs need ASI1_API_KEY (or set USE_FAKES / pass ?fakes=true).")
+    job_id = uuid.uuid4().hex[:12]
+    job = {"job_id": job_id, "client_id": client_id, "status": "running", "fakes": use_fakes,
+           "max_rounds": config.MAX_ROUNDS, "started": time.time(), "events": [], "result": None,
+           "error": None, "step_delay": max(0.0, min(step_delay, 5.0))}
+    JOBS[job_id] = job
+    _event(job, "started", client_id=client_id, fakes=use_fakes, max_rounds=config.MAX_ROUNDS)
+    job["task"] = asyncio.create_task(_run_job(job, client, use_fakes, config.MAX_ROUNDS))
+    return {"job_id": job_id, "client_id": client_id, "fakes": use_fakes}
+
+
+@api.get("/run/{job_id}")
+def get_run(job_id: str, after: int = 0) -> dict:
+    """A live run's status and its progress events (from index `after` on); the result once done."""
+    job = JOBS.get(job_id)
+    if job is None:
+        raise HTTPException(404, f"Unknown run {job_id}")
+    return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "result", "error")} | {
+        "events": job["events"][max(after, 0):], "event_count": len(job["events"])}
 
 
 # Same routes at / and at /api (the frontend always calls /api/..., in dev via Vite's proxy).
