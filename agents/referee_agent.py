@@ -5,6 +5,9 @@ Two ways in:
 - VerifyRequestMsg from the Chair -> ReceiptMsg (or ErrorMsg if something breaks).
 - Chat Protocol: anyone on ASI:One can paste {"client_id": "C02", "proposal": {...}}
   (or a full {"client": {...}, "proposal": {...}}) and get the receipt back as text.
+- Plain English: "check NVDA 50, JNJ 30, KO 20 against: no oil companies, at most 30% in any stock"
+  -> referee/extract.py turns the rules into Rule objects (LLM), then the same receipt flow.
+  Without weights it lists the rules it read and whether they can all be met.
 - With REFEREE_PAYMENTS=true, outside chat users pay $0.50 first (Agent Payment Protocol +
   Stripe TEST mode, agents/payments.py). Our own Chair never pays.
 Run it with:  python -m agents.referee_agent
@@ -25,13 +28,15 @@ from agents.chat import acknowledge, find_client, receipt_text, say, text_of
 from agents.messages import ErrorMsg, ReceiptMsg, VerifyRequestMsg, pack, unpack
 from models import VerifyRequest
 # A5b: the Referee Agent always uses the REAL referee (the other agents stay on brains.py / fakes).
+from referee import extract
 from referee.receipt import referee
 from referee.schema import Proposal
 
 REFEREE_HELP = (
     "I'm the Portfolio Referee. Paste JSON like "
     '{"client_id": "C02", "proposal": {"weights": {"JNJ": 0.3, "MSFT": 0.7}, "thesis": "...", "reasons": {}}} '
-    "and I'll check it against that client's rules."
+    "and I'll check it against that client's rules. Or write it in plain English: "
+    '"check NVDA 50, JNJ 30, KO 20 against: no oil companies, at most 30% in any stock, volatility under 15%".'
 )
 
 
@@ -79,7 +84,12 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
     async def on_chat(ctx: Context, sender: str, msg: ChatMessage):
         await acknowledge(ctx, sender, msg)
         paid_check = payments.needs_payment(sender)
-        req = parse_chat_request(text_of(msg))
+        text = text_of(msg)
+        req = parse_chat_request(text)
+        if req is None and "{" not in text and text.strip():
+            req = await plain_english_request(ctx, sender, text)
+            if req is None:
+                return  # already answered (rules only, nothing mappable, or an error)
         if req is None:
             await say(ctx, sender, REFEREE_HELP + (payments.PAYMENT_HELP if paid_check else ""), end=True)
             return
@@ -87,6 +97,27 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
             await ask_for_payment(ctx, sender, req)
             return
         await send_receipt(ctx, sender, req)
+
+    async def plain_english_request(ctx: Context, sender: str, text: str) -> VerifyRequest | None:
+        """Plain-English rules (+ optional weights) -> VerifyRequest, after saying which rules were read."""
+        weights, rules_text = extract.split_weights(text)
+        try:
+            found = await asyncio.to_thread(extract.extract_rules, rules_text)
+        except Exception as e:
+            ctx.logger.error(f"rule extraction failed: {e}")
+            await say(ctx, sender, f"⚠️ Sorry, I couldn't read those rules: {e}", end=True)
+            return None
+        if not found.rules:
+            await say(ctx, sender, extract.describe(found) + "\n\n" + REFEREE_HELP, end=True)
+            return None
+        client = extract.chat_client(found.rules)
+        if weights is None:
+            summary = await asyncio.to_thread(extract.describe, found, client)
+            await say(ctx, sender, summary + "\nTo check a portfolio, send: check NVDA 50, JNJ 30, KO 20 against: "
+                      "<your rules>", end=True)
+            return None
+        await say(ctx, sender, extract.describe(found))
+        return VerifyRequest(client=client, proposal=Proposal(weights=weights, thesis="From chat", reasons={}))
 
     async def ask_for_payment(ctx: Context, sender: str, req: VerifyRequest):
         """Send a RequestPayment with a Stripe checkout, plus the plain-text how-to-pay."""
