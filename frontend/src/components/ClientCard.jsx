@@ -25,7 +25,7 @@ export default function ClientCard({ client, demo, primary = false, compact = fa
         <Link to={to} className="w-52 shrink-0 font-display text-lg font-semibold">{displayName(client.name)}</Link>
         <div className="min-w-0 flex-1"><Chips rules={client.rules} max={2} /></div>
         <span className="num w-20 shrink-0 text-right text-ui text-muted">{n} rules</span>
-        <Link to={to} className="w-16 shrink-0 text-right text-sm font-semibold underline underline-offset-4">Convene →</Link>
+        <Link to={to} className="shrink-0 whitespace-nowrap text-right text-sm font-semibold underline underline-offset-4">Convene →</Link>
       </div>
     )
   }
