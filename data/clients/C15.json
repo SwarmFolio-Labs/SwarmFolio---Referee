@@ -1,0 +1,92 @@
+{
+ "client_id": "C15",
+ "name": "Mr. Iyer (synthetic)",
+ "story": "Early Microsoft employee whose money is almost all in big tech; wants to diversify but every sale triggers capital-gains tax.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "MSFT": 0.4,
+  "AAPL": 0.2,
+  "GOOGL": 0.15,
+  "NVDA": 0.1,
+  "JPM": 0.1,
+  "KO": 0.05
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.99
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Don't trade more than 99% of the portfolio, the tax bill would be brutal."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.37
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Get tech down to 37% or less."
+  },
+  {
+   "id": "R3",
+   "type": "min_weight",
+   "params": {
+    "ticker": "MSFT",
+    "min": 0.12
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Keep at least 12% in Microsoft, it's where I made my career."
+  },
+  {
+   "id": "R4",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.21
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single stock above 21%."
+  },
+  {
+   "id": "R5",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "TLT"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No bond funds."
+  }
+ ],
+ "planted_conflict": null
+}

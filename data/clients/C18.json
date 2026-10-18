@@ -1,0 +1,79 @@
+{
+ "client_id": "C18",
+ "name": "Ms. Holloway (synthetic)",
+ "story": "Inherited a Texas family portfolio heavy in oil; wants less energy and lower risk without selling everything at once.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "XOM": 0.3,
+  "CVX": 0.25,
+  "JPM": 0.15,
+  "WMT": 0.1,
+  "KO": 0.1,
+  "GLD": 0.1
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.73
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Turnover no more than 73%; my father's accountant gets nervous otherwise."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Energy",
+    "max": 0.22
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Energy down to 22% or less."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.23
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single stock over 23%."
+  },
+  {
+   "id": "R4",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.098
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 9.8%."
+  }
+ ],
+ "planted_conflict": null
+}

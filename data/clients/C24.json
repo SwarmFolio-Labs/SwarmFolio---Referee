@@ -1,0 +1,94 @@
+{
+ "client_id": "C24",
+ "name": "Mr. Ramanathan (synthetic)",
+ "story": "Semi-retired contractor who distrusts the dollar: insists on gold and no Treasury bonds, but in a tidy, low-risk portfolio.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Gold",
+    "min": 0.11
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "At least 11% in gold."
+  },
+  {
+   "id": "R2",
+   "type": "max_weight",
+   "params": {
+    "ticker": "GLD",
+    "max": 0.14
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "But gold no more than 14%, my wife insists."
+  },
+  {
+   "id": "R3",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "TLT"
+    ]
+   },
+   "priority": 9,
+   "hard": true,
+   "source": "No government bonds."
+  },
+  {
+   "id": "R4",
+   "type": "max_holdings",
+   "params": {
+    "k": 7
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "At most 7 holdings."
+  },
+  {
+   "id": "R5",
+   "type": "buy_in",
+   "params": {
+    "min": 0.08
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No position under 8%."
+  },
+  {
+   "id": "R6",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.106
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10.6%."
+  }
+ ],
+ "planted_conflict": null
+}
