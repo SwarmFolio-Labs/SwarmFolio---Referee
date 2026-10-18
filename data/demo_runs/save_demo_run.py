@@ -140,7 +140,9 @@ async def save_run(client_id: str, use_fakes: bool, max_rounds: int) -> str:
         analyze, review, propose, revise = _scripted_brains(client_id)
         transport = ScriptedTransport(analyze, review)
     else:
+        from committee import llm
         from committee.transport_local import LocalTransport
+        llm.use_live_model()  # the same fast model as the live agents, so the demo cache is reused
         propose, revise = loop.chair_propose, loop.chair_revise
         transport = LocalTransport()
 
@@ -173,6 +175,7 @@ async def save_run(client_id: str, use_fakes: bool, max_rounds: int) -> str:
     data = result.model_dump(mode="json")
     data["extras"] = {
         "source": "dev-fakes" if use_fakes else "live",
+        "model": None if use_fakes else __import__("committee.llm", fromlist=["x"]).model_id_for("chair"),
         "saved_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "proposals": proposals,
         "receipts": receipts,

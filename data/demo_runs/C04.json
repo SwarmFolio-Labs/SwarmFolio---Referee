@@ -1,0 +1,714 @@
+{
+  "client_id": "C04",
+  "final_proposal": {
+    "weights": {
+      "AAPL": 0.11235955056179776,
+      "AMZN": 0.0898876404494382,
+      "JNJ": 0.1348314606741573,
+      "JPM": 0.11235955056179776,
+      "KO": 0.1348314606741573,
+      "MSFT": 0.16853932584269662,
+      "NVDA": 0.11235955056179776,
+      "PFE": 0.06741573033707865,
+      "PG": 0.06741573033707865
+    },
+    "thesis": "This portfolio de-risks the client's concentrated tech holdings by systematically reducing NVDA, MSFT, AAPL, and AMZN to bring total tech exposure below 40% and annual volatility under 14%. By exiting GOOGL, UNH, WMT, and TLT, we minimize taxable turnover (keeping it under 45%) while shifting capital into defensive sectors like Healthcare (JNJ, PFE) and Consumer Staples (KO, PG). The remaining positions are capped at 20% and floored at 4%, ensuring diversification across at least 8 holdings while strictly adhering to the 10% minimum in Financials via JPM.",
+    "reasons": {
+      "AAPL": "Reduced to 10% to lower tech concentration and volatility while maintaining a core holding.",
+      "AMZN": "Reduced to 8% to decrease high-beta tech exposure and meet the 40% sector cap.",
+      "JNJ": "Increased to 12% to provide healthcare stability and lower overall portfolio volatility.",
+      "JPM": "Maintained at 10% to satisfy the minimum 10% financials requirement with a stable bank.",
+      "KO": "Increased to 12% to add consumer staples diversification and defensive characteristics.",
+      "MSFT": "Reduced to 15% to keep tech exposure under control while retaining a quality compounder.",
+      "NVDA": "Reduced to 10% to significantly cut single-stock risk and high-volatility tech weight.",
+      "PFE": "Added at 6% to further bolster the healthcare/defensive allocation without exceeding position limits.",
+      "PG": "Added at 6% to add another consumer staple name, enhancing defensiveness and lowering volatility."
+    }
+  },
+  "receipt": {
+    "receipt_id": "eb700f033dcf",
+    "timestamp": "2026-10-18T05:50:50Z",
+    "client_id": "C04",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.1342648161817685,
+        "limit": 0.14,
+        "violation": 0.0,
+        "explain": "Annual volatility is 13.4% (maximum 14.0%): OK. The client said: 'Annual volatility at most 14%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "max_turnover",
+        "passed": true,
+        "actual": 0.4337078651685393,
+        "limit": 0.45,
+        "violation": 0.0,
+        "explain": "Turnover from current holdings is 43.4% (maximum 45.0%): OK. The client said: 'Turnover at most 45% from current holdings (taxes).'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.39325842696629215,
+        "limit": 0.4,
+        "violation": 0.0,
+        "explain": "Tech is 39.3% of the portfolio (maximum 40.0%): OK. The client said: 'Tech at most 40%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.16853932584269662,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is MSFT at 16.9% (maximum 20.0%): OK. The client said: 'No single position above 20%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 9.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 9 holdings (minimum 8): OK. The client said: 'At least 8 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.06741573033707865,
+        "limit": 0.04,
+        "violation": 0.0,
+        "explain": "The smallest position is PFE at 6.7% (minimum 4.0%): OK. The client said: 'No position under 4%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.11235955056179776,
+        "limit": 0.1,
+        "violation": 0.0,
+        "explain": "Financials is 11.2% of the portfolio (minimum 10.0%): OK. The client said: 'Financials at least 10%.'"
+      },
+      {
+        "rule_id": "R8",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No tobacco or energy companies (XOM, CVX).'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "AAPL": 0.11235955056179776,
+      "AMZN": 0.0898876404494382,
+      "JNJ": 0.1348314606741573,
+      "JPM": 0.11235955056179776,
+      "KO": 0.1348314606741573,
+      "MSFT": 0.16853932584269662,
+      "NVDA": 0.11235955056179776,
+      "PFE": 0.06741573033707865,
+      "PG": 0.06741573033707865
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.6393244224014825,
+    "sharpe_after": 1.6393244224014825,
+    "vol_after": 0.1342648161817685,
+    "summary": "The proposal follows all 8 rules. Sharpe 1.64, volatility 13.4%.",
+    "notes": []
+  },
+  "first_receipt": {
+    "receipt_id": "2364d5c26da8",
+    "timestamp": "2026-10-18T05:50:50Z",
+    "client_id": "C04",
+    "verdict": "VIOLATIONS_REPAIRED",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.11310444516771756,
+        "limit": 0.14,
+        "violation": 0.0,
+        "explain": "Annual volatility is 11.3% (maximum 14.0%): OK. The client said: 'Annual volatility at most 14%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "max_turnover",
+        "passed": false,
+        "actual": 1.2432432432432432,
+        "limit": 0.45,
+        "violation": 0.7932432432432432,
+        "explain": "Turnover from current holdings is 124.3% (maximum 45.0%): BROKEN. The client said: 'Turnover at most 45% from current holdings (taxes).'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.2162162162162162,
+        "limit": 0.4,
+        "violation": 0.0,
+        "explain": "Tech is 21.6% of the portfolio (maximum 40.0%): OK. The client said: 'Tech at most 40%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.1081081081081081,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is GOOGL at 10.8% (maximum 20.0%): OK. The client said: 'No single position above 20%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 15.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 15 holdings (minimum 8): OK. The client said: 'At least 8 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": false,
+        "actual": 0.036036036036036036,
+        "limit": 0.04,
+        "violation": 0.011891891891891895,
+        "explain": "The smallest position is AAPL at 3.6% (minimum 4.0%): BROKEN. The client said: 'No position under 4%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.2252252252252252,
+        "limit": 0.1,
+        "violation": 0.0,
+        "explain": "Financials is 22.5% of the portfolio (minimum 10.0%): OK. The client said: 'Financials at least 10%.'"
+      },
+      {
+        "rule_id": "R8",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No tobacco or energy companies (XOM, CVX).'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "AAPL": 0.040000000000000015,
+      "MSFT": 0.2,
+      "NVDA": 0.1349999999999997,
+      "AMZN": 0.10000000000000028,
+      "JPM": 0.1,
+      "JNJ": 0.1,
+      "PG": 0.05887387387387391,
+      "KO": 0.1,
+      "WMT": 0.07207207207207207,
+      "GLD": 0.05405405405405405,
+      "TLT": 0.04
+    },
+    "capital_moved": 0.3966216216216216,
+    "sharpe_before": 1.748596041577606,
+    "sharpe_after": 1.7380550348203494,
+    "vol_after": 0.13754075230547538,
+    "summary": "The proposal broke 2 of 8 rules. The nearest compliant portfolio moves 40% of capital and changes Sharpe from 1.75 to 1.74.",
+    "notes": []
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor JNJ, KO, PG, WMT, UNH, PFE, GS, BAC; avoid NVDA, MSFT, AAPL, AMZN.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor GOOGL, GS, UNH, PG, WMT; avoid NVDA, JNJ.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor JNJ, PG, KO, WMT, JPM, BAC, GS, UNH, PFE, GLD, TLT; avoid NVDA, MSFT, AAPL, AMZN, META, GOOGL.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio aggressively de-risks the client's concentrated tech-heavy holdings by cutting NVDA, MSFT, AAPL, and AMZN weights to their minimums or zero, thereby reducing tech exposure from ~70% to exactly 40% (via GOOGL). The freed capital is redistributed into Financials (JPM, GS, BAC) to meet the 10% floor, Healthcare (JNJ, UNH, PFE) for defensive growth, Consumer Staples (KO, PG, WMT) for low-volatility stability, and hedges (GLD, TLT) to ensure annual volatility remains under the 14% constraint. This structure respects all tax-aware turnover limits by only selling down existing positions rather than exiting them entirely where possible, while adhering to all sector caps, position limits, and minimum holding requirements.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal broke 2 of 8 rules. The nearest compliant portfolio moves 40% of capital and changes Sharpe from 1.75 to 1.74.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "macro",
+      "kind": "stance",
+      "text": "Increase AAPL to 4.0% and rebalance other positions to reduce turnover below 45%. Remove BAC, GS, PFE, TLT, UNH, WMT, GLD, PG and increase weights of NVDA, MSFT, AMZN, JPM, JNJ, KO. The current proposal violates both the 45% turnover cap and the 4% minimum position size. A modified portfolio will prioritize existing holdings to minimize churn while satisfying the minimum weight constraint.",
+      "stance": "modify"
+    },
+    {
+      "round": 1,
+      "agent": "fundamentals",
+      "kind": "stance",
+      "text": "Increase AAPL weight to 4.0% and reduce positions in BAC, GLD, GS, PFE, TLT, UNH, and WMT to lower turnover. The committee's proposal violates the 45% turnover cap and minimum position size; a modified allocation is required to comply with client constraints.",
+      "stance": "modify"
+    },
+    {
+      "round": 1,
+      "agent": "risk",
+      "kind": "stance",
+      "text": "Increase AAPL to 4.0% and reduce BAC, GLD, GS, PFE, TLT, UNH, WMT proportionally to absorb the shift while keeping all positions >= 4.0%. This reduces turnover by minimizing large reallocations. The committee's proposal violates both turnover and minimum position constraints. Adjusting weights to meet the 4% floor with minimal movement is necessary for compliance.",
+      "stance": "modify"
+    },
+    {
+      "round": 2,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio aggressively de-risks the client's concentrated tech wealth by capping individual tech positions at 15% and limiting total tech exposure to 39%, well below the 40% limit. It minimizes taxable turnover by heavily weighting existing holdings (NVDA, MSFT, AAPL, AMZN, JPM, JNJ, KO) and removing non-core or smaller positions (BAC, GS, PFE, GLD, PG). The addition of TLT and increased weights in defensive sectors (Healthcare via JNJ/UNH, Staples via KO/WMT) ensures annual volatility remains under 14%. All positions are between 4% and 15%, satisfying the min/max constraints, and the portfolio contains 10 distinct tickers, exceeding the 8-holding minimum.",
+      "stance": null
+    },
+    {
+      "round": 2,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal broke 3 of 8 rules. The nearest compliant portfolio moves 8% of capital and changes Sharpe from 1.57 to 1.61.",
+      "stance": null
+    },
+    {
+      "round": 2,
+      "agent": "macro",
+      "kind": "stance",
+      "text": "Reduce NVDA to 10%, MSFT to 15%, AAPL to 10%, and AMZN to 8%; increase JNJ to 12% and KO to 12%. This reduces tech exposure below 40%, cuts turnover by exiting GOOGL/TLT/WMT/UNH, and lowers volatility via defensive healthcare/consumer staples.",
+      "stance": "modify"
+    },
+    {
+      "round": 2,
+      "agent": "fundamentals",
+      "kind": "stance",
+      "text": "Reduce NVDA and MSFT weights to lower tech exposure below 40% and decrease turnover by selling TLT, GOOGL, UNH, WMT, and AAPL. The current portfolio violates volatility, turnover, and sector constraints. Shifting away from high-beta tech and new positions will reduce volatility and bring turnover within limits.",
+      "stance": "modify"
+    },
+    {
+      "round": 2,
+      "agent": "risk",
+      "kind": "stance",
+      "text": "Reduce NVDA and MSFT weights to lower tech exposure below 40%, and shift TLT/UNH into JNJ/KO to decrease volatility. The portfolio violates all three constraints; reducing high-beta tech holdings and increasing defensive staples is necessary to meet the 14% vol, 40% tech, and 45% turnover limits.",
+      "stance": "modify"
+    },
+    {
+      "round": 3,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio de-risks the client's concentrated tech holdings by systematically reducing NVDA, MSFT, AAPL, and AMZN to bring total tech exposure below 40% and annual volatility under 14%. By exiting GOOGL, UNH, WMT, and TLT, we minimize taxable turnover (keeping it under 45%) while shifting capital into defensive sectors like Healthcare (JNJ, PFE) and Consumer Staples (KO, PG). The remaining positions are capped at 20% and floored at 4%, ensuring diversification across at least 8 holdings while strictly adhering to the 10% minimum in Financials via JPM.",
+      "stance": null
+    },
+    {
+      "round": 3,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal follows all 8 rules. Sharpe 1.64, volatility 13.4%.",
+      "stance": null
+    }
+  ],
+  "rounds": 3,
+  "self_corrected": true,
+  "notes": [],
+  "checked_weights": {
+    "AAPL": 0.11235955056179776,
+    "AMZN": 0.0898876404494382,
+    "JNJ": 0.1348314606741573,
+    "JPM": 0.11235955056179776,
+    "KO": 0.1348314606741573,
+    "MSFT": 0.16853932584269662,
+    "NVDA": 0.11235955056179776,
+    "PFE": 0.06741573033707865,
+    "PG": 0.06741573033707865
+  },
+  "extras": {
+    "source": "live",
+    "model": "asi1-mini",
+    "saved_at": "2026-10-18T05:50:50Z",
+    "proposals": [
+      {
+        "AAPL": 0.036036036036036036,
+        "BAC": 0.07207207207207207,
+        "GLD": 0.05405405405405405,
+        "GOOGL": 0.1081081081081081,
+        "GS": 0.06306306306306306,
+        "JNJ": 0.09009009009009009,
+        "JPM": 0.09009009009009009,
+        "KO": 0.09009009009009009,
+        "MSFT": 0.036036036036036036,
+        "NVDA": 0.036036036036036036,
+        "PFE": 0.05405405405405405,
+        "PG": 0.07207207207207207,
+        "TLT": 0.05405405405405405,
+        "UNH": 0.07207207207207207,
+        "WMT": 0.07207207207207207
+      },
+      {
+        "AAPL": 0.04255319148936171,
+        "AMZN": 0.10638297872340427,
+        "GOOGL": 0.04255319148936171,
+        "JNJ": 0.08510638297872342,
+        "JPM": 0.1276595744680851,
+        "KO": 0.06382978723404255,
+        "MSFT": 0.1595744680851064,
+        "NVDA": 0.1595744680851064,
+        "TLT": 0.06382978723404255,
+        "UNH": 0.08510638297872342,
+        "WMT": 0.06382978723404255
+      },
+      {
+        "AAPL": 0.11235955056179776,
+        "AMZN": 0.0898876404494382,
+        "JNJ": 0.1348314606741573,
+        "JPM": 0.11235955056179776,
+        "KO": 0.1348314606741573,
+        "MSFT": 0.16853932584269662,
+        "NVDA": 0.11235955056179776,
+        "PFE": 0.06741573033707865,
+        "PG": 0.06741573033707865
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "2364d5c26da8",
+        "timestamp": "2026-10-18T05:50:50Z",
+        "client_id": "C04",
+        "verdict": "VIOLATIONS_REPAIRED",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": true,
+            "actual": 0.11310444516771756,
+            "limit": 0.14,
+            "violation": 0.0,
+            "explain": "Annual volatility is 11.3% (maximum 14.0%): OK. The client said: 'Annual volatility at most 14%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "max_turnover",
+            "passed": false,
+            "actual": 1.2432432432432432,
+            "limit": 0.45,
+            "violation": 0.7932432432432432,
+            "explain": "Turnover from current holdings is 124.3% (maximum 45.0%): BROKEN. The client said: 'Turnover at most 45% from current holdings (taxes).'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_max",
+            "passed": true,
+            "actual": 0.2162162162162162,
+            "limit": 0.4,
+            "violation": 0.0,
+            "explain": "Tech is 21.6% of the portfolio (maximum 40.0%): OK. The client said: 'Tech at most 40%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.1081081081081081,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is GOOGL at 10.8% (maximum 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 15.0,
+            "limit": 8.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 15 holdings (minimum 8): OK. The client said: 'At least 8 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": false,
+            "actual": 0.036036036036036036,
+            "limit": 0.04,
+            "violation": 0.011891891891891895,
+            "explain": "The smallest position is AAPL at 3.6% (minimum 4.0%): BROKEN. The client said: 'No position under 4%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.2252252252252252,
+            "limit": 0.1,
+            "violation": 0.0,
+            "explain": "Financials is 22.5% of the portfolio (minimum 10.0%): OK. The client said: 'Financials at least 10%.'"
+          },
+          {
+            "rule_id": "R8",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No tobacco or energy companies (XOM, CVX).'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AAPL": 0.040000000000000015,
+          "MSFT": 0.2,
+          "NVDA": 0.1349999999999997,
+          "AMZN": 0.10000000000000028,
+          "JPM": 0.1,
+          "JNJ": 0.1,
+          "PG": 0.05887387387387391,
+          "KO": 0.1,
+          "WMT": 0.07207207207207207,
+          "GLD": 0.05405405405405405,
+          "TLT": 0.04
+        },
+        "capital_moved": 0.3966216216216216,
+        "sharpe_before": 1.748596041577606,
+        "sharpe_after": 1.7380550348203494,
+        "vol_after": 0.13754075230547538,
+        "summary": "The proposal broke 2 of 8 rules. The nearest compliant portfolio moves 40% of capital and changes Sharpe from 1.75 to 1.74.",
+        "notes": []
+      },
+      {
+        "receipt_id": "8ef60024c4ad",
+        "timestamp": "2026-10-18T05:50:50Z",
+        "client_id": "C04",
+        "verdict": "VIOLATIONS_REPAIRED",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": false,
+            "actual": 0.1521823522449674,
+            "limit": 0.14,
+            "violation": 0.012182352244967387,
+            "explain": "Annual volatility is 15.2% (maximum 14.0%): BROKEN. The client said: 'Annual volatility at most 14%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "max_turnover",
+            "passed": false,
+            "actual": 0.5787234042553191,
+            "limit": 0.45,
+            "violation": 0.12872340425531908,
+            "explain": "Turnover from current holdings is 57.9% (maximum 45.0%): BROKEN. The client said: 'Turnover at most 45% from current holdings (taxes).'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_max",
+            "passed": false,
+            "actual": 0.4042553191489362,
+            "limit": 0.4,
+            "violation": 0.004255319148936176,
+            "explain": "Tech is 40.4% of the portfolio (maximum 40.0%): BROKEN. The client said: 'Tech at most 40%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.1595744680851064,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is MSFT at 16.0% (maximum 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 11.0,
+            "limit": 8.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 11 holdings (minimum 8): OK. The client said: 'At least 8 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.04255319148936171,
+            "limit": 0.04,
+            "violation": 0.0,
+            "explain": "The smallest position is AAPL at 4.3% (minimum 4.0%): OK. The client said: 'No position under 4%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.1276595744680851,
+            "limit": 0.1,
+            "violation": 0.0,
+            "explain": "Financials is 12.8% of the portfolio (minimum 10.0%): OK. The client said: 'Financials at least 10%.'"
+          },
+          {
+            "rule_id": "R8",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No tobacco or energy companies (XOM, CVX).'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AAPL": 0.07644348916674151,
+          "MSFT": 0.1595744681386838,
+          "NVDA": 0.13898204050407834,
+          "AMZN": 0.10000000000221695,
+          "JPM": 0.11223404480319937,
+          "JNJ": 0.10000000001230638,
+          "UNH": 0.0851063829084016,
+          "KO": 0.10000000001195299,
+          "WMT": 0.06382978721046752,
+          "TLT": 0.0638297872419515
+        },
+        "capital_moved": 0.08495412755035961,
+        "sharpe_before": 1.5708843213734425,
+        "sharpe_after": 1.6069973901523673,
+        "vol_after": 0.13999000317391244,
+        "summary": "The proposal broke 3 of 8 rules. The nearest compliant portfolio moves 8% of capital and changes Sharpe from 1.57 to 1.61.",
+        "notes": []
+      },
+      {
+        "receipt_id": "eb700f033dcf",
+        "timestamp": "2026-10-18T05:50:50Z",
+        "client_id": "C04",
+        "verdict": "PASS",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": true,
+            "actual": 0.1342648161817685,
+            "limit": 0.14,
+            "violation": 0.0,
+            "explain": "Annual volatility is 13.4% (maximum 14.0%): OK. The client said: 'Annual volatility at most 14%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "max_turnover",
+            "passed": true,
+            "actual": 0.4337078651685393,
+            "limit": 0.45,
+            "violation": 0.0,
+            "explain": "Turnover from current holdings is 43.4% (maximum 45.0%): OK. The client said: 'Turnover at most 45% from current holdings (taxes).'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_max",
+            "passed": true,
+            "actual": 0.39325842696629215,
+            "limit": 0.4,
+            "violation": 0.0,
+            "explain": "Tech is 39.3% of the portfolio (maximum 40.0%): OK. The client said: 'Tech at most 40%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.16853932584269662,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is MSFT at 16.9% (maximum 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 9.0,
+            "limit": 8.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 9 holdings (minimum 8): OK. The client said: 'At least 8 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.06741573033707865,
+            "limit": 0.04,
+            "violation": 0.0,
+            "explain": "The smallest position is PFE at 6.7% (minimum 4.0%): OK. The client said: 'No position under 4%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.11235955056179776,
+            "limit": 0.1,
+            "violation": 0.0,
+            "explain": "Financials is 11.2% of the portfolio (minimum 10.0%): OK. The client said: 'Financials at least 10%.'"
+          },
+          {
+            "rule_id": "R8",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No tobacco or energy companies (XOM, CVX).'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AAPL": 0.11235955056179776,
+          "AMZN": 0.0898876404494382,
+          "JNJ": 0.1348314606741573,
+          "JPM": 0.11235955056179776,
+          "KO": 0.1348314606741573,
+          "MSFT": 0.16853932584269662,
+          "NVDA": 0.11235955056179776,
+          "PFE": 0.06741573033707865,
+          "PG": 0.06741573033707865
+        },
+        "capital_moved": 0.0,
+        "sharpe_before": 1.6393244224014825,
+        "sharpe_after": 1.6393244224014825,
+        "vol_after": 0.1342648161817685,
+        "summary": "The proposal follows all 8 rules. Sharpe 1.64, volatility 13.4%.",
+        "notes": []
+      }
+    ]
+  }
+}
