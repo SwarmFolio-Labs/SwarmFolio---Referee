@@ -9,6 +9,7 @@ repaired weights. That keeps "did the committee fix itself?" an honest measureme
 import json
 
 from committee import llm
+from committee.feedback import format_feedback
 from models import Memo, Receipt, Stance
 from referee.schema import Client, Proposal
 
@@ -56,13 +57,23 @@ def chair_propose(client: Client, memos: list[Memo]) -> Proposal:
     return clean_proposal(client, llm.complete_json("chair", _system(client), user, Proposal))
 
 
-def chair_revise(client: Client, proposal: Proposal, receipt: Receipt, stances: list[Stance]) -> Proposal:
-    """The Chair fixes the portfolio using the receipt's failed checks and the analysts' stances."""
-    failures = "\n".join(f"- {f}" for f in failures_text(receipt)) or "- none"
-    stance_text = "\n".join(f"- {s.agent}: {s.stance}. {s.change} Why: {s.why}" for s in stances) or "- none"
+def chair_revise_with(client: Client, proposal: Proposal, feedback_text: str,
+                      stances: list[Stance] | None = None) -> Proposal:
+    """
+    The Chair revises the portfolio given some feedback text (from committee/feedback.py).
+    The experiment (A10) calls this directly with each feedback mode and no stances.
+    """
     user = (f"{_client_text(client)}\n\n"
             f"Current portfolio: {json.dumps(proposal.weights)}\n"
-            f"Revise the portfolio. Referee findings:\n{failures}\n{receipt.conflict_explain}\n"
-            f"Analyst stances:\n{stance_text}\n"
-            "Fix every failed rule while keeping as much of the original idea as possible.")
+            f"Revise the portfolio. Feedback:\n{feedback_text}\n")
+    if stances:
+        user += "Analyst stances:\n" + "\n".join(f"- {s.agent}: {s.stance}. {s.change} Why: {s.why}"
+                                                 for s in stances) + "\n"
+    user += "Fix every failed rule while keeping as much of the original idea as possible."
     return clean_proposal(client, llm.complete_json("chair", _system(client), user, Proposal))
+
+
+def chair_revise(client: Client, proposal: Proposal, receipt: Receipt, stances: list[Stance]) -> Proposal:
+    """The Chair fixes the portfolio using the Referee's explained findings and the analysts' stances."""
+    feedback_text = format_feedback(receipt, client, "explained")
+    return chair_revise_with(client, proposal, feedback_text, stances)
