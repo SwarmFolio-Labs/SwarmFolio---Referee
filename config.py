@@ -35,6 +35,12 @@ ANALYST_MODEL = MODELS[LLM_PROVIDER]["analyst"]
 # ASI:One's OpenAI-compatible endpoint (from Fetch's docs).
 ASI1_BASE_URL = "https://api.asi1.ai/v1"
 
+# The live Fetch agents (Chair, analysts) use a faster model with capped answers, so a demo run
+# takes a minute or two instead of an hour. The experiment and eval keep the models above.
+# Only applies when LLM_PROVIDER is "asi1". Answers are capped at this many tokens per call.
+LIVE_MODEL = os.getenv("LIVE_MODEL", "asi1-mini")
+LIVE_MAX_TOKENS = {"analyst": 1500, "chair": 1200}  # analyst = memos and reviews
+
 # --- Agents ---
 # One local port per Fetch agent.
 AGENT_PORTS = {

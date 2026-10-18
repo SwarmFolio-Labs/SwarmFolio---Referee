@@ -82,3 +82,22 @@ def test_sampling_sets_model_temperature(monkeypatch):
     with llm.sampling(0.7, "Trial 1"):
         assert llm.get_model("chair").temperature == 0.7
     assert llm.get_model("chair").temperature == 0.0
+
+
+def test_live_mode_uses_live_model_with_capped_tokens(monkeypatch):
+    """Live agents: fast model, capped answers, and their own cache entries."""
+    monkeypatch.setattr(llm.config, "LLM_PROVIDER", "asi1")
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    normal_path = llm._cache_path("chair", "sys", "user")
+    assert llm.get_model("chair").max_tokens is None
+    llm.use_live_model()
+    model = llm.get_model("chair")
+    assert model.model_name == llm.config.LIVE_MODEL and model.max_tokens == llm.config.LIVE_MAX_TOKENS["chair"]
+    assert llm.get_model("analyst").max_tokens == llm.config.LIVE_MAX_TOKENS["analyst"]
+    assert llm._cache_path("chair", "sys", "user") != normal_path
+
+
+def test_live_mode_is_ignored_for_other_providers(monkeypatch):
+    monkeypatch.setattr(llm.config, "LLM_PROVIDER", "anthropic")
+    llm.use_live_model()
+    assert llm.model_id_for("chair") == llm.config.MODELS["anthropic"]["chair"]

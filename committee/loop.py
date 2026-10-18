@@ -46,9 +46,10 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
     # --- Round 0: every analyst writes a memo (a missing one is noted, not fatal) ---
     req = AnalysisRequest(client_id=client.client_id, client_story=client.story,
                           rules_text=[r.source for r in client.rules], as_of=market.as_of())
+    # All three analysts work at the same time (gather keeps their order: macro, fundamentals, risk).
+    answers = await asyncio.gather(*(transport.analyze(agent, req) for agent in ANALYSTS))
     memos = []
-    for agent in ANALYSTS:
-        memo = await transport.analyze(agent, req)
+    for agent, memo in zip(ANALYSTS, answers):
         if memo is None:
             notes.append(f"The {agent} analyst did not answer; the committee continued without it.")
             continue
@@ -79,9 +80,9 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
     while receipt.verdict == "VIOLATIONS_REPAIRED" and rounds <= max_rounds:
         review_req = ReviewRequest(client_id=client.client_id, round=rounds, failures=failures_text(receipt),
                                    proposal=proposal, conflict_explain=receipt.conflict_explain)
+        answers = await asyncio.gather(*(transport.review(agent, review_req) for agent in ANALYSTS))
         stances = []
-        for agent in ANALYSTS:
-            stance = await transport.review(agent, review_req)
+        for agent, stance in zip(ANALYSTS, answers):
             if stance is None:
                 notes.append(f"The {agent} analyst did not answer in round {rounds}.")
                 continue

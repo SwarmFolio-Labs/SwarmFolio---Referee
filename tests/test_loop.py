@@ -135,3 +135,22 @@ def test_hard_clients_are_feasible(client_id):
     """The hard experiment clients sit just above the solver's floor: tight, but a compliant portfolio exists."""
     from referee.solver import is_feasible
     assert is_feasible(analysts.load_client(client_id))
+
+
+def test_analysts_are_asked_at_the_same_time(monkeypatch):
+    """Memos and reviews run in parallel: 3 slow analysts take ~1 delay, not 3."""
+    import time as _time
+
+    class SlowTransport(StubTransport):
+        async def analyze(self, agent, req):
+            await asyncio.sleep(0.3)
+            return await super().analyze(agent, req)
+
+        async def review(self, agent, req):
+            await asyncio.sleep(0.3)
+            return await super().review(agent, req)
+
+    start = _time.time()
+    result = _run(monkeypatch, [BAD, GOOD], transport=SlowTransport())
+    assert _time.time() - start < 1.5  # sequential would be >= 1.8 s (6 x 0.3)
+    assert [e.agent for e in result.debate_log if e.kind == "memo"] == ["macro", "fundamentals", "risk"]
