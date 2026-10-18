@@ -11,6 +11,17 @@ const COUNT_TYPES = new Set(['max_holdings', 'min_holdings'])
 /** Format a check's actual / limit: counts as integers, everything else as a percentage. */
 export const fmtCheckValue = (type, x) => (COUNT_TYPES.has(type) ? `${Math.round(x)}` : pct(x))
 
+// Rules whose limit is a floor (mirrors FLOOR_RULES in referee/check.py); every other limit is a cap.
+const FLOOR_TYPES = new Set(['min_weight', 'sector_min', 'min_holdings', 'buy_in'])
+
+/** A check's limit as the design shows it: "min 10.0%", "max 20.0%", or "none held" for exclusions. */
+export const fmtLimit = (check) =>
+  check.type === 'exclude' ? 'none held' : `${FLOOR_TYPES.has(check.type) ? 'min' : 'max'} ${fmtCheckValue(check.type, check.limit)}`
+
+/** A check's actual value; for exclusions "none held" when nothing excluded is held. */
+export const fmtActual = (check) =>
+  check.type === 'exclude' && check.actual < 1e-9 ? 'none held' : fmtCheckValue(check.type, check.actual)
+
 /** Sorted [ticker, weight] pairs, biggest first, skipping zeros. */
 export const sortedWeights = (weights = {}) =>
   Object.entries(weights)
@@ -30,4 +41,12 @@ export const VERDICTS = {
   VIOLATIONS_REPAIRED: { label: 'Violations repaired', tone: 'fail', headline: 'Rules broken — repaired' },
   RULES_INFEASIBLE: { label: 'Rules infeasible', tone: 'warn', headline: "These rules can't all hold" },
   ERROR: { label: 'Error', tone: 'fail', headline: 'The Referee could not check this' },
+}
+
+// The Referee ends conflict_explain with the proof in parentheses, e.g. "(30% + 10% = 40% > 35%)".
+const ARITHMETIC = /\s*\(([^()]*[=<>][^()]*)\)\s*\.?\s*$/
+
+export function splitConflict(explain = '') {
+  const m = explain.match(ARITHMETIC)
+  return m ? { sentence: explain.slice(0, m.index).trim(), arithmetic: m[1].trim() } : { sentence: explain, arithmetic: null }
 }

@@ -30,3 +30,8 @@ export const checkProposal = (clientId, weights) =>
       proposal: { weights, thesis: 'Checked from the web app', reasons: {} },
     }),
   })
+/** Start a live committee run; fakes=true uses the scripted analysts (no API key). */
+export const startRun = (clientId, { fakes = false, stepDelay = 0 } = {}) =>
+  request(`/run/${clientId}?fakes=${fakes}&step_delay=${stepDelay}`, { method: 'POST' })
+/** A live run's status and its progress events from index `after` on. */
+export const getRun = (jobId, after = 0) => request(`/run/${jobId}?after=${after}`)

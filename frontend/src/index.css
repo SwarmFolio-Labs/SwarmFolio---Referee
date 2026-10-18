@@ -164,3 +164,41 @@ body {
   --shadow-card: 0 2px 8px rgb(0 0 0 / 0.08);
   border-style: dashed;
 }
+
+/* ---------- Print: "Print receipt" prints only the receipt that asked for it ---------- */
+/* ReceiptCard marks the receipt [data-print-target] and its ancestors [data-print-path]. */
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  body.printing-receipt :not([data-print-path], [data-print-target], [data-print-target] *) {
+    display: none !important;
+  }
+  body.printing-receipt [data-print-path] {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    max-width: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    animation: none !important;
+    background: rgb(var(--surface)) !important;
+  }
+  body.printing-receipt [data-print-target] {
+    box-shadow: none;
+    border-color: rgb(var(--line));
+  }
+  [data-print-target] .no-print {
+    display: none !important;
+  }
+  [data-print-target] [data-component='rule-check'],
+  [data-print-target] [data-component='weights-chart'],
+  [data-print-target] [data-component='conflict-panel'] {
+    break-inside: avoid;
+  }
+  [data-print-target] * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -1,5 +1,5 @@
 // The Referee's receipt: verdict, every rule with its sentence, conflict + cheapest fix, weights chart, id.
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { VERDICTS, pct } from '../format.js'
 import ConflictPanel from './ConflictPanel.jsx'
 import RuleCheckRow from './RuleCheckRow.jsx'
@@ -51,6 +51,7 @@ function Stat({ label, value }) {
  */
 export default function ReceiptCard({ receipt, rules = [], before, after, beforeLabel, afterLabel, headline, variant = 'card' }) {
   const [copied, setCopied] = useState(false)
+  const root = useRef(null)
   const v = VERDICTS[receipt.verdict] ?? VERDICTS.ERROR
   const ruleById = Object.fromEntries(rules.map((r) => [r.id, r]))
   const conflict = new Set(receipt.conflict_set)
@@ -63,8 +64,26 @@ export default function ReceiptCard({ receipt, rules = [], before, after, before
     setTimeout(() => setCopied(false), 1500)
   }
 
+  // Print only this receipt: mark it, hide everything else via the print stylesheet in index.css.
+  const print = () => {
+    const el = root.current
+    const path = []
+    for (let p = el.parentElement; p; p = p.parentElement) path.push(p)
+    el.setAttribute('data-print-target', '')
+    path.forEach((p) => p.setAttribute('data-print-path', ''))
+    document.body.classList.add('printing-receipt')
+    const done = () => {
+      el.removeAttribute('data-print-target')
+      path.forEach((p) => p.removeAttribute('data-print-path'))
+      document.body.classList.remove('printing-receipt')
+      window.removeEventListener('afterprint', done)
+    }
+    window.addEventListener('afterprint', done)
+    window.print()
+  }
+
   return (
-    <div data-component="receipt" data-variant={variant} data-verdict={receipt.verdict} className="card overflow-hidden">
+    <div ref={root} data-component="receipt" data-variant={variant} data-verdict={receipt.verdict} className="card overflow-hidden">
       <VerdictBanner receipt={receipt} verdict={v} headline={headline} />
 
       <div className="px-6 py-5 grid gap-6">
@@ -78,11 +97,16 @@ export default function ReceiptCard({ receipt, rules = [], before, after, before
         </div>
 
         {!receipt.rules_feasible && (
-          <ConflictPanel explain={receipt.conflict_explain} relaxations={receipt.cheapest_relaxation} />
+          <ConflictPanel
+            explain={receipt.conflict_explain}
+            relaxations={receipt.cheapest_relaxation}
+            conflictSet={receipt.conflict_set}
+            rules={rules}
+          />
         )}
 
         <div>
-          <div className="label mb-1">Every rule</div>
+          <div className="label mb-1">Every rule, checked</div>
           <ul>
             {receipt.checks.map((c) => (
               <RuleCheckRow key={c.rule_id} check={c} rule={ruleById[c.rule_id]} inConflict={conflict.has(c.rule_id)} />
@@ -106,7 +130,10 @@ export default function ReceiptCard({ receipt, rules = [], before, after, before
           </ul>
         )}
 
-        <div className="flex justify-end">
+        <div className="no-print flex justify-end gap-2">
+          <button className="btn-ghost" onClick={print}>
+            Print receipt
+          </button>
           <button className="btn-ghost" onClick={copy}>
             {copied ? 'Copied' : 'Copy JSON'}
           </button>
