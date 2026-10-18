@@ -1,0 +1,289 @@
+{
+  "client_id": "C20",
+  "final_proposal": {
+    "weights": {
+      "XOM": 0.25,
+      "KO": 0.25,
+      "JNJ": 0.25,
+      "MSFT": 0.25
+    },
+    "thesis": "This portfolio constructs a high-conviction, four-stock basket designed to balance aggressive growth with rigorous risk management. By selecting XOM and MSFT for their superior momentum and fundamental strength, we capture upside from leading sectors, while KO and JNJ provide uncorrelated, low-volatility ballast to mitigate concentration risk. This combination respects all client constraints: exactly four positions, weights between 21-29%, no funds, and strict adherence to the 32% tech limit, resulting in a robust equity-only strategy optimized for both return and capital preservation.",
+    "reasons": {
+      "XOM": "Selected as the primary energy holding due to its leading sector momentum, strong 3-month returns, and lower volatility/drawdown compared to peers like CVX, providing a solid defensive growth anchor.",
+      "KO": "Chosen for its stability and low correlation to the broader market (SPY), offering essential diversification and downside protection in a concentrated portfolio without sacrificing consistent positive returns.",
+      "JNJ": "Included for its near-zero correlation to SPY and lowest drawdown among healthcare options, serving as a critical risk-mitigation component that balances the higher beta of other holdings.",
+      "MSFT": "The sole tech allocation, selected as the top-performing mega-cap with high margins and reasonable valuation, maximizing growth potential while strictly adhering to the 32% technology cap."
+    }
+  },
+  "receipt": {
+    "receipt_id": "888d127616c5",
+    "timestamp": "2026-10-18T09:46:30Z",
+    "client_id": "C20",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 4.0,
+        "limit": 4.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 4 holdings (maximum 4): OK. The client said: '4 stocks at most.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.21,
+        "violation": 0.0,
+        "explain": "The smallest position is XOM at 25.0% (minimum 21.0%): OK. The client said: 'Each one at least 21%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.29,
+        "violation": 0.0,
+        "explain": "The largest position is XOM at 25.0% (maximum 29.0%): OK. The client said: 'None above 29%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.32,
+        "violation": 0.0,
+        "explain": "Tech is 25.0% of the portfolio (maximum 32.0%): OK. The client said: 'Tech at most 32%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of GLD, TLT (maximum 0.0%): OK. The client said: 'Only operating companies, no funds.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "XOM": 0.25,
+      "KO": 0.25,
+      "JNJ": 0.25,
+      "MSFT": 0.25
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.558694492654058,
+    "sharpe_after": 1.558694492654058,
+    "vol_after": 0.11348167372967548,
+    "summary": "The proposal follows all 5 rules. Sharpe 1.56, volatility 11.3%.",
+    "notes": []
+  },
+  "first_receipt": {
+    "receipt_id": "888d127616c5",
+    "timestamp": "2026-10-18T09:46:30Z",
+    "client_id": "C20",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 4.0,
+        "limit": 4.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 4 holdings (maximum 4): OK. The client said: '4 stocks at most.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.21,
+        "violation": 0.0,
+        "explain": "The smallest position is XOM at 25.0% (minimum 21.0%): OK. The client said: 'Each one at least 21%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.29,
+        "violation": 0.0,
+        "explain": "The largest position is XOM at 25.0% (maximum 29.0%): OK. The client said: 'None above 29%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.32,
+        "violation": 0.0,
+        "explain": "Tech is 25.0% of the portfolio (maximum 32.0%): OK. The client said: 'Tech at most 32%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of GLD, TLT (maximum 0.0%): OK. The client said: 'Only operating companies, no funds.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "XOM": 0.25,
+      "KO": 0.25,
+      "JNJ": 0.25,
+      "MSFT": 0.25
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.558694492654058,
+    "sharpe_after": 1.558694492654058,
+    "vol_after": 0.11348167372967548,
+    "summary": "The proposal follows all 5 rules. Sharpe 1.56, volatility 11.3%.",
+    "notes": []
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor XOM, CVX, MSFT, KO; avoid GOOGL, TLT, UNH, BAC, GS.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor NVDA, GOOGL, GS, MSFT; avoid JNJ, PFE, PG, KO, WMT, UNH, BAC, GLD, TLT.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor JNJ, KO, PG, XOM; avoid NVDA, META, UNH, GS, TLT.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio constructs a high-conviction, four-stock basket designed to balance aggressive growth with rigorous risk management. By selecting XOM and MSFT for their superior momentum and fundamental strength, we capture upside from leading sectors, while KO and JNJ provide uncorrelated, low-volatility ballast to mitigate concentration risk. This combination respects all client constraints: exactly four positions, weights between 21-29%, no funds, and strict adherence to the 32% tech limit, resulting in a robust equity-only strategy optimized for both return and capital preservation.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal follows all 5 rules. Sharpe 1.56, volatility 11.3%.",
+      "stance": null
+    }
+  ],
+  "rounds": 1,
+  "self_corrected": false,
+  "notes": [],
+  "checked_weights": {
+    "XOM": 0.25,
+    "KO": 0.25,
+    "JNJ": 0.25,
+    "MSFT": 0.25
+  },
+  "extras": {
+    "source": "live",
+    "model": "asi1-mini",
+    "saved_at": "2026-10-18T09:46:30Z",
+    "proposals": [
+      {
+        "XOM": 0.25,
+        "KO": 0.25,
+        "JNJ": 0.25,
+        "MSFT": 0.25
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "888d127616c5",
+        "timestamp": "2026-10-18T09:46:30Z",
+        "client_id": "C20",
+        "verdict": "PASS",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_holdings",
+            "passed": true,
+            "actual": 4.0,
+            "limit": 4.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 4 holdings (maximum 4): OK. The client said: '4 stocks at most.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.25,
+            "limit": 0.21,
+            "violation": 0.0,
+            "explain": "The smallest position is XOM at 25.0% (minimum 21.0%): OK. The client said: 'Each one at least 21%.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.25,
+            "limit": 0.29,
+            "violation": 0.0,
+            "explain": "The largest position is XOM at 25.0% (maximum 29.0%): OK. The client said: 'None above 29%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "sector_max",
+            "passed": true,
+            "actual": 0.25,
+            "limit": 0.32,
+            "violation": 0.0,
+            "explain": "Tech is 25.0% of the portfolio (maximum 32.0%): OK. The client said: 'Tech at most 32%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of GLD, TLT (maximum 0.0%): OK. The client said: 'Only operating companies, no funds.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "XOM": 0.25,
+          "KO": 0.25,
+          "JNJ": 0.25,
+          "MSFT": 0.25
+        },
+        "capital_moved": 0.0,
+        "sharpe_before": 1.558694492654058,
+        "sharpe_after": 1.558694492654058,
+        "vol_after": 0.11348167372967548,
+        "summary": "The proposal follows all 5 rules. Sharpe 1.56, volatility 11.3%.",
+        "notes": []
+      }
+    ]
+  }
+}

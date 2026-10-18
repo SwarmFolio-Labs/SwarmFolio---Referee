@@ -1,0 +1,283 @@
+{
+  "client_id": "C01",
+  "final_proposal": {
+    "weights": {
+      "AMZN": 0.15,
+      "GOOGL": 0.15,
+      "JNJ": 0.15,
+      "JPM": 0.15,
+      "KO": 0.15,
+      "MSFT": 0.15,
+      "PFE": 0.1
+    },
+    "thesis": "This portfolio targets a 34-year-old software engineer by constructing a diversified, low-volatility equity mix that respects the 25% annual volatility cap while allowing a meaningful tilt toward high-quality technology. We prioritize MSFT, GOOGL, and AMZN for their superior growth-adjusted valuations and momentum, ensuring tech exposure remains below the 50% limit. To mitigate risk and satisfy the volatility constraint, we anchor the portfolio with defensive staples (KO) and healthcare leaders (JNJ), alongside a high-quality financial (JPM) for diversification. High-volatility names like NVDA and META are excluded to protect the downside, while energy stocks are omitted per client preference, resulting in a balanced, growth-oriented yet prudent allocation.",
+    "reasons": {
+      "AMZN": "Provides essential growth and scale in cloud/e-commerce at an attractive valuation, supporting the tech tilt while maintaining reasonable risk metrics.",
+      "GOOGL": "Offers exceptional growth (24.2%) and margin quality at an attractive P/E, serving as a core high-upside tech holding within the 50% cap.",
+      "JNJ": "Selected for stability and strong 6-month healthcare returns (15.5%), providing necessary diversification and low correlation to equities.",
+      "JPM": "Included as the best-in-class financial name with healthy margins and growth, offering non-tech diversification without the weakness seen in GS/BAC.",
+      "KO": "A defensive consumer staple with consistent positive returns and low volatility, helping keep overall portfolio risk under the 25% limit.",
+      "MSFT": "The ideal core tech holding, balancing strong momentum (31.8% 3-mo return) with profitability and lower volatility than peers like NVDA/META.",
+      "PFE": "Included for healthcare sector momentum (21.6% 3-mo return) and diversification, though less favored fundamentally than JNJ, it adds breadth."
+    }
+  },
+  "receipt": {
+    "receipt_id": "3df1a2c1caf8",
+    "timestamp": "2026-10-18T09:35:02Z",
+    "client_id": "C01",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.15,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is AMZN at 15.0% (maximum 20.0%): OK. The client said: 'No single stock above 20%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.5,
+        "violation": 0.0,
+        "explain": "Tech is 30.0% of the portfolio (maximum 50.0%): OK. The client said: 'Keep tech at half the money or less.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 7.0,
+        "limit": 6.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 7 holdings (minimum 6): OK. The client said: 'Own at least 6 different things.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.1354388052007243,
+        "limit": 0.25,
+        "violation": 0.0,
+        "explain": "Annual volatility is 13.5% (maximum 25.0%): OK. The client said: 'Annual volatility at most 25%.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "AMZN": 0.15,
+      "GOOGL": 0.15,
+      "JNJ": 0.15,
+      "JPM": 0.15,
+      "KO": 0.15,
+      "MSFT": 0.15,
+      "PFE": 0.1
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.4880917081805436,
+    "sharpe_after": 1.4880917081805436,
+    "vol_after": 0.1354388052007243,
+    "summary": "The proposal follows all 4 rules. Sharpe 1.49, volatility 13.5%.",
+    "notes": []
+  },
+  "first_receipt": {
+    "receipt_id": "3df1a2c1caf8",
+    "timestamp": "2026-10-18T09:35:02Z",
+    "client_id": "C01",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.15,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is AMZN at 15.0% (maximum 20.0%): OK. The client said: 'No single stock above 20%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "sector_max",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.5,
+        "violation": 0.0,
+        "explain": "Tech is 30.0% of the portfolio (maximum 50.0%): OK. The client said: 'Keep tech at half the money or less.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 7.0,
+        "limit": 6.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 7 holdings (minimum 6): OK. The client said: 'Own at least 6 different things.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.1354388052007243,
+        "limit": 0.25,
+        "violation": 0.0,
+        "explain": "Annual volatility is 13.5% (maximum 25.0%): OK. The client said: 'Annual volatility at most 25%.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "AMZN": 0.15,
+      "GOOGL": 0.15,
+      "JNJ": 0.15,
+      "JPM": 0.15,
+      "KO": 0.15,
+      "MSFT": 0.15,
+      "PFE": 0.1
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.4880917081805436,
+    "sharpe_after": 1.4880917081805436,
+    "vol_after": 0.1354388052007243,
+    "summary": "The proposal follows all 4 rules. Sharpe 1.49, volatility 13.5%.",
+    "notes": []
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor MSFT, JNJ, KO, PFE, GOOGL, AMZN; avoid GS, BAC, TLT, XOM, CVX.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor MSFT, GOOGL, NVDA, AMZN, META, JPM; avoid JNJ, UNH, PFE, PG, KO, WMT, XOM, CVX.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor MSFT, JNJ, PG, KO, TLT, GLD; avoid NVDA, META, UNH, XOM, CVX.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio targets a 34-year-old software engineer by constructing a diversified, low-volatility equity mix that respects the 25% annual volatility cap while allowing a meaningful tilt toward high-quality technology. We prioritize MSFT, GOOGL, and AMZN for their superior growth-adjusted valuations and momentum, ensuring tech exposure remains below the 50% limit. To mitigate risk and satisfy the volatility constraint, we anchor the portfolio with defensive staples (KO) and healthcare leaders (JNJ), alongside a high-quality financial (JPM) for diversification. High-volatility names like NVDA and META are excluded to protect the downside, while energy stocks are omitted per client preference, resulting in a balanced, growth-oriented yet prudent allocation.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal follows all 4 rules. Sharpe 1.49, volatility 13.5%.",
+      "stance": null
+    }
+  ],
+  "rounds": 1,
+  "self_corrected": false,
+  "notes": [],
+  "checked_weights": {
+    "AMZN": 0.15,
+    "GOOGL": 0.15,
+    "JNJ": 0.15,
+    "JPM": 0.15,
+    "KO": 0.15,
+    "MSFT": 0.15,
+    "PFE": 0.1
+  },
+  "extras": {
+    "source": "live",
+    "model": "asi1-mini",
+    "saved_at": "2026-10-18T09:35:02Z",
+    "proposals": [
+      {
+        "AMZN": 0.15,
+        "GOOGL": 0.15,
+        "JNJ": 0.15,
+        "JPM": 0.15,
+        "KO": 0.15,
+        "MSFT": 0.15,
+        "PFE": 0.1
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "3df1a2c1caf8",
+        "timestamp": "2026-10-18T09:35:02Z",
+        "client_id": "C01",
+        "verdict": "PASS",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.15,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is AMZN at 15.0% (maximum 20.0%): OK. The client said: 'No single stock above 20%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "sector_max",
+            "passed": true,
+            "actual": 0.3,
+            "limit": 0.5,
+            "violation": 0.0,
+            "explain": "Tech is 30.0% of the portfolio (maximum 50.0%): OK. The client said: 'Keep tech at half the money or less.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 7.0,
+            "limit": 6.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 7 holdings (minimum 6): OK. The client said: 'Own at least 6 different things.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_volatility",
+            "passed": true,
+            "actual": 0.1354388052007243,
+            "limit": 0.25,
+            "violation": 0.0,
+            "explain": "Annual volatility is 13.5% (maximum 25.0%): OK. The client said: 'Annual volatility at most 25%.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AMZN": 0.15,
+          "GOOGL": 0.15,
+          "JNJ": 0.15,
+          "JPM": 0.15,
+          "KO": 0.15,
+          "MSFT": 0.15,
+          "PFE": 0.1
+        },
+        "capital_moved": 0.0,
+        "sharpe_before": 1.4880917081805436,
+        "sharpe_after": 1.4880917081805436,
+        "vol_after": 0.1354388052007243,
+        "summary": "The proposal follows all 4 rules. Sharpe 1.49, volatility 13.5%.",
+        "notes": []
+      }
+    ]
+  }
+}
