@@ -8,21 +8,9 @@ import DebateTimeline from './DebateTimeline.jsx'
 import ReceiptCard from './ReceiptCard.jsx'
 import StartingWeights from './StartingWeights.jsx'
 import StanceBadge from './StanceBadge.jsx'
-import { ErrorNote, SectionTitle } from './ui.jsx'
+import { ErrorNote } from './ui.jsx'
 
 const POLL_MS = 600
-const AGENT_ORDER = ['macro', 'fundamentals', 'risk', 'chair', 'referee']
-const TASKS = { memo: 'writing a memo', stance: 'answering the Referee', draft: 'drafting the portfolio', revise: 'revising the portfolio', check: 'checking every rule' }
-
-/** Per-agent status from the events: idle, working (with task), or done. */
-function agentStates(events) {
-  const s = Object.fromEntries(AGENT_ORDER.map((a) => [a, { status: 'idle' }]))
-  for (const e of events) {
-    if (!e.agent || !s[e.agent]) continue
-    s[e.agent] = e.type === 'working' ? { status: 'working', task: e.task, round: e.round } : { status: 'done', last: e }
-  }
-  return s
-}
 
 function describe(e) {
   const who = AGENTS[e.agent]?.label ?? e.agent
@@ -38,25 +26,142 @@ function describe(e) {
   }
 }
 
-function AgentTile({ agent, state }) {
-  const working = state.status === 'working'
+const SHAPES = {
+  concede: 'h-2 w-2 rounded-full bg-concede',
+  defend: 'h-2 w-2 bg-defend',
+  modify: 'h-2 w-2 rotate-45 bg-modify',
+}
+
+/** One agent's line in "Who is working" for the current round: working / done / waiting, with real seconds. */
+function workingRows(events, round, now) {
+  const order = ['referee', 'macro', 'fundamentals', 'risk', 'chair']
+  const inRound = events.filter((e) => e.round === round || (round <= 1 && e.round === 0))
+  return order.map((agent) => {
+    const mine = inRound.filter((e) => e.agent === agent)
+    const start = [...mine].reverse().find((e) => e.type === 'working')
+    const last = mine[mine.length - 1]
+    if (!last) return { agent, status: 'waiting' }
+    if (last.type === 'working') return { agent, status: 'working', task: last.task, secs: now - last.t }
+    return { agent, status: 'done', event: last, secs: start ? last.t - start.t : null }
+  })
+}
+
+function doneText(e) {
+  if (e.type === 'referee') return e.failed.length ? `Checked the draft · ${e.failed.length} broken` : 'Checked the draft · all pass'
+  if (e.type === 'stance') return e.ok ? `Answered · ${e.stance[0].toUpperCase()}${e.stance.slice(1)}` : 'Did not answer'
+  if (e.type === 'memo') return e.ok ? 'Memo received' : 'Did not answer'
+  if (e.type === 'chair_draft') return e.round === 1 ? 'Drafted the portfolio' : 'Revised the portfolio'
+  return 'Done'
+}
+
+const WORKING_TEXT = { memo: 'Writing a memo…', stance: "Reading the Referee's findings…", draft: 'Drafting the portfolio…', revise: 'Revising the draft…', check: 'Checking every rule…' }
+
+function WhoIsWorking({ rows }) {
   return (
-    <div
-      data-component="agent-tile"
-      data-agent={agent}
-      data-status={state.status}
-      className={`rounded-card border p-3 transition ${working ? 'border-accent bg-accent/5' : 'border-line bg-surface'}`}
-    >
-      <div className="flex items-center gap-2">
-        <span className={`h-2 w-2 rounded-full ${working ? 'bg-accent animate-pulse' : state.status === 'done' ? 'bg-pass' : 'bg-line'}`} />
-        <span className="text-sm font-medium">{AGENTS[agent].label}</span>
+    <div data-component="who-is-working" className="border border-line bg-surface">
+      <div className="flex justify-between border-b border-line px-4 py-3">
+        <span className="label">Who is working</span>
+        <span className="text-xs text-muted">live</span>
       </div>
-      <div className="text-xs text-muted mt-1">
-        {working ? TASKS[state.task] ?? 'working' : state.status === 'done' ? 'waiting' : 'not started'}
-      </div>
+      <ul>
+        {rows.map((r) => (
+          <li
+            key={r.agent}
+            data-component="agent-tile"
+            data-agent={r.agent}
+            data-status={r.status}
+            className={`grid grid-cols-who items-center gap-3 border-b border-line px-4 py-3 text-ui last:border-0 ${r.status === 'working' ? 'bg-warn-tint' : ''}`}
+          >
+            <span className="flex w-3 justify-center">
+              {r.status === 'working' && <span className="h-2.5 w-2.5 animate-pulse rounded-full border-2 border-ink" />}
+              {r.status === 'waiting' && <span className="h-2.5 w-2.5 rounded-full border border-dashed border-muted" />}
+              {r.status === 'done' && (
+                <span className={r.event.type === 'stance' && r.event.ok ? SHAPES[r.event.stance] : 'h-2 w-2 rounded-full bg-ink'} />
+              )}
+            </span>
+            <span className={`font-semibold ${r.status === 'waiting' ? 'font-normal text-muted' : ''}`}>{AGENTS[r.agent]?.label ?? r.agent}</span>
+            <span className="truncate text-muted">
+              {r.status === 'working' ? WORKING_TEXT[r.task] ?? 'Working…' : r.status === 'done' ? doneText(r.event) : r.agent === 'chair' ? 'Revises once all three answer' : 'Waiting'}
+            </span>
+            <span className="num text-right text-xs text-muted">{r.secs != null ? `${r.secs.toFixed(1)} s` : '–'}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
+
+/** One round as it happens: the Chair's draft, what the Referee found, the analysts' answers. */
+function LiveRound({ round, events, rules, current, rows }) {
+  const ruleById = Object.fromEntries(rules.map((r) => [r.id, r]))
+  const mine = events.filter((e) => e.round === round)
+  const draft = mine.find((e) => e.type === 'chair_draft')
+  const ref = mine.find((e) => e.type === 'referee')
+  const stances = mine.filter((e) => e.type === 'stance')
+  const rail = ref ? (ref.failed.length ? 'border-fail' : 'border-pass') : 'border-ink'
+  return (
+    <section data-round={round} className={`border-t-3 pt-5 ${rail}`}>
+      <div className="flex items-baseline justify-between">
+        <h3 className="font-display text-h3 font-semibold">Round {round}</h3>
+        {ref && (
+          <span className={`num text-xs font-semibold ${ref.failed.length ? 'text-fail' : 'text-pass'}`}>
+            {ref.failed.length ? `${ref.failed.length} broken` : 'all pass'}
+          </span>
+        )}
+      </div>
+      {draft && (
+        <div className="mt-5">
+          <div className="label">{round === 1 ? "Chair's first draft" : "Chair's revision"}</div>
+          <p className="mt-1 font-display text-lg">{draft.text}</p>
+        </div>
+      )}
+      {ref && (
+        <div className="mt-5">
+          <div className="label">Referee found</div>
+          {ref.failed.length === 0 ? (
+            <p className="mt-1 text-ui text-pass">All {ref.total} rules hold.</p>
+          ) : (
+            <ul className="mt-1">
+              {ref.failed.map((id) => (
+                <li key={id} className="flex items-baseline gap-3 border-b border-line py-2">
+                  <span className="h-2 w-2 shrink-0 self-center bg-fail" />
+                  <span className="num text-xs text-fail">{id}</span>
+                  <span className="font-display text-md italic">“{(ruleById[id]?.source ?? id).replace(/\.$/, '')}”</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+      {stances.length > 0 && (
+        <div className="mt-5 grid gap-3">
+          <div className="label">Committee answers</div>
+          {stances.map((e) => (
+            <StanceBadge key={e.seq} stance={e.ok ? e.stance : null} agent={e.agent} text={e.text ?? ''} />
+          ))}
+        </div>
+      )}
+      {current && (
+        <div className="mt-5">
+          <WhoIsWorking rows={rows} />
+        </div>
+      )}
+    </section>
+  )
+}
+
+function FutureRound({ round }) {
+  return (
+    <section data-round={round} className="border-t-3 border-dashed border-line pt-5 text-muted">
+      <h3 className="font-display text-h3 font-semibold">Round {round}</h3>
+      <p className="mt-4 font-display text-md italic">
+        Only if round {round - 1} still breaks a rule. After the last round the Referee repairs the draft itself.
+      </p>
+    </section>
+  )
+}
+
+const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
 export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const [useFakes, setUseFakes] = useState(true)
@@ -64,6 +169,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const [events, setEvents] = useState([])
   const [startError, setStartError] = useState(null)
   const timer = useRef(null)
+  const [now, setNow] = useState(0)
 
   const start = async () => {
     setStartError(null)
@@ -93,12 +199,22 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
     return () => clearTimeout(timer.current)
   }, [job, events.length])
 
-  const states = agentStates(events)
+  useEffect(() => {
+    if (job?.status !== 'running') return
+    const startedAt = Date.now() - (events[events.length - 1]?.t ?? 0) * 1000
+    const id = setInterval(() => setNow((Date.now() - startedAt) / 1000), 200)
+    return () => clearInterval(id)
+    // re-anchor the clock to the server's timestamps whenever new events arrive
+  }, [job?.status, events])
+
   const maxProposals = (job?.max_rounds ?? 3) + 1
   const round = Math.max(0, ...events.filter((e) => e.round != null).map((e) => e.round))
-  const lastReferee = [...events].reverse().find((e) => e.type === 'referee')
   const running = job?.status === 'running'
-  const progress = job?.status === 'done' ? 100 : Math.min(95, Math.round((round / maxProposals) * 100))
+  const current = Math.max(1, round)
+  const elapsed = job?.status === 'running' ? Math.max(now, events[events.length - 1]?.t ?? 0) : events[events.length - 1]?.t ?? 0
+  const rows = workingRows(events, current, elapsed)
+  const lastRoundDone = events.some((e) => e.type === 'referee' && e.round === current && e.failed.length === 0)
+  const shownRounds = Array.from({ length: Math.min(current + (lastRoundDone ? 0 : 1), maxProposals) }, (_, i) => i + 1).slice(-3)
   const result = job?.status === 'done' ? job.result : null
   const resultWithDrafts = useMemo(
     () => result && { ...result, extras: { proposals: events.filter((e) => e.type === 'chair_draft').map((e) => e.weights) } },
@@ -108,12 +224,12 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
 
   return (
     <div data-component="live-run" data-status={job?.status ?? 'idle'} className="grid gap-6">
-      <div className="card p-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="text-sm">
+      <div className="no-print flex flex-wrap items-center justify-between gap-3 border-y border-line py-3">
+        <div className="text-ui text-muted">
           {!job && 'Run the committee live: three analysts, the Chair and the Referee, round by round.'}
           {running && (
             <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-warn" />
               Committee in session · {round === 0 ? 'analyst memos' : `round ${round} of up to ${maxProposals}`}
             </span>
           )}
@@ -135,47 +251,66 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
       {job?.error && <ErrorNote>{job.error}</ErrorNote>}
 
       {job && (
-        <div data-component="run-progress" className="card p-4 grid gap-4">
-          <div>
-            <div className="flex justify-between text-xs text-muted">
-              <span className="label">Round progress</span>
-              <span className="num">{round} / {maxProposals}</span>
-            </div>
-            <div className="mt-2 h-1.5 rounded-chip bg-sunken overflow-hidden">
-              <div className="h-full bg-accent transition-all" style={{ width: `${progress}%` }} />
+        <div data-component="run-progress" className="grid gap-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <p className="max-w-lede font-display text-lg text-prose">
+              {running
+                ? `The committee is working. Each round, the Referee checks the draft against ${client.rules.length} rules and the analysts answer.`
+                : job.status === 'done'
+                  ? `Finished: ${VERDICTS[result.receipt.verdict]?.label ?? result.receipt.verdict} after ${result.rounds} round${result.rounds > 1 ? 's' : ''}.`
+                  : 'The live run stopped.'}
+            </p>
+            <div className="text-right">
+              <div className="flex items-baseline justify-end gap-3">
+                <span className="font-display text-3xl font-semibold">{round === 0 ? 'Memos' : `Round ${round}`}</span>
+                <span className="text-sm text-muted">of up to <span className="num">{maxProposals}</span></span>
+              </div>
+              <div className="mt-2 flex justify-end gap-1">
+                {Array.from({ length: maxProposals }, (_, i) => (
+                  <span key={i} className={`h-1 w-16 ${i + 1 < round || (i + 1 === round && !running) ? 'bg-ink' : i + 1 === round ? 'bg-ink/70' : 'bg-line'}`} />
+                ))}
+              </div>
+              <div className="mt-2 text-ui text-muted">
+                <span className="num text-ink">{clock(elapsed)}</span> elapsed
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            {AGENT_ORDER.map((a) => <AgentTile key={a} agent={a} state={states[a]} />)}
-          </div>
-          {lastReferee && (
-            <div className="text-sm">
-              <span className="label mr-2">Latest Referee result</span>
-              {describe(lastReferee)}
+          {!result && (
+            <div className="grid gap-10 md:grid-cols-3 md:gap-12">
+              {shownRounds.map((r) =>
+                r <= current ? (
+                  <LiveRound key={r} round={r} events={events} rules={client.rules} current={running && r === current} rows={rows} />
+                ) : (
+                  <FutureRound key={r} round={r} />
+                ),
+              )}
             </div>
           )}
-          <ol data-field="run-events" className="grid gap-1 text-xs text-muted max-h-64 overflow-auto">
-            {events.filter((e) => e.type !== 'working').map((e) => (
-              <li key={e.seq} data-event={e.type} className="flex gap-3 items-center">
-                <span className="num w-10 shrink-0 text-right">{e.t.toFixed(1)}s</span>
-                <span>{describe(e)}</span>
-                {e.type === 'stance' && e.stance && <StanceBadge stance={e.stance} />}
-              </li>
-            ))}
-          </ol>
+          <details className="text-xs text-muted">
+            <summary className="cursor-pointer">Event log · {events.filter((e) => e.type !== 'working').length} events</summary>
+            <ol data-field="run-events" className="mt-2 grid max-h-64 gap-1 overflow-auto">
+              {events.filter((e) => e.type !== 'working').map((e) => (
+                <li key={e.seq} data-event={e.type} className="flex items-center gap-3">
+                  <span className="num w-10 shrink-0 text-right">{e.t.toFixed(1)}s</span>
+                  <span>{describe(e)}</span>
+                </li>
+              ))}
+            </ol>
+          </details>
         </div>
       )}
 
       {result && (
         <div className="grid gap-8 animate-reveal">
-          <DebateTimeline steps={steps} visible={steps.length} />
+          <DebateTimeline steps={steps} visible={steps.length} rules={client.rules} />
           <div>
-            <SectionTitle eyebrow="Holdings" title="Starting → final" />
+            <h3 className="mb-4 font-display text-h3 font-semibold">From the starting book to the final one</h3>
             <StartingWeights start={client.current_weights} final={result.final_proposal.weights} />
           </div>
           <ReceiptCard
             variant={receiptVariant}
             receipt={result.receipt}
+            client={client}
             rules={client.rules}
             before={client.current_weights}
             after={result.final_proposal.weights}
