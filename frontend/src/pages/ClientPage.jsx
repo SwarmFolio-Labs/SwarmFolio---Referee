@@ -1,7 +1,7 @@
 // One client: the committee run (replayed step by step), the receipt, rule prices, and the live Referee.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { getClients, getDemo } from '../api.js'
+import { getClients, getDemo, getSettings } from '../api.js'
 import DebateTimeline from '../components/DebateTimeline.jsx'
 import LiveRun from '../components/LiveRun.jsx'
 import PriceTags from '../components/PriceTags.jsx'
@@ -146,6 +146,8 @@ function ClientDetail({ id, receiptVariant }) {
   const [demoError, setDemoError] = useState(null)
   const [error, setError] = useState(null)
   const [tab, setTab] = useState('run')
+  // Hidden until the API says live runs are on (the public demo turns them off).
+  const [liveRuns, setLiveRuns] = useState(false)
 
   useEffect(() => {
     getClients()
@@ -156,6 +158,9 @@ function ClientDetail({ id, receiptVariant }) {
       })
       .catch((e) => setError(e.message))
     getDemo(id).then(setDemo).catch((e) => setDemoError(e.message))
+    getSettings()
+      .then((s) => setLiveRuns(Boolean(s.live_runs)))
+      .catch(() => setLiveRuns(false))
   }, [id])
 
   if (error) return <ErrorNote>{error}</ErrorNote>
@@ -186,7 +191,7 @@ function ClientDetail({ id, receiptVariant }) {
       </div>
 
       <div className="border-b border-line flex gap-1">
-        {TABS.map((t) => (
+        {TABS.filter((t) => t.id !== 'live' || liveRuns).map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
@@ -203,9 +208,18 @@ function ClientDetail({ id, receiptVariant }) {
       <div className={tab === 'run' ? '' : 'hidden'}>
         <RunView client={client} demo={demo} demoError={demoError} receiptVariant={receiptVariant} />
       </div>
-      <div className={tab === 'live' ? '' : 'hidden'}>
-        <LiveRun client={client} receiptVariant={receiptVariant} />
-      </div>
+      {liveRuns && (
+        <div className={tab === 'live' ? '' : 'hidden'}>
+          <LiveRun
+            client={client}
+            receiptVariant={receiptVariant}
+            onDisabled={() => {
+              setLiveRuns(false)
+              setTab('run')
+            }}
+          />
+        </div>
+      )}
       <div className={tab === 'prices' ? '' : 'hidden'}>
         <PriceTags clientId={client.client_id} />
       </div>

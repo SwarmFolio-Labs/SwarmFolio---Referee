@@ -21,6 +21,8 @@ export const getClients = () => request('/clients')
 export const getDemo = (id) => request(`/demo/${id}`)
 export const getPrices = (id) => request(`/prices/${id}`)
 export const getExperiment = () => request('/experiment')
+/** {live_runs}: false in the public demo (no live committee runs). */
+export const getSettings = () => request('/settings')
 export const checkProposal = (clientId, weights) =>
   request('/referee', {
     method: 'POST',

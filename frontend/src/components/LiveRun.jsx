@@ -58,7 +58,7 @@ function AgentTile({ agent, state }) {
   )
 }
 
-export default function LiveRun({ client, receiptVariant }) {
+export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const [useFakes, setUseFakes] = useState(true)
   const [job, setJob] = useState(null) // {job_id, status, max_rounds, result, error}
   const [events, setEvents] = useState([])
@@ -73,7 +73,9 @@ export default function LiveRun({ client, receiptVariant }) {
       const { job_id } = await startRun(client.client_id, { fakes: useFakes, stepDelay: useFakes ? 0.8 : 0 })
       setJob({ job_id, status: 'running' })
     } catch (e) {
-      setStartError(e.message)
+      // 503: live runs are off in this deployment, so fall back to the saved committee run.
+      if (e.status === 503 && onDisabled) onDisabled()
+      else setStartError(e.message)
     }
   }
 
