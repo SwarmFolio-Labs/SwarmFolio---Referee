@@ -85,7 +85,9 @@ def _system_prompt(sectors: dict[str, str]) -> str:
         f"Stocks by sector: {universe}.\n"
         "For each rule, `source` must be the exact words from the text, copied character for character. "
         "If a phrase is a rule that doesn't fit these types or stocks (another asset, a return target, ESG "
-        "scores, dates...), put it in `unmapped` with the reason. Never invent a number the text doesn't give."
+        "scores, dates...), put it in `unmapped` with the reason. Never invent a number the text doesn't give. "
+        "Map EVERY rule, even if two rules contradict each other: never drop or unmap a rule because of a "
+        "conflict, since the Referee proves conflicts itself."
     )
 
 
@@ -97,6 +99,10 @@ def _check_params(rule_type: str, params: dict, sectors: dict[str, str]) -> tupl
     """Return (clean params, "") or (None, reason)."""
     spec = PARAMS[rule_type]
     keys = {k for k, _ in spec}
+    # Small LLMs often nest the params under the type name: {"max_weight": {"ticker": "*", "max": 0.4}}.
+    # Unwrapping that one exact shape is safe: the inner values still go through every check below.
+    if len(params) == 1 and rule_type in params and isinstance(params[rule_type], dict):
+        params = params[rule_type]
     if set(params) != keys:
         return None, f"{rule_type} needs exactly {sorted(keys)}, got {sorted(params)}"
     clean = {}

@@ -269,3 +269,37 @@ def test_chat_nothing_mappable_gets_help(monkeypatch, fake_llm):
     fake_llm(Draft(unmapped=[DraftPhrase(text="make me rich", reason="not a rule")]))
     events = _talk(8152, "make me rich", lambda ev: any(e[0] == "chat" for e in ev))
     assert "couldn't find any rule" in events[0][1] and "plain English" in events[0][1]
+
+
+def test_params_nested_under_the_type_name_are_unwrapped():
+    """asi1-mini answered {"max_weight": {"ticker": "*", "max": 0.4}} in a live ASI:One chat; that must still work."""
+    from referee.extract import Draft, DraftRule, validate_draft
+    text = "no single stock above 40%, at least 35% in healthcare, healthcare at most 25%"
+    draft = Draft(rules=[
+        DraftRule(type="max_weight", params={"max_weight": {"ticker": "*", "max": 0.4}}, source="no single stock above 40%"),
+        DraftRule(type="sector_min", params={"sector_min": {"min": 0.35, "sector": "Healthcare"}}, source="at least 35% in healthcare"),
+        DraftRule(type="sector_max", params={"sector_max": {"max": 0.25, "sector": "Healthcare"}}, source="healthcare at most 25%"),
+    ])
+    out = validate_draft(text, draft)
+    assert [r.type for r in out.rules] == ["max_weight", "sector_min", "sector_max"] and out.unmapped == []
+    assert out.rules[0].params == {"ticker": "*", "max": 0.4}
+
+
+def test_nested_params_still_go_through_every_check():
+    """Unwrapping is not guessing: a bad value inside is still refused."""
+    from referee.extract import Draft, DraftRule, validate_draft
+    draft = Draft(rules=[DraftRule(type="max_weight", params={"max_weight": {"ticker": "*", "max": 40}},
+                                   source="no single stock above 40%")])
+    out = validate_draft("no single stock above 40%", draft)
+    assert out.rules == [] and "fraction" in out.unmapped[0].reason
+    # Only the rule's OWN type name is unwrapped.
+    draft = Draft(rules=[DraftRule(type="max_weight", params={"sector_max": {"ticker": "*", "max": 0.4}},
+                                   source="no single stock above 40%")])
+    assert validate_draft("no single stock above 40%", draft).rules == []
+
+
+def test_prompt_says_conflicts_are_the_referees_job():
+    """asi1-mini used to drop 'healthcare at most 25%' as 'contradicting' the 35% floor; the Referee must see both."""
+    from referee.extract import _system_prompt
+    from referee.market import load_sectors
+    assert "Map EVERY rule, even if two rules contradict each other" in _system_prompt(load_sectors())
