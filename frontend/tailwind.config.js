@@ -5,8 +5,9 @@
  */
 const color = (name) => `rgb(var(--${name}) / <alpha-value>)`
 
-const TOKEN_COLORS = ['bg', 'surface', 'sunken', 'ink', 'muted', 'placeholder', 'line', 'accent', 'on-accent',
-  'pass', 'fail', 'warn', 'concede', 'defend', 'modify']
+const TOKEN_COLORS = ['bg', 'surface', 'sunken', 'ink', 'muted', 'faint', 'prose', 'placeholder', 'line', 'perforation',
+  'before-bar', 'accent', 'on-accent', 'pass', 'fail', 'warn', 'warn-text', 'pass-tint', 'fail-tint', 'warn-tint',
+  'concede', 'defend', 'modify']
 
 // Tailwind's default spacing keys, each a multiple of --space-unit (p-4 = 4 units = 1rem by default).
 const SPACING_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40,
@@ -39,11 +40,20 @@ export default {
       '3xs': size('3xs', false),
       '2xs': size('2xs', false),
       xs: size('xs'),
+      ui: size('ui'),
       sm: size('sm'),
+      md: size('md'),
       base: size('base'),
+      prose: size('prose'),
       lg: size('lg'),
+      lead: size('lead'),
       xl: size('xl'),
+      '2xl': size('2xl'),
+      h3: size('h3'),
       '3xl': size('3xl'),
+      '4xl': size('4xl'),
+      '5xl': size('5xl'),
+      '6xl': size('6xl'),
     },
     fontWeight: {
       normal: 'var(--weight-normal)',
@@ -54,6 +64,7 @@ export default {
     letterSpacing: {
       normal: '0em',
       tight: 'var(--tracking-tight)',
+      snug: 'var(--tracking-snug)',
       wide: 'var(--tracking-wide)',
       wider: 'var(--tracking-wider)',
     },
