@@ -104,3 +104,36 @@ def test_analyst_prompt_asks_for_bare_tickers(stub):
     seen = stub(Memo(agent="macro", favor=[], avoid=[], sector_views={}, reasons={}, confidence=0.5))
     analysts.analyze("macro", _request())
     assert "bare ticker symbols" in seen["system"]
+
+
+ALVAREZ = analysts.load_client("C04")
+
+
+def test_holdings_text_shows_holdings_and_turnover_definition():
+    text = analysts.holdings_text(ALVAREZ)
+    assert "NVDA 25.0%" in text and "MSFT 20.0%" in text
+    assert "|new weight - current weight|" in text and "20% turnover" in text
+    # Dr. Patel has holdings but no turnover rule: holdings yes, definition no.
+    patel_text = analysts.holdings_text(PATEL)
+    assert "JNJ 40.0%" in patel_text and "Turnover" not in patel_text
+
+
+def test_chair_and_analysts_see_current_holdings(stub):
+    """Without today's holdings, nobody can keep turnover under the cap (the C04 failure)."""
+    seen = stub(Proposal(weights={"JPM": 1.0}, thesis="t", reasons={}))
+    chair.chair_propose(ALVAREZ, [])
+    assert "NVDA 25.0%" in seen["user"] and "Turnover =" in seen["user"]
+    chair.chair_revise_with(ALVAREZ, Proposal(weights={"JPM": 1.0}, thesis="t", reasons={}), "fix it")
+    assert "NVDA 25.0%" in seen["user"]
+
+    seen = stub(Memo(agent="risk", favor=[], avoid=[], sector_views={}, reasons={}, confidence=0.5))
+    req = AnalysisRequest(client_id="C04", client_story=ALVAREZ.story,
+                          rules_text=[r.source for r in ALVAREZ.rules], as_of="2026-10-16")
+    analysts.analyze("risk", req)
+    assert "NVDA 25.0%" in seen["user"]
+
+    seen = stub(Stance(agent="risk", stance="concede", change="c", why="w"))
+    analysts.review("risk", ReviewRequest(client_id="C04", round=1, failures=["Turnover too high."],
+                                          proposal=Proposal(weights={"JPM": 1.0}, thesis="t", reasons={}),
+                                          conflict_explain=""))
+    assert "NVDA 25.0%" in seen["user"] and "Turnover =" in seen["user"]

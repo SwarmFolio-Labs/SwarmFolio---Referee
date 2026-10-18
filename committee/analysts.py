@@ -80,6 +80,22 @@ def risk_data(universe: list[str]) -> str:
 DATA_BLOCKS = {"macro": macro_data, "fundamentals": fundamentals_data, "risk": risk_data}
 
 
+def holdings_text(client: Client) -> str:
+    """
+    What the client owns today, plus how the Referee counts turnover (if a rule limits it).
+    Without this, nobody on the committee can know how far a new portfolio moves from today.
+    """
+    if client.current_weights:
+        held = sorted(client.current_weights.items(), key=lambda x: -x[1])
+        text = "Current holdings: " + ", ".join(f"{t} {_pct(w)}" for t, w in held) + "."
+    else:
+        text = "Current holdings: none (starting from cash)."
+    if any(r.type == "max_turnover" for r in client.rules):
+        text += ("\nTurnover = the sum over every ticker of |new weight - current weight|. Buys AND sells both "
+                 "count, so moving 10% from NVDA into JPM is 20% turnover. A ticker not held today counts as 0%.")
+    return text
+
+
 # ---------- Prompts (MASTER 7.2) ----------
 
 def _system(agent: str, schema) -> str:
@@ -101,7 +117,7 @@ def analyze(agent: str, req: AnalysisRequest) -> Memo:
     if agent not in ANALYSTS:
         raise ValueError(f"Unknown analyst {agent!r} (use one of {ANALYSTS})")
     client = load_client(req.client_id)
-    user = (f"{_client_text(req.client_story, req.rules_text)}\n\n"
+    user = (f"{_client_text(req.client_story, req.rules_text)}\n{holdings_text(client)}\n\n"
             f"Tickers you may talk about: {', '.join(client.universe)}\n\n"
             f"Your data:\n{DATA_BLOCKS[agent](client.universe)}\n\n"
             f"Set \"agent\" to \"{agent}\".")
@@ -156,7 +172,9 @@ def review(agent: str, req: ReviewRequest) -> Stance:
     if agent not in ANALYSTS:
         raise ValueError(f"Unknown analyst {agent!r} (use one of {ANALYSTS})")
     failures = "\n".join(f"- {f}" for f in req.failures) or "- none"
-    user = (f"Round {req.round}. The committee's portfolio: {json.dumps(req.proposal.weights)}\n"
+    client = load_client(req.client_id)
+    user = (f"{holdings_text(client)}\n"
+            f"Round {req.round}. The committee's portfolio: {json.dumps(req.proposal.weights)}\n"
             f"The independent Referee checked the committee's portfolio. These rules failed:\n{failures}\n"
             f"{req.conflict_explain}\n"
             "Decide: concede (accept a change), defend (keep your view, explain why it doesn't break the rules), "

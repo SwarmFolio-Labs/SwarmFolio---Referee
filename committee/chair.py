@@ -9,6 +9,7 @@ repaired weights. That keeps "did the committee fix itself?" an honest measureme
 import json
 
 from committee import llm
+from committee.analysts import holdings_text
 from committee.feedback import format_feedback
 from models import Memo, Receipt, Stance
 from referee.schema import Client, Proposal
@@ -22,7 +23,8 @@ def _system(client: Client) -> str:
 
 
 def _client_text(client: Client) -> str:
-    return "Client story: " + client.story + "\nClient rules:\n" + "\n".join(f"- {r.source}" for r in client.rules)
+    rules = "\n".join(f"- {r.source}" for r in client.rules)
+    return f"Client story: {client.story}\nClient rules:\n{rules}\n{holdings_text(client)}"
 
 
 def clean_proposal(client: Client, proposal: Proposal) -> Proposal:
