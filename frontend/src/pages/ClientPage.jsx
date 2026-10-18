@@ -169,6 +169,23 @@ function RunView({ client, demo, demoError, steps, replay, onTab }) {
 
   return (
     <div className="grid gap-12 pb-24 md:pb-0">
+      {/* Impossible client: the conflict comes first, above the replayed rounds. */}
+      {!demo.receipt.rules_feasible && (
+        <div className="animate-reveal">
+          <ConflictPanel
+            layout="page"
+            explain={demo.receipt.conflict_explain}
+            relaxations={demo.receipt.cheapest_relaxation}
+            conflictSet={demo.receipt.conflict_set}
+            rules={client.rules}
+            checks={demo.receipt.checks}
+            clientName={displayName(client.name)}
+            clientStory={client.story}
+            onEdit={() => onTab('try')}
+          />
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center gap-3 text-ui text-muted">
         <span className={`h-1.5 w-1.5 rounded-full ${replay.playing ? 'animate-pulse bg-warn' : 'bg-muted'}`} />
         {replay.playing
@@ -191,22 +208,6 @@ function RunView({ client, demo, demoError, steps, replay, onTab }) {
           )}
         </span>
       </div>
-
-      {replay.done && !demo.receipt.rules_feasible && (
-        <div className="animate-reveal">
-          <ConflictPanel
-            layout="page"
-            explain={demo.receipt.conflict_explain}
-            relaxations={demo.receipt.cheapest_relaxation}
-            conflictSet={demo.receipt.conflict_set}
-            rules={client.rules}
-            checks={demo.receipt.checks}
-            clientName={displayName(client.name)}
-            clientStory={client.story}
-            onEdit={() => onTab('try')}
-          />
-        </div>
-      )}
 
       <DebateTimeline
         steps={steps}
@@ -328,9 +329,14 @@ function ClientDetail({ id }) {
           <p className="mt-3 font-display text-lead text-prose">{client.story}</p>
         </div>
         {demo && current.id === 'run' && (
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 sm:gap-8">
             <RoundTally steps={steps} visible={replay.visible} />
-            {replay.done && <Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} />}
+            {replay.done && (
+              <>
+                <div className="sm:hidden"><Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} size="sm" /></div>
+                <div className="hidden sm:block"><Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} /></div>
+              </>
+            )}
           </div>
         )}
       </div>
