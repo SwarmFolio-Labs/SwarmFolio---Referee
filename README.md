@@ -208,9 +208,11 @@ His tax rule is the expensive one, not his Tech cap.
 
 **Question:** can math feedback teach an AI to follow a client's rules, and does it matter whether the math *explains* itself? (`eval/experiment.py`)
 
-**Design (this run):** the comparison is paired, so it's fair.
-- **Clients:** the 4 hard clients C91–C94. These are realistic, tight clients: their limits sit just above the solver's floor, the tightest limit any portfolio could meet. The AI has to calculate whether a portfolio fits, not just read the rules. (Infeasible clients can't comply, so they're judged separately.)
-- **Trials:** 3 per client, so 12 client-trials, with model `asi1`. The trial number goes into the prompt, and calls use temperature 0.7, so each trial is a genuinely different sample.
+**Answer, from two runs on two models:** about 80% of the AI's first drafts broke a rule, and no feedback style made the AI reliably fix them. Explaining *why* a rule broke did not significantly beat saying *which* rule broke. The Referee's exact repair is what guarantees compliance (100%).
+
+**Design:** the comparison is paired, so it's fair.
+- **Clients:** hard clients only. These are realistic, tight clients: their limits sit just above the solver's floor, the tightest limit any portfolio could meet. The AI has to calculate whether a portfolio fits, not just read the rules. (Infeasible clients can't comply, so they're judged separately.)
+- **Trials:** the trial number goes into the prompt, and calls use temperature 0.7, so each trial is a genuinely different sample.
 - **Shared start:** per client-trial, the 3 memos and the Chair's **first draft** are made once and reused, so every condition starts from exactly the same draft.
 
 There are three conditions. Each one gets up to 3 rounds of Chair-only revision, with the Referee checking after every round:
@@ -226,38 +228,42 @@ There are three conditions. Each one gets up to 3 rounds of Chair-only revision,
 - mean number of broken rules and mean total violation;
 - capital moved from the first draft (how much of the AI's idea is kept);
 - 95% bootstrap confidence intervals;
-- paired sign tests for C vs. B and C vs. A.
+- paired sign tests on rounds to compliance.
 
-A larger run with `asi1-mini` on 19 clients is in progress (results below when it finishes).
-
-### Results (C91–C94 × 3 trials = 12 client-trials, `asi1`)
-
-**10 of 12 first drafts (83%) broke at least one rule.**
-
-| Condition | Compliant after 3 rounds [95% CI] |
-|---|---|
-| A. Self-check | 33% [8, 58] |
-| B. Bare verdict | 42% [17, 67] |
-| C. Explained | 50% [25, 75] |
-
-Paired sign tests compare how many rounds each client-trial needed to become compliant:
-
-| Comparison | C fewer / same / more | p |
+| | Run 1 | Run 2 |
 |---|---|---|
-| C vs. B | 2 / 9 / 1 | 1.000 |
-| C vs. A | 3 / 8 / 1 | 0.625 |
+| Model | `asi1` | `gemini-3.5-flash-lite` (the only model, no fallback) |
+| Clients | 4 hard clients (C91–C94) × 3 trials = 12 client-trials | 10 hard clients (C10, C11, C12, C13, C17, C21, C23, C91, C93, C94) × 2 trials = 20 client-trials, 208 LLM calls |
+| Explained wording | older "limit" wording | fixed "minimum"/"maximum" wording |
 
-![Compliance rate vs. revision round for each feedback condition](eval/results/learning_curves.png)
+### Results
 
-**Finding:** on realistic, tight clients, the AI broke a rule in 83% of first drafts.
-- More explanation helped: compliance after 3 rounds went from 33% to 42% to 50%. With 12 trials the difference is **not statistically significant**, so it's a trend, not a proof.
-- Even with the best feedback, half the portfolios still broke a rule after 3 tries. Only the Referee's repair reached 100% compliance.
+| | Run 1 (`asi1`, 12) | Run 2 (`gemini-3.5-flash-lite`, 20) |
+|---|---|---|
+| First drafts that broke a rule | 10 / 12 (83%) | 16 / 20 (80%) |
+| Compliant after 3 rounds: A. Self-check | 33% [8, 58] | 20% [5, 40] |
+| Compliant after 3 rounds: B. Bare verdict | 42% [17, 67] | 25% [10, 45] |
+| Compliant after 3 rounds: C. Explained | 50% [25, 75] | 25% [10, 45] |
+| C vs. B, rounds to compliance (C fewer / same / more) | 2 / 9 / 1, p = 1.000 | 1 / 18 / 1, p = 1.000 |
+| C vs. A, rounds to compliance (C fewer / same / more) | 3 / 8 / 1, p = 0.625 | 1 / 19 / 0, p = 1.000 |
 
-Full tables, including broken-rule counts and capital moved, are in `eval/results/experiment.md`.
+95% bootstrap confidence intervals are in brackets. No difference between any two conditions is statistically significant in either run.
 
-### Results: `asi1-mini`, 19 clients (in progress)
+Run 1 (`asi1`):
 
-> **TODO:** first drafts that broke a rule `__` of `__`; compliance after 3 rounds: A `__%` [CI], B `__%` [CI], C `__%` [CI]; sign tests C vs. B p = `__`, C vs. A p = `__`.
+![Run 1: compliance rate vs. revision round for each feedback condition, asi1](eval/results/learning_curves.png)
+
+Run 2 (`gemini-3.5-flash-lite`):
+
+![Run 2: compliance rate vs. revision round for each feedback condition, gemini-3.5-flash-lite](eval/results/learning_curves_gemini_lite.png)
+
+**Finding:** across two models, about 80% of first drafts broke a rule (83% and 80%), and no feedback style made the AI reliably self-correct.
+- In run 2, only 2 of the 16 broken drafts were fixed by the AI within 3 rounds, one with the bare verdict and one with the explained feedback. Self-check fixed none.
+- Explaining *why* (actual vs. limit) did not significantly beat saying *which* rule broke. Run 1 showed explained ahead (50% vs. 42% vs. 33%), but run 2 had explained and bare tied (25% vs. 25%), and neither run is significant.
+- One pattern, too small to claim: in run 2, explained feedback shrank the total size of the violations the most by round 3 (6.0 percentage points vs. 8.5 for bare and 10.4 for self-check), but it sometimes broke smaller rules while fixing the big one (1.35 broken rules vs. 1.10).
+- **So the Referee doesn't rely on the AI to fix itself:** its exact repair (the nearest compliant portfolio) is what guarantees compliance, 100% of the time.
+
+Full tables, including broken-rule counts and capital moved, are in `eval/results/experiment.md` (run 1) and `eval/results/experiment_gemini_lite.md` (run 2).
 
 The evaluation (`eval/run_eval.py`, metrics M1–M6) judges the infeasible clients separately. C03, C25, C26 and C27 each have a planted conflict, and M5 checks that the Referee flags each one as impossible and returns exactly the planted conflict set.
 
@@ -365,4 +371,5 @@ All clients are synthetic. This is a tool for advisors: the Referee only checks 
 - **[CVXPY](https://www.cvxpy.org/)**: the convex optimization modeling layer
 - **[SCIP](https://www.scipopt.org/)** (via PySCIPOpt): the mixed-integer solver behind every Referee answer
 - **[LangChain](https://www.langchain.com/)**: the LLM layer for the analysts and the Chair
+- **[Google Gemini](https://ai.google.dev/)** (`gemini-3.5-flash-lite`): the model for the second feedback-experiment run
 - **[Stripe](https://stripe.com/)** (test mode): the checkout behind pay-per-check, following Fetch's Stripe Payment Protocol example
