@@ -1,7 +1,7 @@
 """
 Start the Fetch.ai agents, one process each (MASTER 9.2).
 
-Plan B step 2: only the Referee and the Chair for now (the analysts come later).
+All 5 agents: Referee, the three analysts, then the Chair (ports 8001-8005).
 Prints each agent's address and Inspector link, then waits; Ctrl+C stops them all.
 Run it from the project folder with:  python -m agents.run_all
 """
@@ -15,9 +15,13 @@ from uagents_core.identity import Identity
 
 import config
 
-# (name in AGENT_PORTS, seed variable in .env, module to run). Referee first so it's up when the Chair calls.
+# (name in AGENT_PORTS, seed variable in .env, module to run). The Chair goes last so the
+# agents it calls are already up.
 AGENTS = [
     ("referee", "REFEREE_SEED", "agents.referee_agent"),
+    ("macro", "MACRO_SEED", "agents.macro_agent"),
+    ("fundamentals", "FUNDAMENTALS_SEED", "agents.fundamentals_agent"),
+    ("risk", "RISK_SEED", "agents.risk_agent"),
     ("chair", "CHAIR_SEED", "agents.chair_agent"),
 ]
 
@@ -34,11 +38,14 @@ def main() -> None:
         address = Identity.from_seed(seed, 0).address  # same address the agent will have
         inspector = (f"https://agentverse.ai/inspect/?uri={quote(f'http://127.0.0.1:{port}')}"
                      f"&address={address}")
-        print(f"{name:8} port {port}  {address}")
-        print(f"         Inspector: {inspector}")
+        print(f"{name:12} port {port}  {address}")
+        print(f"             Inspector: {inspector}")
         procs.append(subprocess.Popen([sys.executable, "-m", module], cwd=project))
 
     print("\nAll agents started. Ctrl+C to stop.")
+    if os.getenv("USE_ANALYST_AGENTS", "false").strip().lower() not in ("1", "true", "yes", "on"):
+        print("Note: USE_ANALYST_AGENTS is off, so the Chair still calls the analyst brains locally."
+              " Set USE_ANALYST_AGENTS=true in .env to route memos and stances through the analyst agents.")
     try:
         for p in procs:
             p.wait()

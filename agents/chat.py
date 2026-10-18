@@ -16,6 +16,7 @@ from uagents_core.contrib.protocols.chat import (
     ChatAcknowledgement,
     ChatMessage,
     EndSessionContent,
+    MetadataContent,
     TextContent,
 )
 
@@ -45,9 +46,12 @@ async def acknowledge(ctx, sender: str, msg: ChatMessage) -> None:
                                                acknowledged_msg_id=msg.msg_id))
 
 
-async def say(ctx, sender: str, text: str, end: bool = False) -> None:
-    """Send a chat message. end=True also closes the session (used for the final answer)."""
+async def say(ctx, sender: str, text: str, end: bool = False, card: MetadataContent | None = None) -> None:
+    """Send a chat message. end=True also closes the session (used for the final answer).
+    card (agents/cards.py) adds an ASI:One Interactive Card; the text stays as the fallback."""
     content = [TextContent(type="text", text=text)]
+    if card is not None:
+        content.append(card)
     if end:
         content.append(EndSessionContent(type="end-session"))
     await ctx.send(sender, ChatMessage(timestamp=datetime.now(timezone.utc), msg_id=uuid4(), content=content))

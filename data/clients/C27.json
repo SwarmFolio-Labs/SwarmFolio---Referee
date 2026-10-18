@@ -1,0 +1,84 @@
+{
+ "client_id": "C27",
+ "name": "Mr. Sorensen (synthetic)",
+ "story": "Retired Apple engineer sitting on decades of tech gains who wants to cut tech sharply but refuses a large tax bill.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "AAPL": 0.35,
+  "MSFT": 0.2,
+  "GOOGL": 0.2,
+  "JPM": 0.1,
+  "PG": 0.15
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.68
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Trade at most 68% of the portfolio, I won't pay more tax than that."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.37
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Tech must come down to 37% or less."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.31
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single stock above 31%."
+  },
+  {
+   "id": "R4",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM",
+     "CVX"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No oil."
+  }
+ ],
+ "planted_conflict": [
+  "R1",
+  "R2"
+ ]
+}

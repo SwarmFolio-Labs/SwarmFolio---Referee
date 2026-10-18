@@ -1,0 +1,95 @@
+{
+ "client_id": "C19",
+ "name": "Ms. Petrova (synthetic)",
+ "story": "Widowed retiree living off her savings who wants steady consumer staples, some bonds, and almost no gold.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.24
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "At least 24% in household names."
+  },
+  {
+   "id": "R2",
+   "type": "sector_min",
+   "params": {
+    "sector": "Bonds",
+    "min": 0.15
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Bonds at least 15%."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "TLT",
+    "max": 0.22
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "But the bond fund no more than 22%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Gold",
+    "max": 0.04
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Gold at most 4%."
+  },
+  {
+   "id": "R5",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.24
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at most 24%."
+  },
+  {
+   "id": "R6",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.092
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "I can't handle more than 9.2% annual volatility."
+  }
+ ],
+ "planted_conflict": null
+}

@@ -1,0 +1,432 @@
+{
+  "client_id": "C03",
+  "final_proposal": {
+    "weights": {
+      "AAPL": 0.1,
+      "MSFT": 0.15,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "JNJ": 0.3,
+      "UNH": 0.09999999999999998,
+      "PG": 0.15
+    },
+    "thesis": "Keep the legacy JNJ, add quality growth (MSFT, GOOGL, UNH) and defensive PG. NEEDS ADVISOR APPROVAL: These rules can't all hold: 'Keep at least 30% in legacy JNJ (tax reasons)', 'Healthcare at most 35%', 'Hold at least 10% UNH (family shares)' (30% + 10% = 40% > 35%). Cheapest fix (needs advisor approval): Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20).",
+    "reasons": {
+      "JNJ": "Legacy position the client must keep at 30% for tax reasons.",
+      "UNH": "Strong earnings growth and pricing power in managed care.",
+      "MSFT": "Steady cloud growth with high margins.",
+      "AAPL": "Cash-rich, lower volatility than most tech.",
+      "GOOGL": "Cheap relative to earnings growth.",
+      "JPM": "Best-run large bank; adds a non-tech sector.",
+      "PG": "Defensive staple that keeps volatility down."
+    }
+  },
+  "receipt": {
+    "receipt_id": "07aae9e24da5",
+    "timestamp": "2026-10-18T02:20:51Z",
+    "client_id": "C03",
+    "verdict": "RULES_INFEASIBLE",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.35,
+        "violation": 0.0,
+        "explain": "The largest position is JNJ at 30.0% (limit 35.0%): OK. The client said: 'No single position above 35%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (limit 0.0%): OK. The client said: 'No fossil fuel companies.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "JNJ is 30.0% of the portfolio (limit 30.0%): OK. The client said: 'Keep at least 30% in legacy JNJ (tax reasons).'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": false,
+        "actual": 0.4,
+        "limit": 0.35,
+        "violation": 0.050000000000000044,
+        "explain": "Healthcare is 40.0% of the portfolio (limit 35.0%): BROKEN. The client said: 'Healthcare at most 35%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 7.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 7 holdings (limit 8): OK. The client said: 'At most 8 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "The smallest position is UNH at 10.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.11808299704229992,
+        "limit": 0.18,
+        "violation": 0.0,
+        "explain": "Annual volatility is 11.8% (limit 18.0%): OK. The client said: 'Annual volatility at most 18%.'"
+      },
+      {
+        "rule_id": "R8",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.1,
+        "violation": 0.0,
+        "explain": "UNH is 10.0% of the portfolio (limit 10.0%): OK. The client said: 'Hold at least 10% UNH (family shares).'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": false,
+    "conflict_set": [
+      "R3",
+      "R4",
+      "R8"
+    ],
+    "conflict_explain": "These rules can't all hold: 'Keep at least 30% in legacy JNJ (tax reasons)', 'Healthcare at most 35%', 'Hold at least 10% UNH (family shares)' (30% + 10% = 40% > 35%).",
+    "cheapest_relaxation": [
+      {
+        "rule_id": "R4",
+        "old_limit": 0.35,
+        "new_limit": 0.39999999999999997,
+        "cost": 20.0,
+        "explain": "Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20)."
+      }
+    ],
+    "repaired_weights": {
+      "AAPL": 0.1,
+      "MSFT": 0.15,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "JNJ": 0.3,
+      "UNH": 0.09999999999999998,
+      "PG": 0.15
+    },
+    "capital_moved": 1.3877787807814457e-17,
+    "sharpe_before": 1.333227562607462,
+    "sharpe_after": 1.333227562607462,
+    "vol_after": 0.11808299704229992,
+    "summary": "These rules can't all hold (R3, R4, R8). Cheapest fix: Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20). Under the relaxed rules, the nearest portfolio moves 0% of capital.",
+    "notes": [
+      "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+    ]
+  },
+  "first_receipt": {
+    "receipt_id": "07aae9e24da5",
+    "timestamp": "2026-10-18T02:20:51Z",
+    "client_id": "C03",
+    "verdict": "RULES_INFEASIBLE",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.35,
+        "violation": 0.0,
+        "explain": "The largest position is JNJ at 30.0% (limit 35.0%): OK. The client said: 'No single position above 35%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (limit 0.0%): OK. The client said: 'No fossil fuel companies.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.3,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "JNJ is 30.0% of the portfolio (limit 30.0%): OK. The client said: 'Keep at least 30% in legacy JNJ (tax reasons).'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "sector_max",
+        "passed": false,
+        "actual": 0.4,
+        "limit": 0.35,
+        "violation": 0.050000000000000044,
+        "explain": "Healthcare is 40.0% of the portfolio (limit 35.0%): BROKEN. The client said: 'Healthcare at most 35%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_holdings",
+        "passed": true,
+        "actual": 7.0,
+        "limit": 8.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 7 holdings (limit 8): OK. The client said: 'At most 8 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "The smallest position is UNH at 10.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.11808299704229992,
+        "limit": 0.18,
+        "violation": 0.0,
+        "explain": "Annual volatility is 11.8% (limit 18.0%): OK. The client said: 'Annual volatility at most 18%.'"
+      },
+      {
+        "rule_id": "R8",
+        "type": "min_weight",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.1,
+        "violation": 0.0,
+        "explain": "UNH is 10.0% of the portfolio (limit 10.0%): OK. The client said: 'Hold at least 10% UNH (family shares).'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": false,
+    "conflict_set": [
+      "R3",
+      "R4",
+      "R8"
+    ],
+    "conflict_explain": "These rules can't all hold: 'Keep at least 30% in legacy JNJ (tax reasons)', 'Healthcare at most 35%', 'Hold at least 10% UNH (family shares)' (30% + 10% = 40% > 35%).",
+    "cheapest_relaxation": [
+      {
+        "rule_id": "R4",
+        "old_limit": 0.35,
+        "new_limit": 0.39999999999999997,
+        "cost": 20.0,
+        "explain": "Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20)."
+      }
+    ],
+    "repaired_weights": {
+      "AAPL": 0.1,
+      "MSFT": 0.15,
+      "GOOGL": 0.1,
+      "JPM": 0.1,
+      "JNJ": 0.3,
+      "UNH": 0.09999999999999998,
+      "PG": 0.15
+    },
+    "capital_moved": 1.3877787807814457e-17,
+    "sharpe_before": 1.333227562607462,
+    "sharpe_after": 1.333227562607462,
+    "vol_after": 0.11808299704229992,
+    "summary": "These rules can't all hold (R3, R4, R8). Cheapest fix: Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20). Under the relaxed rules, the nearest portfolio moves 0% of capital.",
+    "notes": [
+      "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+    ]
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor MSFT, GOOGL, JPM; avoid TLT.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor UNH, GOOGL, AAPL; avoid PFE.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor PG, KO, JNJ; avoid NVDA.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Keep the legacy JNJ, add quality growth (MSFT, GOOGL, UNH) and defensive PG.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "These rules can't all hold (R3, R4, R8). Cheapest fix: Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20). Under the relaxed rules, the nearest portfolio moves 0% of capital.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "note",
+      "text": "These rules can't all hold: 'Keep at least 30% in legacy JNJ (tax reasons)', 'Healthcare at most 35%', 'Hold at least 10% UNH (family shares)' (30% + 10% = 40% > 35%). Cheapest fix (needs advisor approval): Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20).",
+      "stance": null
+    }
+  ],
+  "rounds": 1,
+  "self_corrected": false,
+  "notes": [
+    "Needs advisor approval: the client's rules conflict."
+  ],
+  "extras": {
+    "source": "dev-fakes",
+    "saved_at": "2026-10-18T02:20:51Z",
+    "proposals": [
+      {
+        "JNJ": 0.3,
+        "UNH": 0.1,
+        "MSFT": 0.15,
+        "AAPL": 0.1,
+        "GOOGL": 0.1,
+        "JPM": 0.1,
+        "PG": 0.15
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "07aae9e24da5",
+        "timestamp": "2026-10-18T02:20:51Z",
+        "client_id": "C03",
+        "verdict": "RULES_INFEASIBLE",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.3,
+            "limit": 0.35,
+            "violation": 0.0,
+            "explain": "The largest position is JNJ at 30.0% (limit 35.0%): OK. The client said: 'No single position above 35%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of XOM, CVX (limit 0.0%): OK. The client said: 'No fossil fuel companies.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "min_weight",
+            "passed": true,
+            "actual": 0.3,
+            "limit": 0.3,
+            "violation": 0.0,
+            "explain": "JNJ is 30.0% of the portfolio (limit 30.0%): OK. The client said: 'Keep at least 30% in legacy JNJ (tax reasons).'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "sector_max",
+            "passed": false,
+            "actual": 0.4,
+            "limit": 0.35,
+            "violation": 0.050000000000000044,
+            "explain": "Healthcare is 40.0% of the portfolio (limit 35.0%): BROKEN. The client said: 'Healthcare at most 35%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "max_holdings",
+            "passed": true,
+            "actual": 7.0,
+            "limit": 8.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 7 holdings (limit 8): OK. The client said: 'At most 8 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.1,
+            "limit": 0.05,
+            "violation": 0.0,
+            "explain": "The smallest position is UNH at 10.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "max_volatility",
+            "passed": true,
+            "actual": 0.11808299704229992,
+            "limit": 0.18,
+            "violation": 0.0,
+            "explain": "Annual volatility is 11.8% (limit 18.0%): OK. The client said: 'Annual volatility at most 18%.'"
+          },
+          {
+            "rule_id": "R8",
+            "type": "min_weight",
+            "passed": true,
+            "actual": 0.1,
+            "limit": 0.1,
+            "violation": 0.0,
+            "explain": "UNH is 10.0% of the portfolio (limit 10.0%): OK. The client said: 'Hold at least 10% UNH (family shares).'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": false,
+        "conflict_set": [
+          "R3",
+          "R4",
+          "R8"
+        ],
+        "conflict_explain": "These rules can't all hold: 'Keep at least 30% in legacy JNJ (tax reasons)', 'Healthcare at most 35%', 'Hold at least 10% UNH (family shares)' (30% + 10% = 40% > 35%).",
+        "cheapest_relaxation": [
+          {
+            "rule_id": "R4",
+            "old_limit": 0.35,
+            "new_limit": 0.39999999999999997,
+            "cost": 20.0,
+            "explain": "Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20)."
+          }
+        ],
+        "repaired_weights": {
+          "AAPL": 0.1,
+          "MSFT": 0.15,
+          "GOOGL": 0.1,
+          "JPM": 0.1,
+          "JNJ": 0.3,
+          "UNH": 0.09999999999999998,
+          "PG": 0.15
+        },
+        "capital_moved": 1.3877787807814457e-17,
+        "sharpe_before": 1.333227562607462,
+        "sharpe_after": 1.333227562607462,
+        "vol_after": 0.11808299704229992,
+        "summary": "These rules can't all hold (R3, R4, R8). Cheapest fix: Raise 'Healthcare at most 35%' from 35.0% to 40.0% (cost 4 x 5 points = 20). Under the relaxed rules, the nearest portfolio moves 0% of capital.",
+        "notes": [
+          "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+        ]
+      }
+    ]
+  }
+}

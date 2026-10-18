@@ -1,0 +1,140 @@
+{
+ "client_id": "C14",
+ "name": "Dr. Mbeki (synthetic)",
+ "story": "Climate-policy researcher with a long list of values-based rules who still wants a sensible, low-swing portfolio.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM",
+     "CVX"
+    ]
+   },
+   "priority": 10,
+   "hard": true,
+   "source": "No fossil fuel producers."
+  },
+  {
+   "id": "R2",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No gold, mining is too destructive."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.15
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "At least 15% in healthcare."
+  },
+  {
+   "id": "R4",
+   "type": "sector_min",
+   "params": {
+    "sector": "Tech",
+    "min": 0.24
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at least 24%, clean energy needs chips."
+  },
+  {
+   "id": "R5",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.32
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "But tech at most 32%."
+  },
+  {
+   "id": "R6",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.15
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single company above 15%."
+  },
+  {
+   "id": "R7",
+   "type": "max_weight",
+   "params": {
+    "ticker": "AAPL",
+    "max": 0.07
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Apple at most 7%, I worry about its supply chain."
+  },
+  {
+   "id": "R8",
+   "type": "min_holdings",
+   "params": {
+    "k": 9
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Spread it across at least 9 holdings."
+  },
+  {
+   "id": "R9",
+   "type": "buy_in",
+   "params": {
+    "min": 0.05
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Nothing smaller than 5%."
+  },
+  {
+   "id": "R10",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.104
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10.4%."
+  }
+ ],
+ "planted_conflict": null
+}

@@ -1,0 +1,87 @@
+{
+ "client_id": "C26",
+ "name": "Mr. Adebayo (synthetic)",
+ "story": "Recent MBA graduate who wants a broadly diversified portfolio where every single position still 'matters'.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.22
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Nothing above 22%."
+  },
+  {
+   "id": "R2",
+   "type": "min_holdings",
+   "params": {
+    "k": 9
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "At least 9 different stocks for diversification."
+  },
+  {
+   "id": "R3",
+   "type": "buy_in",
+   "params": {
+    "min": 0.12
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "And every position at least 12%, so each one matters."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.39
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at most 39%."
+  },
+  {
+   "id": "R5",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No gold."
+  }
+ ],
+ "planted_conflict": [
+  "R2",
+  "R3"
+ ]
+}

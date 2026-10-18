@@ -1,0 +1,104 @@
+{
+ "client_id": "C17",
+ "name": "Ms. Oyelaran (synthetic)",
+ "story": "Teacher who read a 'four pillars' book and wants tech, healthcare, banks and consumer brands all represented, in a compact portfolio.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Tech",
+    "min": 0.19
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at least 19%."
+  },
+  {
+   "id": "R2",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.19
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Healthcare at least 19%."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.18
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Financials at least 18%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.19
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Consumer at least 19%."
+  },
+  {
+   "id": "R5",
+   "type": "max_holdings",
+   "params": {
+    "k": 8
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No more than 8 holdings."
+  },
+  {
+   "id": "R6",
+   "type": "buy_in",
+   "params": {
+    "min": 0.08
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Each position at least 8%."
+  },
+  {
+   "id": "R7",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.103
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10.3%."
+  }
+ ],
+ "planted_conflict": null
+}

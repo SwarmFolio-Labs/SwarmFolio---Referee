@@ -1,0 +1,83 @@
+{
+ "client_id": "C21",
+ "name": "Mr. Kowalski (synthetic)",
+ "story": "Small-business owner whose old advisor left him with ten tiny positions; wants a short, clean list without a big tax bill.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "AAPL": 0.12,
+  "MSFT": 0.12,
+  "JPM": 0.11,
+  "JNJ": 0.1,
+  "PG": 0.1,
+  "KO": 0.1,
+  "XOM": 0.09,
+  "GS": 0.09,
+  "PFE": 0.09,
+  "WMT": 0.08
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.76
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Trade no more than 76% of the portfolio."
+  },
+  {
+   "id": "R2",
+   "type": "max_holdings",
+   "params": {
+    "k": 6
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Cut it down to 6 holdings or fewer."
+  },
+  {
+   "id": "R3",
+   "type": "buy_in",
+   "params": {
+    "min": 0.12
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Every holding at least 12%."
+  },
+  {
+   "id": "R4",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "Sell the Exxon, I don't want it anymore."
+  }
+ ],
+ "planted_conflict": null
+}

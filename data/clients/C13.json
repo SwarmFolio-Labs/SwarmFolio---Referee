@@ -1,0 +1,82 @@
+{
+ "client_id": "C13",
+ "name": "Dr. Brennan (synthetic)",
+ "story": "Dentist with a busy practice who wants a concentrated portfolio of a few big positions, but with guardrails on risk.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_holdings",
+   "params": {
+    "k": 5
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "I want 5 names or fewer."
+  },
+  {
+   "id": "R2",
+   "type": "buy_in",
+   "params": {
+    "min": 0.15
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Every position at least 15%, otherwise why bother."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.26
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single stock above 26%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.31
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech capped at 31%."
+  },
+  {
+   "id": "R5",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.097
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "And annual volatility no higher than 9.7%."
+  }
+ ],
+ "planted_conflict": null
+}

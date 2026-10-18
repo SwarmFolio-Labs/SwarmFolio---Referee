@@ -1,0 +1,96 @@
+{
+ "client_id": "C12",
+ "name": "The Kaczmarek couple (synthetic)",
+ "story": "Retired couple who want a short list of names they can follow in the newspaper, leaning on banks and household brands.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_holdings",
+   "params": {
+    "k": 6
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "We can only keep track of 6 companies at most."
+  },
+  {
+   "id": "R2",
+   "type": "buy_in",
+   "params": {
+    "min": 0.11
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "If we own something, it should be at least 11% of the money."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.19
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Banks at least 19%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.21
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "At least 21% in everyday brands like Procter & Gamble or Walmart."
+  },
+  {
+   "id": "R5",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.18
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech no more than 18%."
+  },
+  {
+   "id": "R6",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD",
+     "TLT"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "Stocks only, no gold or bond funds."
+  }
+ ],
+ "planted_conflict": null
+}
