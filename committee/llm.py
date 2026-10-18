@@ -9,8 +9,10 @@ is a single setting in config.py, so the rest of the committee never cares which
 import contextvars
 import hashlib
 import json
+import logging
 import os
 import re
+import time
 from contextlib import contextmanager
 
 from langchain_core.output_parsers import PydanticOutputParser
@@ -19,6 +21,10 @@ from pydantic import BaseModel, ValidationError
 import config
 
 CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cache")
+
+# One JSON line per real LLM call (seconds + tokens). Silent unless someone attaches a handler
+# (the experiment writes them to a file, to see why calls are slow).
+call_log = logging.getLogger("swarmfolio.llm")
 
 # Analysts get a little creativity; the Chair should be steady and repeatable.
 TEMPERATURE = {"analyst": 0.2, "chair": 0.0}
@@ -89,35 +95,60 @@ def _text_of(reply) -> str:
     return "".join(part.get("text", "") if isinstance(part, dict) else str(part) for part in content)
 
 
-def _ask_structured(model, system: str, user: str, schema: type[BaseModel]) -> BaseModel | None:
+def _log_call(role: str, step: str, schema: type[BaseModel], seconds: float, reply=None, ok: bool = True) -> None:
+    """Record one LLM call: how long it took and how many tokens went in and out."""
+    usage = getattr(reply, "usage_metadata", None) or {}
+    call_log.info(json.dumps({
+        "time": time.strftime("%H:%M:%S"), "provider": config.LLM_PROVIDER, "role": role, "step": step,
+        "schema": schema.__name__, "seconds": round(seconds, 2), "ok": ok,
+        "input_tokens": usage.get("input_tokens"), "output_tokens": usage.get("output_tokens"),
+    }))
+
+
+def _ask_structured(model, role: str, system: str, user: str, schema: type[BaseModel]) -> BaseModel | None:
     """Plan A: let LangChain force the schema. Returns None if the provider can't do it."""
+    start = time.time()
     try:
-        result = model.with_structured_output(schema).invoke([("system", system), ("human", user)])
+        # include_raw=True also hands back the raw reply, which carries the token counts.
+        out = model.with_structured_output(schema, include_raw=True).invoke([("system", system), ("human", user)])
+    except NotImplementedError:
+        return None  # this model has no structured output at all: use Plan B
     except Exception:
-        return None  # not supported, or the model's output didn't fit: use Plan B
-    if isinstance(result, schema):
-        return result
+        _log_call(role, "structured", schema, time.time() - start, ok=False)
+        return None  # the call or its output failed: use Plan B
+    result = out.get("parsed")
     if isinstance(result, dict):
         try:
-            return schema.model_validate(result)
+            result = schema.model_validate(result)
         except ValidationError:
-            return None
-    return None
+            result = None
+    ok = isinstance(result, schema)
+    _log_call(role, "structured", schema, time.time() - start, out.get("raw"), ok=ok)
+    return result if ok else None
 
 
-def _ask_with_parser(model, system: str, user: str, schema: type[BaseModel]) -> BaseModel:
+def _ask_with_parser(model, role: str, system: str, user: str, schema: type[BaseModel]) -> BaseModel:
     """Plan B: put the JSON format in the prompt, parse the reply, and retry once if it's invalid."""
     parser = PydanticOutputParser(pydantic_object=schema)
     prompt = f"{user}\n\n{parser.get_format_instructions()}\nReply with the JSON only."
+    start = time.time()
+    reply = model.invoke([("system", system), ("human", prompt)])
     try:
-        return schema.model_validate_json(_strip_fences(_text_of(model.invoke([("system", system), ("human", prompt)]))))
+        result = schema.model_validate_json(_strip_fences(_text_of(reply)))
+        _log_call(role, "parser", schema, time.time() - start, reply)
+        return result
     except ValidationError as error:
+        _log_call(role, "parser", schema, time.time() - start, reply, ok=False)
         # One retry, telling the model exactly what was wrong.
         retry = f"{prompt}\n\nYour last reply was not valid. The error was:\n{error}\nFix it and reply with the JSON only."
+        start = time.time()
         reply = model.invoke([("system", system), ("human", retry)])
         try:
-            return schema.model_validate_json(_strip_fences(_text_of(reply)))
+            result = schema.model_validate_json(_strip_fences(_text_of(reply)))
+            _log_call(role, "retry", schema, time.time() - start, reply)
+            return result
         except ValidationError as error2:
+            _log_call(role, "retry", schema, time.time() - start, reply, ok=False)
             raise ValueError(f"The LLM gave invalid JSON twice for {schema.__name__}: {error2}") from error2
 
 
@@ -134,9 +165,9 @@ def complete_json(role: str, system: str, user: str, schema: type[BaseModel]) ->
             return schema.model_validate(json.load(f))
 
     model = get_model(role)
-    result = _ask_structured(model, system, user, schema)
+    result = _ask_structured(model, role, system, user, schema)
     if result is None:
-        result = _ask_with_parser(model, system, user, schema)
+        result = _ask_with_parser(model, role, system, user, schema)
 
     os.makedirs(CACHE_DIR, exist_ok=True)
     with open(path, "w") as f:

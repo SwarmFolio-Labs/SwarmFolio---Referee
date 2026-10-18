@@ -11,6 +11,7 @@ The Referee checks after every round; a condition stops early once it's complian
 
     python -m eval.experiment --clients 3 --trials 1     # smoke test
     python -m eval.experiment                            # everything, 3 trials
+    python -m eval.experiment --ids C91,C92 --trials 3   # just some clients
 
 Outputs in eval/results/: experiment.json, experiment.md, learning_curves.png.
 """
@@ -18,6 +19,7 @@ Outputs in eval/results/: experiment.json, experiment.md, learning_curves.png.
 import argparse
 import asyncio
 import json
+import logging
 import os
 import random
 import statistics
@@ -273,9 +275,23 @@ def main() -> None:
     parser.add_argument("--clients", type=int, default=None, help="only the first N feasible clients")
     parser.add_argument("--trials", type=int, default=3, help="trials per client")
     parser.add_argument("--concurrency", type=int, default=4, help="client-trials run at the same time")
+    parser.add_argument("--ids", type=str, default=None, help="only these clients, e.g. C91,C92")
+    parser.add_argument("--log", type=str, default=os.path.join(RESULTS_DIR, "llm_calls.jsonl"),
+                        help="where to write one line per LLM call (seconds + tokens)")
     args = parser.parse_args()
 
+    # One JSON line per LLM call, so we can see why calls are slow.
+    os.makedirs(os.path.dirname(args.log), exist_ok=True)
+    handler = logging.FileHandler(args.log)
+    handler.setFormatter(logging.Formatter("%(message)s"))
+    llm.call_log.addHandler(handler)
+    llm.call_log.setLevel(logging.INFO)
+    llm.call_log.propagate = False
+
     clients = [c for c in load_all_clients() if is_feasible(c)]  # infeasible clients can't comply
+    if args.ids:
+        wanted = [i.strip() for i in args.ids.split(",")]
+        clients = [c for c in clients if c.client_id in wanted]
     clients = clients[:args.clients] if args.clients else clients
     jobs = [(c, t) for c in clients for t in range(1, args.trials + 1)]
     print(f"Experiment: {len(clients)} feasible clients x {args.trials} trials = {len(jobs)} client-trials", flush=True)
