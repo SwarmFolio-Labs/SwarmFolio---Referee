@@ -1,0 +1,96 @@
+{
+ "client_id": "C92",
+ "name": "Mr. Lindqvist (synthetic)",
+ "story": "Former Google engineer; most of his money is still in GOOGL, META and AMZN stock. Wants to diversify but every sale is taxed.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "GOOGL": 0.45,
+  "META": 0.25,
+  "AMZN": 0.2,
+  "JPM": 0.1
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.72
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Turnover at most 72% from current holdings (taxes)."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.35
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Tech at most 35%."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.2
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single position above 20%."
+  },
+  {
+   "id": "R4",
+   "type": "min_holdings",
+   "params": {
+    "k": 8
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "At least 8 holdings."
+  },
+  {
+   "id": "R5",
+   "type": "buy_in",
+   "params": {
+    "min": 0.04
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No position under 4%."
+  },
+  {
+   "id": "R6",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.16
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 16%."
+  }
+ ]
+}

@@ -1,0 +1,116 @@
+{
+ "client_id": "C93",
+ "name": "Ms. Haddad (synthetic)",
+ "story": "Small-business owner who wants a balanced, old-economy portfolio: banks, healthcare and household brands, very little tech, at most 6 names.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.2
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Financials at least 20%."
+  },
+  {
+   "id": "R2",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.2
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Healthcare at least 20%."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.25
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Consumer brands at least 25%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.15
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at most 15%."
+  },
+  {
+   "id": "R5",
+   "type": "max_holdings",
+   "params": {
+    "k": 6
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "At most 6 holdings."
+  },
+  {
+   "id": "R6",
+   "type": "buy_in",
+   "params": {
+    "min": 0.1
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No position smaller than 10%."
+  },
+  {
+   "id": "R7",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.1
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10%."
+  },
+  {
+   "id": "R8",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM",
+     "CVX"
+    ]
+   },
+   "priority": 10,
+   "hard": true,
+   "source": "No oil companies."
+  }
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "client_id": "C91",
+ "name": "Ms. Okafor (synthetic)",
+ "story": "Retired teacher who wants some growth but cannot stomach big swings; insists on owning tech and healthcare.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.11
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 11%."
+  },
+  {
+   "id": "R2",
+   "type": "sector_min",
+   "params": {
+    "sector": "Tech",
+    "min": 0.25
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Tech at least 25%."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.15
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Healthcare at least 15%."
+  },
+  {
+   "id": "R4",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.2
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single position above 20%."
+  },
+  {
+   "id": "R5",
+   "type": "min_holdings",
+   "params": {
+    "k": 7
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "At least 7 holdings."
+  },
+  {
+   "id": "R6",
+   "type": "buy_in",
+   "params": {
+    "min": 0.05
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No position smaller than 5%."
+  },
+  {
+   "id": "R7",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD",
+     "TLT"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "Stocks only: no gold or bond funds."
+  }
+ ]
+}

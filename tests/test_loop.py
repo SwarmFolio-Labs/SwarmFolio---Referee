@@ -128,3 +128,10 @@ def test_c04_alvarez_is_feasible_but_35pct_turnover_is_not():
     next(r for r in tight.rules if r.type == "max_turnover").params["max"] = 0.35
     assert not is_feasible(tight)
     assert sorted(find_conflicts(tight)) == ["R2", "R3"]
+
+
+@pytest.mark.parametrize("client_id", ["C91", "C92", "C93", "C94"])
+def test_hard_clients_are_feasible(client_id):
+    """The hard experiment clients sit just above the solver's floor: tight, but a compliant portfolio exists."""
+    from referee.solver import is_feasible
+    assert is_feasible(analysts.load_client(client_id))

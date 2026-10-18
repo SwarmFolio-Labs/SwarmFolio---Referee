@@ -1,0 +1,110 @@
+{
+ "client_id": "C94",
+ "name": "The Nguyen family trust (synthetic)",
+ "story": "Family trust that inherited a big block of JNJ and UNH; the trustees want lower risk, more banks and consumer names, and limited selling.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "JNJ": 0.35,
+  "UNH": 0.25,
+  "PFE": 0.1,
+  "NVDA": 0.15,
+  "TLT": 0.15
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.62
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Turnover at most 62% from current holdings."
+  },
+  {
+   "id": "R2",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.105
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10.5%."
+  },
+  {
+   "id": "R3",
+   "type": "sector_max",
+   "params": {
+    "sector": "Healthcare",
+    "max": 0.4
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Healthcare at most 40%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.1
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Financials at least 10%."
+  },
+  {
+   "id": "R5",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.1
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Consumer at least 10%."
+  },
+  {
+   "id": "R6",
+   "type": "min_weight",
+   "params": {
+    "ticker": "JNJ",
+    "min": 0.2
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Keep at least 20% in JNJ (the family's founding stake)."
+  },
+  {
+   "id": "R7",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.25
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single position above 25%."
+  }
+ ]
+}
