@@ -53,6 +53,8 @@ _live = {"on": False}
 # The experiment can use another provider than .env's LLM_PROVIDER (e.g. Gemini), so the live
 # agents keep ASI:One's quota for the demo. None = use config.LLM_PROVIDER.
 _provider_override = {"name": None}
+# One fixed model for every role, with NO fallback (so a whole experiment run uses a single model).
+_model_override = {"id": None}
 
 
 def use_live_model() -> None:
@@ -67,6 +69,11 @@ def use_provider(name: str) -> None:
     _provider_override["name"] = name
 
 
+def use_model(model_id: str) -> None:
+    """Pin every LLM call in this process to this one model, and turn the fallback model off."""
+    _model_override["id"] = model_id
+
+
 def provider() -> str:
     """The provider answering right now."""
     return _provider_override["name"] or config.LLM_PROVIDER
@@ -78,6 +85,8 @@ def _is_live() -> bool:
 
 def model_id_for(role: str) -> str:
     """The model that answers for this role right now (the live model when live mode is on)."""
+    if _model_override["id"]:
+        return _model_override["id"]
     if _is_live():
         return config.LIVE_MODEL
     return config.MODELS[provider()][role]
@@ -269,7 +278,8 @@ def complete_json(role: str, system: str, user: str, schema: type[BaseModel]) ->
         user = f"{user}\n\n({_sampling.get()['tag']})"  # different trial -> different prompt -> own cache entry
 
     primary = model_id_for(role)
-    fallback = config.GEMINI_FALLBACK_MODEL if provider() == "gemini" else None
+    # A pinned model (use_model) never falls back: the run must stay on one model.
+    fallback = config.GEMINI_FALLBACK_MODEL if provider() == "gemini" and not _model_override["id"] else None
     for model_id in (primary, fallback):
         if model_id and os.path.exists(_cache_path(role, system, user, model_id)):
             with open(_cache_path(role, system, user, model_id)) as f:

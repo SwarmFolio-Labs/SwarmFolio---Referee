@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone B · Receipt (C02)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,800;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>/* tokens: copy of design/tokens.css block 1 */
+:root {
+  /* neutrals */
+  --color-bg: #F6F3EC;          /* paper page */
+  --color-surface: #FDFBF6;     /* receipt paper, cards */
+  --color-sunken: #EFEBE2;      /* bar tracks, insets */
+  --color-ink: #1B1B1A;         /* text, primary button */
+  --color-muted: #5E5A52;       /* secondary text, AA on bg + surface */
+  --color-faint: #6F6A60;       /* tertiary text, still AA (5:1 on bg) */
+  --color-line: #D9D3C7;        /* 1px hairlines */
+  --color-accent: #1B1B1A;      /* primary action = ink, no brand blue */
+
+  /* meaning colors (always paired with a text label and a shape) */
+  --color-pass: #2F6B3F;        /* compliant · concede ● */
+  --color-fail: #B5432B;        /* broken / impossible · defend ■ */
+  --color-warn: #9A6A12;        /* repaired / needs approval · modify ◆ */
+  --color-concede: var(--color-pass);
+  --color-defend: var(--color-fail);
+  --color-modify: var(--color-warn);
+  --color-pass-tint: #E3ECE2;
+  --color-fail-tint: #F3E1DB;
+  --color-warn-tint: #F2E8D3;   /* changed-row highlight, working-agent row */
+
+  /* extras used in frames */
+  --color-warn-text: #86600F;   /* ochre text / stamp word (AA) */
+  --color-warn-text-small: #7A560E; /* stamp sub-line, 10px */
+  --color-prose: #3A3732;       /* long serif paragraphs */
+  --color-before-bar: #C9C1B2;  /* "before" weight bar */
+  --color-chart-before: #A79E8E;
+  --color-perforation: #B9B1A2; /* dashed receipt separators */
+
+  /* type */
+  --font-display: Newsreader, Georgia, serif;                         /* headings, client quotes (italic) */
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; /* UI */
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;       /* every measured number */
+  /* scale: 12 / 14 / 16 / 20 / 28 / 40 (+48 page titles); labels 11px caps, 0.12em */
+
+  --radius-card: 2px;
+  --radius-chip: 2px;
+}
+</style>
+<style>html,body{margin:0;background:var(--color-bg);} *{box-sizing:border-box;}</style>
+</head>
+<body>
+<!-- Exported from Paper ("SwarmFolio Referee"). Static reference for the build; see design/README.md. -->
+<div style="background-color: #F6F3EC; box-sizing: border-box; display: flex; flex-direction: column; font-size: 12px; font-synthesis: none; height: fit-content; line-height: 16px; -moz-osx-font-smoothing: grayscale; overflow: clip; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; width: 390px">
+      <div style="align-items: center; box-sizing: border-box; display: flex; gap: 154px; padding-bottom: 19px; padding-inline: 24px; padding-top: 21px">
+        <div style="align-items: center; box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; justify-content: center">
+          <div style="box-sizing: border-box; color: #000000; display: flex; flex-wrap: wrap; font-family: system-ui, sans-serif; font-size: 17px; font-weight: 600; justify-content: center; line-height: 22px; text-align: center; width: fit-content">9:41</div>
+        </div>
+        <div style="align-items: center; box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; justify-content: center">
+          <svg width="82" height="22" viewBox="0 0 82 22" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0; display: inline-block">
+            <path d="M3.7 13H2.5a1 1 0 0 0-1 1v2.5a1 1 0 0 0 1 1h1.2a1 1 0 0 0 1-1V14a1 1 0 0 0-1-1m5.2-2.5H7.7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.2a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1M14.1 8h-1.2a1 1 0 0 0-1 1v7.5a1 1 0 0 0 1 1h1.2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1m5.2-2.5h-1.2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1.2a1 1 0 0 0 1-1v-10a1 1 0 0 0-1-1" fill="#000000" />
+            <path fill-rule="evenodd" d="M36.57 7.8c2.49 0 4.88.92 6.68 2.58.14.13.36.12.49 0l1.3-1.27a.34.34 0 0 0 0-.5 12.55 12.55 0 0 0-16.93 0 .34.34 0 0 0 0 .5l1.3 1.26c.13.13.34.14.48 0a10 10 0 0 1 6.68-2.57m0 4.22a5.4 5.4 0 0 1 3.67 1.44c.14.13.35.13.48 0l1.3-1.33a.37.37 0 0 0-.01-.52 7.9 7.9 0 0 0-10.88 0 .37.37 0 0 0 0 .52l1.29 1.32c.13.14.34.14.48 0 1-.92 2.31-1.43 3.67-1.43m2.52 2.8q0 .15-.1.28l-2.18 2.45a.3.3 0 0 1-.24.11.3.3 0 0 1-.24-.1l-2.18-2.46a.43.43 0 0 1 .01-.56 3.44 3.44 0 0 1 4.82 0 .4.4 0 0 1 .11.28" clip-rule="evenodd" fill="#000000" />
+            <path fill-rule="evenodd" d="M70.5 5c2.05 0 3.08 0 3.88.34a4.3 4.3 0 0 1 2.28 2.28c.34.8.34 1.83.34 3.88s0 3.08-.34 3.88a4.3 4.3 0 0 1-2.28 2.28c-.8.34-1.83.34-3.88.34h-12c-2.05 0-3.08 0-3.88-.34a4.3 4.3 0 0 1-2.28-2.28c-.34-.8-.34-1.83-.34-3.88s0-3.08.34-3.88a4.3 4.3 0 0 1 2.28-2.28C55.42 5 56.45 5 58.5 5zM58.28 6c-1.85 0-2.77 0-3.48.36a3.3 3.3 0 0 0-1.44 1.44C53 8.5 53 9.43 53 11.28v.44c0 1.85 0 2.77.36 3.48a3.3 3.3 0 0 0 1.44 1.44c.7.36 1.63.36 3.48.36h12.44c1.85 0 2.77 0 3.48-.36a3.3 3.3 0 0 0 1.44-1.44c.36-.7.36-1.63.36-3.48v-.44c0-1.85 0-2.77-.36-3.48a3.3 3.3 0 0 0-1.44-1.44C73.5 6 72.57 6 70.72 6z" clip-rule="evenodd" fill="#000000" style="opacity: 0.35" />
+            <path d="M54 11c0-1.4 0-2.1.27-2.63a2.5 2.5 0 0 1 1.1-1.1C55.9 7 56.6 7 58 7h13c1.4 0 2.1 0 2.64.27q.72.37 1.09 1.1C75 8.9 75 9.6 75 11v1c0 1.4 0 2.1-.27 2.64a2.5 2.5 0 0 1-1.1 1.09C73.1 16 72.4 16 71 16H58c-1.4 0-2.1 0-2.63-.27a2.5 2.5 0 0 1-1.1-1.1C54 14.1 54 13.4 54 12z" fill="#000000" />
+            <path d="M78 9.5v4.08a2.2 2.2 0 0 0 1.33-2.04A2.2 2.2 0 0 0 78 9.5" fill="#000000" style="opacity: 0.35" />
+          </svg>
+        </div>
+      </div>
+      <div style="align-items: center; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; justify-content: space-between; padding-bottom: 12px; padding-inline: 20px; padding-top: 6px">
+        <div style="align-items: center; box-sizing: border-box; display: flex; gap: 6px">
+          <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 18px; line-height: 22px">‹</div>
+          <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 15px; line-height: 18px">Committee run</div>
+        </div>
+        <div style="align-items: center; box-sizing: border-box; display: flex; gap: 8px">
+          <svg width="18" height="18" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+            <rect x="1" y="1" width="20" height="20" fill="none" stroke="#1B1B1A" stroke-width="1.5" />
+            <rect x="5" y="1" width="3" height="20" fill="#1B1B1A" />
+            <rect x="11" y="1" width="3" height="20" fill="#1B1B1A" />
+            <rect x="17" y="1" width="3" height="20" fill="#1B1B1A" />
+          </svg>
+          <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 16px; font-weight: 600; line-height: 20px">Referee</div>
+        </div>
+      </div>
+      <div style="box-sizing: border-box; display: flex; flex-direction: column; padding-bottom: 28px; padding-inline: 14px; padding-top: 20px">
+        <div style="background-color: var(--color-surface); border-top-color: var(--color-ink); border-top-style: solid; border-top-width: 4px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px; padding-bottom: 22px; padding-inline: 20px; padding-top: 24px">
+          <div style="align-items: start; border-bottom-color: #B9B1A2; border-bottom-style: dashed; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-bottom: 18px">
+            <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 4px">
+              <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; line-height: 14px; text-transform: uppercase">Referee receipt</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 26px; font-weight: 600; letter-spacing: -0.015em; line-height: 30px">C02 · Dr. Patel</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'Newsreader', system-ui, sans-serif; font-size: 14px; font-style: italic; line-height: 18px">synthetic client</div>
+              <div style="box-sizing: border-box; padding-top: 4px">
+                <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 11px; line-height: 16px; white-space: pre-wrap">
+                  No. 54411b07eaf4<br>2026-10-18 02:20 UTC
+                </div>
+              </div>
+            </div>
+            <div style="box-sizing: border-box; flex-shrink: 0; height: 50px; margin-top: 18px; position: relative; rotate: -4deg; transform-origin: 50% 50%; width: 112px">
+              <svg width="112" height="50" viewBox="0 0 112 50" xmlns="http://www.w3.org/2000/svg" style="left: 0px; top: 0px; display: inline-block; position: absolute">
+                <path d="M3 4 L38 2.4 L76 4.1 L109 2.2 L110.2 25 L109 47.6 L77 46.3 L39 48.2 L2.2 46.8 L3.6 24 Z" fill="none" stroke="#9A6A12" stroke-width="2.4" stroke-linejoin="round" stroke-dasharray="40 1.6 26 2.4 60 1.2 32 2" />
+              </svg>
+              <div style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; height: 50px; justify-content: center; left: 0px; position: absolute; top: 0px; width: 112px">
+                <div style="box-sizing: border-box; color: #86600F; font-family: 'Newsreader', system-ui, sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 0.06em; line-height: 18px; width: max-content">REPAIRED</div>
+                <div style="box-sizing: border-box; color: #7A560E; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 9px; letter-spacing: 0.08em; line-height: 12px; width: max-content">2 OF 7 · 3.9%</div>
+              </div>
+            </div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column">
+            <div style="align-items: baseline; box-sizing: border-box; display: flex">
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">The proposal broke&nbsp;</div>
+              <div style="box-sizing: border-box; color: var(--color-fail); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 26px; width: max-content">2 of 7</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">&nbsp;rules.</div>
+            </div>
+            <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px">The nearest compliant portfolio</div>
+            <div style="align-items: baseline; box-sizing: border-box; display: flex">
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">moves&nbsp;</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 26px; width: max-content">3.9%</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">&nbsp;of capital and changes</div>
+            </div>
+            <div style="align-items: baseline; box-sizing: border-box; display: flex">
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">Sharpe from&nbsp;</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 26px; width: max-content">1.72</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px; width: max-content">&nbsp;to&nbsp;</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 26px; width: max-content">1.74</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 17px; line-height: 26px">.</div>
+            </div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column">
+            <div style="border-bottom-color: var(--color-ink); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; padding-bottom: 6px">
+              <div style="box-sizing: border-box; color: var(--color-fail); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; line-height: 14px; text-transform: uppercase">Broken · 2</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; line-height: 14px">ACTUAL · LIMIT</div>
+            </div>
+            <div style="border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; padding-block: 12px">
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 16px; font-style: italic; line-height: 22px">“Keep at least 30% in legacy JNJ (tax reasons)”</div>
+              <div style="align-items: baseline; box-sizing: border-box; display: flex; justify-content: space-between">
+                <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; line-height: 16px">Holding: JNJ</div>
+                <div style="align-items: baseline; box-sizing: border-box; display: flex; gap: 10px">
+                  <div style="box-sizing: border-box; color: var(--color-fail); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 15px; font-weight: 600; line-height: 18px">26.7%</div>
+                  <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 13px; line-height: 16px">min 30.0%</div>
+                </div>
+              </div>
+            </div>
+            <div style="border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; flex-direction: column; gap: 4px; padding-block: 12px">
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 16px; font-style: italic; line-height: 22px">“No position smaller than 5%”</div>
+              <div style="align-items: baseline; box-sizing: border-box; display: flex; justify-content: space-between">
+                <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; line-height: 16px">Smallest holding: GS</div>
+                <div style="align-items: baseline; box-sizing: border-box; display: flex; gap: 10px">
+                  <div style="box-sizing: border-box; color: var(--color-fail); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 15px; font-weight: 600; line-height: 18px">4.4%</div>
+                  <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 13px; line-height: 16px">min 5.0%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column">
+            <div style="border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; padding-bottom: 6px">
+              <div style="box-sizing: border-box; color: var(--color-pass); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; line-height: 14px; text-transform: uppercase">Passed · 5</div>
+            </div>
+            <div style="align-items: baseline; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-block: 8px">
+              <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 7px; width: 7px"></div>
+              <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 1px">
+                <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 20px">“No single position above 35%”</div>
+                <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 12px; line-height: 16px">largest JNJ 30.0% · max 35.0%</div>
+              </div>
+            </div>
+            <div style="align-items: baseline; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-block: 8px">
+              <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 7px; width: 7px"></div>
+              <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 1px">
+                <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 20px">“No fossil fuel companies”</div>
+                <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 12px; line-height: 16px">none held</div>
+              </div>
+            </div>
+            <div style="align-items: baseline; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-block: 8px">
+              <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 7px; width: 7px"></div>
+              <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 1px">
+                <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 20px">“Healthcare at most 35%”</div>
+                <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 12px; line-height: 16px">34.1% · max 35.0%</div>
+              </div>
+            </div>
+            <div style="align-items: baseline; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-block: 8px">
+              <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 7px; width: 7px"></div>
+              <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 1px">
+                <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 20px">“At most 8 holdings”</div>
+                <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 12px; line-height: 16px">8 · max 8</div>
+              </div>
+            </div>
+            <div style="align-items: baseline; border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-block: 8px">
+              <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 7px; width: 7px"></div>
+              <div style="box-sizing: border-box; display: flex; flex-basis: 0%; flex-direction: column; flex-grow: 1; gap: 1px">
+                <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 20px">“Annual volatility at most 18%”</div>
+                <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 12px; line-height: 16px">15.8% · max 18.0%</div>
+              </div>
+            </div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column">
+            <div style="border-bottom-color: var(--color-ink); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; padding-bottom: 6px">
+              <div style="box-sizing: border-box; color: var(--color-muted); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; line-height: 14px; text-transform: uppercase">Changed</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; justify-content: end; line-height: 14px; text-align: right; width: 60px">BEFORE</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; justify-content: end; line-height: 14px; text-align: right; width: 60px">AFTER</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; justify-content: end; line-height: 14px; text-align: right; width: 48px">Δ</div>
+            </div>
+            <div style="background-color: var(--color-warn-tint); border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; padding-block: 8px; padding-inline: 6px">
+              <div style="box-sizing: border-box; color: var(--color-ink); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; line-height: 18px">JNJ</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; justify-content: end; line-height: 18px; text-align: right; width: 60px">26.7</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; justify-content: end; line-height: 18px; text-align: right; width: 60px">30.0</div>
+              <div style="box-sizing: border-box; color: #86600F; display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; justify-content: end; line-height: 18px; text-align: right; width: 42px">+3.3</div>
+            </div>
+            <div style="background-color: var(--color-warn-tint); border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; padding-block: 8px; padding-inline: 6px">
+              <div style="box-sizing: border-box; color: var(--color-ink); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; line-height: 18px">GS</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; justify-content: end; line-height: 18px; text-align: right; width: 60px">4.4</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; font-weight: 600; justify-content: end; line-height: 18px; text-align: right; width: 60px">5.0</div>
+              <div style="box-sizing: border-box; color: #86600F; display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; justify-content: end; line-height: 18px; text-align: right; width: 42px">+0.6</div>
+            </div>
+            <div style="border-bottom-color: var(--color-line); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; display: flex; padding-block: 8px; padding-inline: 6px">
+              <div style="box-sizing: border-box; color: var(--color-muted); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 13px; line-height: 16px">Others, pro rata</div>
+              <div style="box-sizing: border-box; color: var(--color-muted); display: flex; flex-shrink: 0; flex-wrap: wrap; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 14px; justify-content: end; line-height: 18px; text-align: right; width: 42px">−3.9</div>
+            </div>
+            <div style="box-sizing: border-box; display: flex; padding-bottom: 4px; padding-inline: 6px; padding-top: 12px">
+              <div style="box-sizing: border-box; color: var(--color-ink); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 18px">Capital moved</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 15px; font-weight: 600; line-height: 18px">3.9%</div>
+            </div>
+            <div style="border-bottom-color: var(--color-ink); border-bottom-style: double; border-bottom-width: 3px; box-sizing: border-box; display: flex; padding-bottom: 10px; padding-inline: 6px; padding-top: 4px">
+              <div style="box-sizing: border-box; color: var(--color-ink); flex-basis: 0%; flex-grow: 1; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; line-height: 18px">Sharpe ratio</div>
+              <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 15px; font-weight: 600; line-height: 18px">1.72 → 1.74</div>
+            </div>
+          </div>
+          <div style="box-sizing: border-box; color: #5E5A52; font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 11px; line-height: 17px; white-space: pre-wrap">
+            Checked by an exact solver (CVXPY + SCIP).<br>Same inputs → same receipt id.
+          </div>
+        </div>
+        <svg width="362" height="9" viewBox="0 0 362 9" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; flex-shrink: 0">
+          <path d="M0 0 L362 0 L355 5 L349 2 L340 6 L333 0 L327 3 L318 2 L310 3 L303 2 L295 5 L288 0 L280 4 L274 2 L266 5 L259 0 L251 5 L243 0 L235 8 L226 2 L219 4 L212 1 L204 3 L196 0 L188 7 L180 2 L173 6 L164 2 L156 6 L147 0 L140 5 L132 0 L126 3 L117 2 L109 7 L100 2 L92 4 L85 0 L76 4 L67 1 L60 5 L51 2 L43 8 L36 1 L30 3 L23 1 L16 3 L8 0 L2 6 L0 0 Z" fill="#FDFBF6" />
+        </svg>
+      </div>
+      <div style="background-color: var(--color-surface); border-top-color: var(--color-line); border-top-style: solid; border-top-width: 1px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; padding-inline: 20px; padding-top: 14px">
+        <div style="box-sizing: border-box; display: flex; gap: 10px">
+          <div style="align-items: center; background-color: var(--color-ink); box-sizing: border-box; display: flex; flex-basis: 0%; flex-grow: 1; justify-content: center; padding-block: 14px; padding-inline: 16px">
+            <div style="box-sizing: border-box; color: #FDFBF6; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; font-weight: 500; line-height: 20px">Share receipt</div>
+          </div>
+          <div style="align-items: center; border-color: var(--color-line); border-style: solid; border-width: 1px; box-sizing: border-box; display: flex; justify-content: center; padding-block: 14px; padding-inline: 16px">
+            <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; font-weight: 500; line-height: 20px">Copy id</div>
+          </div>
+        </div>
+        <div style="box-sizing: border-box; display: flex; justify-content: center; padding-top: 8px">
+          <div style="background-color: #1B1B1A; border-radius: 3px; box-sizing: border-box; flex-shrink: 0; height: 5px; width: 134px"></div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

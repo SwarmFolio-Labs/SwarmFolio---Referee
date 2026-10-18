@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component · Stance states</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,800;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>/* tokens: copy of design/tokens.css block 1 */
+:root {
+  /* neutrals */
+  --color-bg: #F6F3EC;          /* paper page */
+  --color-surface: #FDFBF6;     /* receipt paper, cards */
+  --color-sunken: #EFEBE2;      /* bar tracks, insets */
+  --color-ink: #1B1B1A;         /* text, primary button */
+  --color-muted: #5E5A52;       /* secondary text, AA on bg + surface */
+  --color-faint: #6F6A60;       /* tertiary text, still AA (5:1 on bg) */
+  --color-line: #D9D3C7;        /* 1px hairlines */
+  --color-accent: #1B1B1A;      /* primary action = ink, no brand blue */
+
+  /* meaning colors (always paired with a text label and a shape) */
+  --color-pass: #2F6B3F;        /* compliant · concede ● */
+  --color-fail: #B5432B;        /* broken / impossible · defend ■ */
+  --color-warn: #9A6A12;        /* repaired / needs approval · modify ◆ */
+  --color-concede: var(--color-pass);
+  --color-defend: var(--color-fail);
+  --color-modify: var(--color-warn);
+  --color-pass-tint: #E3ECE2;
+  --color-fail-tint: #F3E1DB;
+  --color-warn-tint: #F2E8D3;   /* changed-row highlight, working-agent row */
+
+  /* extras used in frames */
+  --color-warn-text: #86600F;   /* ochre text / stamp word (AA) */
+  --color-warn-text-small: #7A560E; /* stamp sub-line, 10px */
+  --color-prose: #3A3732;       /* long serif paragraphs */
+  --color-before-bar: #C9C1B2;  /* "before" weight bar */
+  --color-chart-before: #A79E8E;
+  --color-perforation: #B9B1A2; /* dashed receipt separators */
+
+  /* type */
+  --font-display: Newsreader, Georgia, serif;                         /* headings, client quotes (italic) */
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; /* UI */
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;       /* every measured number */
+  /* scale: 12 / 14 / 16 / 20 / 28 / 40 (+48 page titles); labels 11px caps, 0.12em */
+
+  --radius-card: 2px;
+  --radius-chip: 2px;
+}
+</style>
+<style>html,body{margin:0;background:var(--color-bg);} *{box-sizing:border-box;}</style>
+</head>
+<body>
+<!-- Exported from Paper ("SwarmFolio Referee"). Static reference for the build; see design/README.md. -->
+<div style="background-color: #F6F3EC; box-sizing: border-box; display: flex; flex-direction: column; font-synthesis: none; gap: 20px; height: fit-content; -moz-osx-font-smoothing: grayscale; overflow: clip; overflow-wrap: anywhere; padding-block: 40px; padding-inline: 72px; -webkit-font-smoothing: antialiased; width: 520px">
+      <div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 6px">
+        <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; line-height: 14px; text-transform: uppercase">Component · stance row, column width 376</div>
+        <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 13px; line-height: 19px">Text wraps freely, no clamping, up to about 240 characters. The shape and the label carry the meaning; color only reinforces it.</div>
+      </div>
+      <div style="border-top-color: var(--color-ink); border-top-style: solid; border-top-width: 1px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding-top: 14px; width: 376px">
+        <div style="box-sizing: border-box; display: flex; gap: 10px">
+          <div style="align-items: center; box-sizing: border-box; display: flex; flex-shrink: 0; height: 20px; justify-content: center; width: 12px">
+            <div style="background-color: var(--color-pass); border-radius: 4px; box-sizing: border-box; flex-shrink: 0; height: 8px; width: 8px"></div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 1px">
+            <div style="box-sizing: border-box; color: var(--color-pass); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 20px">Concede · Risk</div>
+            <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; line-height: 21px">Fair. Fewer, larger positions; fund them from AAPL.</div>
+          </div>
+        </div>
+        <div style="box-sizing: border-box; display: flex; gap: 10px">
+          <div style="align-items: center; box-sizing: border-box; display: flex; flex-shrink: 0; height: 20px; justify-content: center; width: 12px">
+            <div style="background-color: var(--color-fail); box-sizing: border-box; flex-shrink: 0; height: 8px; width: 8px"></div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 1px">
+            <div style="box-sizing: border-box; display: flex; justify-content: space-between">
+              <div style="box-sizing: border-box; color: var(--color-fail); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 20px">Defend · Fundamentals</div>
+              <div style="box-sizing: border-box; color: var(--color-faint); font-family: 'IBM Plex Mono', system-ui, sans-serif; font-size: 11px; line-height: 20px">240 chars</div>
+            </div>
+            <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; line-height: 21px">Keep MSFT as the largest holding. It has the steadiest earnings of the tech names and the lowest volatility of the three, so cutting it to fix the tech cap would throw away the best part of the book. Trim NVDA harder instead.</div>
+          </div>
+        </div>
+        <div style="box-sizing: border-box; display: flex; gap: 10px">
+          <div style="align-items: center; box-sizing: border-box; display: flex; flex-shrink: 0; height: 20px; justify-content: center; width: 12px">
+            <div style="background-color: var(--color-warn); box-sizing: border-box; flex-shrink: 0; height: 7px; rotate: 45deg; transform-origin: 50% 50%; width: 7px"></div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 1px">
+            <div style="box-sizing: border-box; color: var(--color-warn); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 20px">Modify · Macro</div>
+            <div style="box-sizing: border-box; color: var(--color-ink); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; line-height: 21px">Trim NVDA instead of MSFT, and add PG as a staple.</div>
+          </div>
+        </div>
+        <div style="border-top-color: #B9B1A2; border-top-style: dashed; border-top-width: 1px; box-sizing: border-box; display: flex; gap: 10px; padding-bottom: 12px; padding-right: 12px; padding-top: 10px">
+          <div style="align-items: center; box-sizing: border-box; display: flex; flex-shrink: 0; height: 20px; justify-content: center; width: 12px">
+            <div style="border-color: var(--color-muted); border-radius: 5px; border-style: dashed; border-width: 1.5px; box-sizing: border-box; flex-shrink: 0; height: 8px; width: 8px"></div>
+          </div>
+          <div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 2px">
+            <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; line-height: 20px">No answer · Fundamentals</div>
+            <div style="box-sizing: border-box; color: var(--color-muted); font-family: 'Newsreader', system-ui, sans-serif; font-size: 15px; font-style: italic; line-height: 21px">Didn't reply in time. The Chair went ahead with the other two answers; the Referee's check is unaffected.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

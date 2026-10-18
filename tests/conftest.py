@@ -13,6 +13,8 @@ def _live_mode_off():
     from committee import llm
     llm._live["on"] = False
     llm._provider_override["name"] = None
+    llm._model_override["id"] = None
     yield
     llm._live["on"] = False
     llm._provider_override["name"] = None
+    llm._model_override["id"] = None
