@@ -83,3 +83,14 @@ def test_live_run_failure_is_reported(client, monkeypatch):
     body = _wait_done(client, job_id)
     assert body["status"] == "error" and "chair exploded" in body["error"]
     assert body["events"][-1]["type"] == "error"
+
+
+def test_step_delay_keeps_working_state_visible(client):
+    """With step_delay, each agent's "working" event comes well before its result (for the UI tiles)."""
+    job_id = client.post("/api/run/C02?fakes=true&step_delay=0.2").json()["job_id"]
+    events = _wait_done(client, job_id)["events"]
+    for i, e in enumerate(events):
+        if e["type"] != "working":
+            continue
+        result = next(x for x in events[i + 1:] if x.get("agent") == e["agent"] and x["type"] != "working")
+        assert result["t"] - e["t"] >= 0.15, (e, result)

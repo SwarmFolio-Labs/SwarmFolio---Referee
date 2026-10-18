@@ -152,22 +152,27 @@ class ProgressTransport:
         self.inner, self.job, self.name = inner, job, getattr(inner, "name", "local")
         self.round = 0
 
+    async def _working(self, **fields) -> None:
+        # step_delay keeps "who is working" visible when the fakes answer instantly.
+        _event(self.job, "working", **fields)
+        await asyncio.sleep(self.job["step_delay"])
+
     async def analyze(self, agent, req):
-        _event(self.job, "working", agent=agent, round=0, task="memo")
+        await self._working(agent=agent, round=0, task="memo")
         memo = await self.inner.analyze(agent, req)
         _event(self.job, "memo", agent=agent, round=0, ok=memo is not None,
                text=getattr(memo, "thesis", None) if memo is not None else None)
         return memo
 
     async def review(self, agent, req):
-        _event(self.job, "working", agent=agent, round=req.round, task="stance")
+        await self._working(agent=agent, round=req.round, task="stance")
         stance = await self.inner.review(agent, req)
         _event(self.job, "stance", agent=agent, round=req.round, ok=stance is not None,
                stance=getattr(stance, "stance", None), text=getattr(stance, "change", None))
         return stance
 
     async def verify(self, req):
-        _event(self.job, "working", agent="referee", round=self.round, task="check")
+        await self._working(agent="referee", round=self.round, task="check")
         receipt = await self.inner.verify(req)
         failed = [c.rule_id for c in receipt.checks if not c.passed]
         _event(self.job, "referee", agent="referee", round=self.round, verdict=receipt.verdict,
@@ -209,19 +214,19 @@ async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) 
 
     def chair_propose(c, memos):
         _event(job, "working", agent="chair", round=1, task="draft")
+        time.sleep(delay)
         p = propose(c, memos)
         transport.round = 1
         _event(job, "chair_draft", agent="chair", round=1, weights=p.weights, text=p.thesis)
-        time.sleep(delay)
         return p
 
     def chair_revise(c, proposal, receipt, stances):
         r = transport.round + 1
         _event(job, "working", agent="chair", round=r, task="revise")
+        time.sleep(delay)
         p = revise(c, proposal, receipt, stances)
         transport.round = r
         _event(job, "chair_draft", agent="chair", round=r, weights=p.weights, text=p.thesis)
-        time.sleep(delay)
         return p
 
     async with _RUN_LOCK:
