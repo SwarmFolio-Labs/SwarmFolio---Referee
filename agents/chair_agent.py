@@ -28,6 +28,11 @@ RUN_CACHED = "cached run: saved answers are replayed when this exact question wa
 RUN_FRESH = "fresh run: every analyst and the Chair answer anew, nothing replayed from the cache"
 
 
+def run_label(mode: str) -> str:
+    """First letter up, the rest untouched ("cached run: ..." -> "Cached run: ...", "Chair" stays "Chair")."""
+    return mode[:1].upper() + mode[1:]
+
+
 def referee_address() -> str | None:
     """REFEREE_ADDRESS from .env, or worked out from REFEREE_SEED (an address is fixed by its seed)."""
     address = os.getenv("REFEREE_ADDRESS")
@@ -79,7 +84,7 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
         try:
             with llm.fresh_run(fresh):
                 result = await brains.run_committee(client, transport, max_rounds=config.MAX_ROUNDS)
-            reply = f"_{mode.capitalize()}._\n\n" + committee_reply(result, transport.notes)
+            reply = f"_{run_label(mode)}._\n\n" + committee_reply(result, transport.notes)
             try:  # the top 3 rule price tags go under the verdict; never let them block the answer
                 prices = await asyncio.to_thread(rule_prices, client)
                 reply += "\n\n" + price_tags_text(client.client_id, prices, top=3)

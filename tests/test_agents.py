@@ -117,3 +117,9 @@ def test_price_tags_chat_text():
     short = price_tags_text("C02", prices, top=3)
     assert "JNJ" in short and "volatility" in short and "never binds" not in short
     assert price_tags_text("C02", prices).count("•") == len(client.rules)
+
+
+def test_run_labels_say_cached_or_fresh():
+    from agents.chair_agent import RUN_CACHED, RUN_FRESH, run_label
+    assert run_label(RUN_FRESH).startswith("Fresh run:") and "the Chair" in run_label(RUN_FRESH)
+    assert run_label(RUN_CACHED).startswith("Cached run:")
