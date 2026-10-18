@@ -121,7 +121,8 @@ def analyze(agent: str, req: AnalysisRequest) -> Memo:
             f"Tickers you may talk about: {', '.join(client.universe)}\n\n"
             f"Your data:\n{DATA_BLOCKS[agent](client.universe)}\n\n"
             f"Set \"agent\" to \"{agent}\".")
-    memo = llm.complete_json("analyst", _system(agent, Memo), user, Memo)
+    with llm.fresh_run(req.fresh):
+        memo = llm.complete_json("analyst", _system(agent, Memo), user, Memo)
 
     # Keep the memo honest: our name on it, and only tickers this client can actually buy.
     # LLMs often write "GOOGL: cheap at 17 P/E" instead of "GOOGL", so pull the tickers out.
@@ -180,5 +181,6 @@ def review(agent: str, req: ReviewRequest) -> Stance:
             "Decide: concede (accept a change), defend (keep your view, explain why it doesn't break the rules), "
             "or modify (propose a different change). Keep \"change\" and \"why\" to 1-2 short sentences each. "
             f"Set \"agent\" to \"{agent}\".")
-    stance = llm.complete_json("analyst", _system(agent, Stance), user, Stance)
+    with llm.fresh_run(req.fresh):
+        stance = llm.complete_json("analyst", _system(agent, Stance), user, Stance)
     return stance.model_copy(update={"agent": agent})

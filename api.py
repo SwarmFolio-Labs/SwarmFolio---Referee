@@ -221,7 +221,7 @@ def _brains(use_fakes: bool):
     return LocalTransport(), committee_loop.chair_propose, committee_loop.chair_revise
 
 
-async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) -> None:
+async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int, fresh: bool = False) -> None:
     committee_loop = _committee_loop()
     inner, propose, revise = _brains(use_fakes)
     transport = ProgressTransport(inner, job)
@@ -248,7 +248,13 @@ async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) 
         original = (committee_loop.chair_propose, committee_loop.chair_revise)
         committee_loop.chair_propose, committee_loop.chair_revise = chair_propose, chair_revise
         try:
-            result = await committee_loop.run_committee(client, transport, max_rounds=max_rounds)
+            if fresh and not use_fakes:
+                # ?fresh=1: every LLM answers anew (no cache read or write); the request carries the flag.
+                from committee import llm
+                with llm.fresh_run():
+                    result = await committee_loop.run_committee(client, transport, max_rounds=max_rounds)
+            else:
+                result = await committee_loop.run_committee(client, transport, max_rounds=max_rounds)
             job["result"] = result.model_dump(mode="json")
             job["status"] = "done"
             _event(job, "done", verdict=result.receipt.verdict, rounds=result.rounds,
@@ -267,7 +273,7 @@ def get_settings() -> dict:
 
 
 @api.post("/run/{client_id}")
-async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0) -> dict:
+async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0, fresh: bool = False) -> dict:
     if not ENABLE_LIVE_RUNS:
         raise HTTPException(503, LIVE_RUNS_DISABLED)
     """Start run_committee for a client in the background; poll GET /run/{job_id} for progress."""
@@ -278,11 +284,14 @@ async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0)
     job_id = uuid.uuid4().hex[:12]
     job = {"job_id": job_id, "client_id": client_id, "status": "running", "fakes": use_fakes,
            "max_rounds": config.MAX_ROUNDS, "started": time.time(), "events": [], "result": None,
-           "error": None, "step_delay": max(0.0, min(step_delay, 5.0))}
+           "error": None, "step_delay": max(0.0, min(step_delay, 5.0)),
+           # "fresh" = every LLM answers anew; "cached" = saved answers are replayed when available.
+           "run_mode": "fresh" if fresh and not use_fakes else "cached"}
     JOBS[job_id] = job
-    _event(job, "started", client_id=client_id, fakes=use_fakes, max_rounds=config.MAX_ROUNDS)
-    job["task"] = asyncio.create_task(_run_job(job, client, use_fakes, config.MAX_ROUNDS))
-    return {"job_id": job_id, "client_id": client_id, "fakes": use_fakes}
+    _event(job, "started", client_id=client_id, fakes=use_fakes, max_rounds=config.MAX_ROUNDS,
+           run_mode=job["run_mode"])
+    job["task"] = asyncio.create_task(_run_job(job, client, use_fakes, config.MAX_ROUNDS, fresh=fresh))
+    return {"job_id": job_id, "client_id": client_id, "fakes": use_fakes, "run_mode": job["run_mode"]}
 
 
 @api.get("/run/{job_id}")
@@ -291,7 +300,8 @@ def get_run(job_id: str, after: int = 0) -> dict:
     job = JOBS.get(job_id)
     if job is None:
         raise HTTPException(404, f"Unknown run {job_id}")
-    return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "result", "error")} | {
+    return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "run_mode", "result",
+                                "error")} | {
         "events": job["events"][max(after, 0):], "event_count": len(job["events"])}
 
 

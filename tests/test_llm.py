@@ -205,3 +205,17 @@ def test_pinned_model_never_falls_back(gemini):
     llm.complete_json("chair", "s", "u", Answer)
     assert set(used) == {"gemini-3.5-flash-lite"} and len(sleeps) == 3
     assert llm.model_id_for("analyst") == "gemini-3.5-flash-lite"
+
+
+def test_fresh_run_skips_the_cache_both_ways(fake, tmp_path):
+    """A fresh run asks the model again and leaves the cached answer untouched."""
+    model = fake(['{"ticker": "JNJ", "weight": 0.3}', '{"ticker": "MSFT", "weight": 0.7}'])
+    assert llm.complete_json("chair", "s", "u", Answer).ticker == "JNJ"     # cached now
+    with llm.fresh_run():
+        assert llm.is_fresh()
+        assert llm.complete_json("chair", "s", "u", Answer).ticker == "MSFT"  # asked again
+    assert not llm.is_fresh()
+    assert llm.complete_json("chair", "s", "u", Answer).ticker == "JNJ"     # cache unchanged
+    assert model.calls == 2
+    with llm.fresh_run(False):
+        assert not llm.is_fresh()

@@ -121,3 +121,21 @@ def test_enable_live_runs_env_flag():
         out = subprocess.run([sys.executable, "-c", "import api; print(api.ENABLE_LIVE_RUNS)"],
                              cwd=repo, env=env, capture_output=True, text=True)
         assert out.stdout.strip() == expected, (value, out.stderr[-300:])
+
+
+def test_run_reports_cached_or_fresh(monkeypatch):
+    """POST /run/{id}?fresh=1 starts a fresh run (no LLM cache); the default is a cached run."""
+    import api as api_module
+    from fastapi.testclient import TestClient
+    started = []
+
+    async def fake_job(job, client, use_fakes, max_rounds, fresh=False):
+        started.append(fresh)
+    monkeypatch.setattr(api_module, "_run_job", fake_job)
+    monkeypatch.setattr(api_module.config, "USE_FAKES", False)
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    monkeypatch.setattr(api_module, "ENABLE_LIVE_RUNS", True)
+    c = TestClient(api_module.app)
+    assert c.post("/api/run/C02?fresh=1").json()["run_mode"] == "fresh"
+    assert c.post("/api/run/C02").json()["run_mode"] == "cached"
+    assert started == [True, False]

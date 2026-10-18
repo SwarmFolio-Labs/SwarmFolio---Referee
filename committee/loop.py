@@ -9,6 +9,7 @@ The Chair itself runs here (it's the one calling the loop), in a worker thread.
 import asyncio
 
 import config
+from committee import llm
 from committee.chair import chair_propose, chair_revise, failures_text
 from models import AnalysisRequest, CommitteeResult, DebateEntry, Receipt, ReviewRequest, VerifyRequest
 from referee import market
@@ -65,7 +66,8 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
 
     # --- Round 0: every analyst writes a memo (a missing one is noted, not fatal) ---
     req = AnalysisRequest(client_id=client.client_id, client_story=client.story,
-                          rules_text=[r.source for r in client.rules], as_of=market.as_of())
+                          rules_text=[r.source for r in client.rules], as_of=market.as_of(),
+                          fresh=llm.is_fresh())  # analyst agents run in other processes: tell them
     # All three analysts work at the same time (gather keeps their order: macro, fundamentals, risk).
     answers = await asyncio.gather(*(transport.analyze(agent, req) for agent in ANALYSTS))
     memos = []
@@ -100,7 +102,8 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
     # --- Debate rounds: analysts react to the Referee, the Chair revises, the Referee re-checks ---
     while receipt.verdict == "VIOLATIONS_REPAIRED" and rounds <= max_rounds:
         review_req = ReviewRequest(client_id=client.client_id, round=rounds, failures=failures_text(receipt),
-                                   proposal=proposal, conflict_explain=receipt.conflict_explain)
+                                   proposal=proposal, conflict_explain=receipt.conflict_explain,
+                                   fresh=llm.is_fresh())
         answers = await asyncio.gather(*(transport.review(agent, review_req) for agent in ANALYSTS))
         stances = []
         for agent, stance in zip(ANALYSTS, answers):

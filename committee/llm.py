@@ -36,6 +36,26 @@ TEMPERATURE = {"analyst": 0.2, "chair": 0.0}
 _sampling: contextvars.ContextVar[dict | None] = contextvars.ContextVar("sampling", default=None)
 
 
+# A "fresh run" skips the cache completely: no saved answers are reused and none are written, so a
+# fresh demo run can never overwrite the curated cached answers. Carried like _sampling (contextvar).
+_fresh: contextvars.ContextVar[bool] = contextvars.ContextVar("fresh", default=False)
+
+
+@contextmanager
+def fresh_run(on: bool = True):
+    """Inside this block every LLM call asks the model again (no cache read, no cache write)."""
+    token = _fresh.set(on or _fresh.get())
+    try:
+        yield
+    finally:
+        _fresh.reset(token)
+
+
+def is_fresh() -> bool:
+    """True inside fresh_run(): the answers are new, not replayed from the cache."""
+    return _fresh.get()
+
+
 @contextmanager
 def sampling(temperature: float, tag: str):
     """Inside this block every LLM call uses `temperature` and ends its prompt with `tag`."""
@@ -281,6 +301,8 @@ def complete_json(role: str, system: str, user: str, schema: type[BaseModel]) ->
     # A pinned model (use_model) never falls back: the run must stay on one model.
     fallback = config.GEMINI_FALLBACK_MODEL if provider() == "gemini" and not _model_override["id"] else None
     for model_id in (primary, fallback):
+        if is_fresh():
+            break  # fresh run: never replay a saved answer
         if model_id and os.path.exists(_cache_path(role, system, user, model_id)):
             with open(_cache_path(role, system, user, model_id)) as f:
                 return schema.model_validate(json.load(f))
@@ -306,6 +328,8 @@ def complete_json(role: str, system: str, user: str, schema: type[BaseModel]) ->
             time.sleep(wait)
 
     _record(success=True)
+    if is_fresh():
+        return result  # fresh run: don't touch the cache
     os.makedirs(CACHE_DIR, exist_ok=True)
     with open(_cache_path(role, system, user, model_id), "w") as f:  # keyed on the model that answered
         f.write(result.model_dump_json(indent=2))

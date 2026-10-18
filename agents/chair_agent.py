@@ -8,6 +8,7 @@ Run it with:  python -m agents.chair_agent
 
 import asyncio
 import os
+import re
 
 from uagents import Agent, Context, Protocol
 from uagents_core.contrib.protocols.chat import ChatAcknowledgement, ChatMessage, chat_protocol_spec
@@ -19,7 +20,12 @@ from agents.cards import client_picker_card, price_tags_card, receipt_card, sele
 from agents.chat import (CHAIR_HELP, acknowledge, committee_reply, find_client, list_clients_text,
                          load_clients, price_tags_text, say, text_of)
 from agents.transport import AgentTransport
+from committee import llm
 from referee.prices import rule_prices
+
+
+RUN_CACHED = "cached run: saved answers are replayed when this exact question was asked before"
+RUN_FRESH = "fresh run: every analyst and the Chair answer anew, nothing replayed from the cache"
 
 
 def referee_address() -> str | None:
@@ -65,11 +71,15 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
             return
 
         # The committee takes a while with real LLMs, so say something first.
-        await say(ctx, sender, f"Convening the committee for {client.client_id}…")
+        # "Build a portfolio for C13 fresh": ask every LLM again instead of replaying saved answers.
+        fresh = bool(re.search(r"\bfresh\b", text, re.IGNORECASE))
+        mode = RUN_FRESH if fresh else RUN_CACHED
+        await say(ctx, sender, f"Convening the committee for {client.client_id}… ({mode})")
         transport = AgentTransport(ctx, referee_address())
         try:
-            result = await brains.run_committee(client, transport, max_rounds=config.MAX_ROUNDS)
-            reply = committee_reply(result, transport.notes)
+            with llm.fresh_run(fresh):
+                result = await brains.run_committee(client, transport, max_rounds=config.MAX_ROUNDS)
+            reply = f"_{mode.capitalize()}._\n\n" + committee_reply(result, transport.notes)
             try:  # the top 3 rule price tags go under the verdict; never let them block the answer
                 prices = await asyncio.to_thread(rule_prices, client)
                 reply += "\n\n" + price_tags_text(client.client_id, prices, top=3)

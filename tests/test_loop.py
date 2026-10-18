@@ -5,7 +5,7 @@ import asyncio
 import pytest
 
 from committee import analysts, chair, feedback, llm, loop
-from models import Memo, Stance
+from models import AnalysisRequest, Memo, Stance
 from referee.receipt import referee
 from referee.schema import Proposal
 
@@ -172,3 +172,36 @@ def test_long_stances_are_cut_in_the_debate_log(monkeypatch):
     text = next(e.text for e in result.debate_log if e.kind == "stance")
     assert len(text) <= 2 * loop.STANCE_CHARS + 3 and text.count("…") == 2
     assert loop._short("short text") == "short text"
+
+
+def test_fresh_flag_travels_in_every_analyst_request(monkeypatch):
+    """Analyst agents run in other processes, so the fresh flag must be inside the requests."""
+    from committee import llm
+    seen = []
+
+    class Recording(StubTransport):
+        async def analyze(self, agent, req):
+            seen.append(("memo", req.fresh))
+            return await super().analyze(agent, req)
+
+        async def review(self, agent, req):
+            seen.append(("review", req.fresh))
+            return await super().review(agent, req)
+
+    with llm.fresh_run():
+        _run(monkeypatch, [BAD, GOOD], transport=Recording())
+    assert seen and all(fresh for _, fresh in seen) and {k for k, _ in seen} == {"memo", "review"}
+    seen.clear()
+    _run(monkeypatch, [BAD, GOOD], transport=Recording())
+    assert not any(fresh for _, fresh in seen)
+
+
+def test_analyst_honours_fresh_request(monkeypatch):
+    from committee import llm
+    flags = []
+    monkeypatch.setattr(llm, "complete_json", lambda role, s, u, schema: flags.append(llm.is_fresh()) or
+                        Memo(agent="x", favor=[], avoid=[], sector_views={}, reasons={}, confidence=0.5))
+    req = AnalysisRequest(client_id="C02", client_story=PATEL.story, rules_text=[], as_of="2026-10-16", fresh=True)
+    analysts.analyze("macro", req)
+    analysts.analyze("macro", req.model_copy(update={"fresh": False}))
+    assert flags == [True, False]

@@ -67,6 +67,8 @@ class AnalysisRequest(BaseModel):
     client_story: str
     rules_text: list[str]
     as_of: str
+    # Added after the freeze (optional): True = answer without the LLM cache (a "fresh run").
+    fresh: bool = False
 
 
 class Memo(BaseModel):
@@ -88,6 +90,7 @@ class ReviewRequest(BaseModel):
     failures: list[str]  # plain-English failed checks
     proposal: Proposal
     conflict_explain: str
+    fresh: bool = False  # added after the freeze (optional): True = answer without the LLM cache
 
 
 class Stance(BaseModel):

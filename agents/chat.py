@@ -107,6 +107,7 @@ CHAIR_HELP = (
     "Hi! I'm the SwarmFolio investment committee. Try:\n"
     "• \"list clients\"\n"
     "• \"Build a portfolio for Dr. Patel\" or \"Build a portfolio for C02\"\n"
+    "• add \"fresh\" (\"Build a portfolio for C13 fresh\") to make every AI answer anew instead of replaying saved answers\n"
     "• \"price tags for C02\" (what each of the client's rules costs)\n"
     "• or paste a client as JSON"
 )
