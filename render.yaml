@@ -1,0 +1,8 @@
+# Render Blueprint for the public API (docs/DEPLOY.md). Pure math: no environment variables or keys needed.
+services:
+  - type: web
+    name: swarmfolio-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/clients
