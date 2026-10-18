@@ -161,7 +161,7 @@ export default function ReceiptCard({
         data-variant={variant}
         className="relative -mx-6 border border-line bg-surface px-6 pb-8 pt-8 sm:mx-0 sm:px-12 sm:pt-11"
       >
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
           <div>
             <div className="label">Referee receipt</div>
             <div className="mt-1 font-display text-2xl font-semibold sm:text-5xl">
@@ -173,7 +173,7 @@ export default function ReceiptCard({
               <span>{time}</span>
             </div>
           </div>
-          <div className="shrink-0 sm:hidden"><Stamp verdict={r.verdict} sub={stampSub(r)} size="sm" /></div>
+          <div className="shrink-0 pl-1 sm:hidden"><Stamp verdict={r.verdict} sub={stampSub(r)} size="sm" /></div>
           <div className="hidden shrink-0 sm:block"><Stamp verdict={r.verdict} sub={stampSub(r)} /></div>
         </div>
 

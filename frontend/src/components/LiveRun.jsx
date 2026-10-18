@@ -1,7 +1,7 @@
 // Live committee run: POST /run/{client} starts it, GET /run/{job} is polled for progress events.
 // Shows which agent is working and the round progress, then the debate and receipt when done.
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { getRun, startRun } from '../api.js'
+import { getRun, getRunCapabilities, startRun } from '../api.js'
 import { AGENTS, VERDICTS } from '../format.js'
 import { buildSteps } from '../steps.js'
 import DebateTimeline from './DebateTimeline.jsx'
@@ -173,6 +173,7 @@ const runLabel = (job) => {
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
 export default function LiveRun({ client, receiptVariant, onDisabled }) {
+  // Scripted only when no LLM is available: the real committee is the default whenever the API reports a model.
   const [useFakes, setUseFakes] = useState(true)
   const [fresh, setFresh] = useState(false)
   const [job, setJob] = useState(null) // {job_id, status, max_rounds, result, error}
@@ -180,6 +181,12 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const [startError, setStartError] = useState(null)
   const timer = useRef(null)
   const [now, setNow] = useState(0)
+
+  useEffect(() => {
+    getRunCapabilities()
+      .then((c) => setUseFakes(!(c.live_runs && c.model)))
+      .catch(() => setUseFakes(true))
+  }, [])
 
   const start = async () => {
     setStartError(null)
@@ -248,14 +255,14 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           {job && <div data-component="run-label" className="mt-1 text-xs text-faint">{runLabel(job)}</div>}
         </div>
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 text-xs text-muted">
+          <label className="flex items-center gap-2 whitespace-nowrap text-xs text-muted">
             <input type="checkbox" checked={useFakes} disabled={running} onChange={(e) => setUseFakes(e.target.checked)} />
             Scripted analysts (no API key)
           </label>
           <label
             data-component="fresh-run-toggle"
             title="Every LLM answers anew instead of replaying cached answers. Needs the real analysts, not the scripted ones."
-            className={`flex items-center gap-2 text-xs ${useFakes ? 'text-faint' : 'text-muted'}`}
+            className={`flex items-center gap-2 whitespace-nowrap text-xs ${useFakes ? 'text-faint' : 'text-muted'}`}
           >
             <input type="checkbox" checked={fresh && !useFakes} disabled={running || useFakes} onChange={(e) => setFresh(e.target.checked)} />
             Fresh run (no cache)

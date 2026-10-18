@@ -274,6 +274,21 @@ function ClientDetail({ id }) {
   const [liveRuns, setLiveRuns] = useState(false)
   const steps = useMemo(() => (demo ? buildSteps(demo) : []), [demo])
   const replay = useReplay(steps, params.get('all') === '1')
+  // The tab bar scrolls sideways on phones; a right-edge fade shows there's more until the end is reached.
+  const tabsRef = useRef(null)
+  const [tabFade, setTabFade] = useState(false)
+  useEffect(() => {
+    const el = tabsRef.current
+    if (!el) return
+    const update = () => setTabFade(el.scrollLeft + el.clientWidth < el.scrollWidth - 2)
+    const resize = new ResizeObserver(update)
+    resize.observe(el)
+    el.addEventListener('scroll', update, { passive: true })
+    return () => {
+      resize.disconnect()
+      el.removeEventListener('scroll', update)
+    }
+  }, [client, demo, liveRuns])
 
   const setTab = (t) => {
     const next = new URLSearchParams(params)
@@ -329,11 +344,11 @@ function ClientDetail({ id }) {
           <p className="mt-3 font-display text-lead text-prose">{client.story}</p>
         </div>
         {demo && current.id === 'run' && (
-          <div className="flex items-center gap-4 sm:gap-8">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8">
             <RoundTally steps={steps} visible={replay.visible} />
             {replay.done && (
               <>
-                <div className="sm:hidden"><Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} size="sm" /></div>
+                <div className="pl-1 sm:hidden"><Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} size="sm" /></div>
                 <div className="hidden sm:block"><Stamp verdict={demo.receipt.verdict} sub={stampSub(demo)} /></div>
               </>
             )}
@@ -357,7 +372,8 @@ function ClientDetail({ id }) {
         </section>
       )}
 
-      <div className={`mt-8 mb-10 gap-6 overflow-x-auto overflow-y-hidden border-b border-line ${current.id === 'receipt' ? 'hidden md:flex' : 'flex'}`}>
+      <div data-component="tab-bar" className={`relative mt-8 mb-10 ${current.id === 'receipt' ? 'hidden md:block' : ''}`}>
+      <div ref={tabsRef} className="no-scrollbar flex gap-6 overflow-x-auto overflow-y-hidden border-b border-line">
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -369,6 +385,8 @@ function ClientDetail({ id }) {
             {t.label}
           </button>
         ))}
+      </div>
+      {tabFade && <span aria-hidden="true" data-component="tab-fade" className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-bg to-transparent" />}
       </div>
 
       {/* Keep tabs mounted so the replay and the editor keep their state when switching. */}
