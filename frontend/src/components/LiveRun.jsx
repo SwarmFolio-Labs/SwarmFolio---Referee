@@ -254,7 +254,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           {job?.status === 'error' && 'The live run failed.'}
           {job && <div data-component="run-label" className="mt-1 text-xs text-faint">{runLabel(job)}</div>}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <label className="flex items-center gap-2 whitespace-nowrap text-xs text-muted">
             <input type="checkbox" checked={useFakes} disabled={running} onChange={(e) => setUseFakes(e.target.checked)} />
             Scripted analysts (no API key)
