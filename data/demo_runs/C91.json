@@ -1,0 +1,636 @@
+{
+  "client_id": "C91",
+  "final_proposal": {
+    "weights": {
+      "MSFT": 0.15,
+      "AAPL": 0.05,
+      "GOOGL": 0.05,
+      "JNJ": 0.1,
+      "UNH": 0.05,
+      "PG": 0.15,
+      "KO": 0.15,
+      "WMT": 0.15,
+      "XOM": 0.1,
+      "JPM": 0.05
+    },
+    "thesis": "Added XOM and JPM: they move differently from tech and staples, which lowers overall volatility more than piling into staples did.",
+    "reasons": {}
+  },
+  "receipt": {
+    "receipt_id": "5d0f102b1b51",
+    "timestamp": "2026-10-18T02:20:51Z",
+    "client_id": "C91",
+    "verdict": "PASS",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_volatility",
+        "passed": true,
+        "actual": 0.10715787480569208,
+        "limit": 0.11,
+        "violation": 0.0,
+        "explain": "Annual volatility is 10.7% (limit 11.0%): OK. The client said: 'Annual volatility at most 11%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.25,
+        "limit": 0.25,
+        "violation": 0.0,
+        "explain": "Tech is 25.0% of the portfolio (limit 25.0%): OK. The client said: 'Tech at least 25%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.15000000000000002,
+        "limit": 0.15,
+        "violation": 0.0,
+        "explain": "Healthcare is 15.0% of the portfolio (limit 15.0%): OK. The client said: 'Healthcare at least 15%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.15,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is MSFT at 15.0% (limit 20.0%): OK. The client said: 'No single position above 20%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 10.0,
+        "limit": 7.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 10 holdings (limit 7): OK. The client said: 'At least 7 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.05,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "The smallest position is AAPL at 5.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of GLD, TLT (limit 0.0%): OK. The client said: 'Stocks only: no gold or bond funds.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "MSFT": 0.15,
+      "AAPL": 0.05,
+      "GOOGL": 0.05,
+      "JNJ": 0.1,
+      "UNH": 0.05,
+      "PG": 0.15,
+      "KO": 0.15,
+      "WMT": 0.15,
+      "XOM": 0.1,
+      "JPM": 0.05
+    },
+    "capital_moved": 0.0,
+    "sharpe_before": 1.6116924790009324,
+    "sharpe_after": 1.6116924790009324,
+    "vol_after": 0.10715787480569208,
+    "summary": "The proposal follows all 7 rules. Sharpe 1.61, volatility 10.7%.",
+    "notes": []
+  },
+  "first_receipt": {
+    "receipt_id": "0bf294108360",
+    "timestamp": "2026-10-18T02:20:47Z",
+    "client_id": "C91",
+    "verdict": "VIOLATIONS_REPAIRED",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "max_volatility",
+        "passed": false,
+        "actual": 0.11991682068866061,
+        "limit": 0.11,
+        "violation": 0.009916820688660608,
+        "explain": "Annual volatility is 12.0% (limit 11.0%): BROKEN. The client said: 'Annual volatility at most 11%.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.35,
+        "limit": 0.25,
+        "violation": 0.0,
+        "explain": "Tech is 35.0% of the portfolio (limit 25.0%): OK. The client said: 'Tech at least 25%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.2,
+        "limit": 0.15,
+        "violation": 0.0,
+        "explain": "Healthcare is 20.0% of the portfolio (limit 15.0%): OK. The client said: 'Healthcare at least 15%.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.15,
+        "limit": 0.2,
+        "violation": 0.0,
+        "explain": "The largest position is MSFT at 15.0% (limit 20.0%): OK. The client said: 'No single position above 20%.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 8.0,
+        "limit": 7.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 8 holdings (limit 7): OK. The client said: 'At least 7 holdings.'"
+      },
+      {
+        "rule_id": "R6",
+        "type": "buy_in",
+        "passed": true,
+        "actual": 0.1,
+        "limit": 0.05,
+        "violation": 0.0,
+        "explain": "The smallest position is AAPL at 10.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+      },
+      {
+        "rule_id": "R7",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of GLD, TLT (limit 0.0%): OK. The client said: 'Stocks only: no gold or bond funds.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": true,
+    "conflict_set": [],
+    "conflict_explain": "",
+    "cheapest_relaxation": [],
+    "repaired_weights": {
+      "AAPL": 0.0698293168639328,
+      "MSFT": 0.14999999995026794,
+      "NVDA": 0.059264861722867476,
+      "JNJ": 0.10000000011874446,
+      "UNH": 0.09087427224021356,
+      "PG": 0.15000000000533795,
+      "KO": 0.15000000002476874,
+      "WMT": 0.14939215314301774,
+      "XOM": 0.08063939593084943
+    },
+    "capital_moved": 0.08063939607970053,
+    "sharpe_before": 1.587511750252003,
+    "sharpe_after": 1.6008698778255244,
+    "vol_after": 0.10999000406745389,
+    "summary": "The proposal broke 1 of 7 rules. The nearest compliant portfolio moves 8% of capital and changes Sharpe from 1.59 to 1.60.",
+    "notes": []
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor MSFT, GOOGL, WMT; avoid TLT, GLD.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor MSFT, UNH, JNJ, AAPL; avoid PFE.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor PG, KO, WMT, JNJ; avoid NVDA, META.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Quality tech (MSFT, AAPL, NVDA) for growth, JNJ/UNH for the healthcare floor, and three consumer staples to keep swings small.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal broke 1 of 7 rules. The nearest compliant portfolio moves 8% of capital and changes Sharpe from 1.59 to 1.60.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "macro",
+      "kind": "stance",
+      "text": "Swap NVDA for 5% GOOGL, rest to staples. Keeps tech exposure while cutting the most volatile name.",
+      "stance": "modify"
+    },
+    {
+      "round": 1,
+      "agent": "fundamentals",
+      "kind": "stance",
+      "text": "Keep MSFT at 15%. Tech must stay at 25% anyway; MSFT is the steadiest way to hold it.",
+      "stance": "defend"
+    },
+    {
+      "round": 1,
+      "agent": "risk",
+      "kind": "stance",
+      "text": "Drop NVDA entirely. It's the single biggest contributor to volatility, and the cap is 11%.",
+      "stance": "concede"
+    },
+    {
+      "round": 2,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Dropped NVDA (the most volatile name) for a small GOOGL stake and leaned harder on staples.",
+      "stance": null
+    },
+    {
+      "round": 2,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal broke 1 of 7 rules. The nearest compliant portfolio moves 7% of capital and changes Sharpe from 1.47 to 1.53.",
+      "stance": null
+    },
+    {
+      "round": 2,
+      "agent": "macro",
+      "kind": "stance",
+      "text": "Keep tech at exactly 25%. The client asked for at least 25% tech; going lower breaks R2.",
+      "stance": "defend"
+    },
+    {
+      "round": 2,
+      "agent": "fundamentals",
+      "kind": "stance",
+      "text": "Trim AAPL to 5%. Volatility is still over the cap; AAPL is the easiest tech to trim.",
+      "stance": "concede"
+    },
+    {
+      "round": 2,
+      "agent": "risk",
+      "kind": "stance",
+      "text": "Add 10% XOM and 5% JPM. More staples barely helped; names that move differently from tech lower risk faster.",
+      "stance": "modify"
+    },
+    {
+      "round": 3,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "Added XOM and JPM: they move differently from tech and staples, which lowers overall volatility more than piling into staples did.",
+      "stance": null
+    },
+    {
+      "round": 3,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "The proposal follows all 7 rules. Sharpe 1.61, volatility 10.7%.",
+      "stance": null
+    }
+  ],
+  "rounds": 3,
+  "self_corrected": true,
+  "notes": [],
+  "extras": {
+    "source": "dev-fakes",
+    "saved_at": "2026-10-18T02:20:51Z",
+    "proposals": [
+      {
+        "MSFT": 0.15,
+        "AAPL": 0.1,
+        "NVDA": 0.1,
+        "JNJ": 0.1,
+        "UNH": 0.1,
+        "PG": 0.15,
+        "KO": 0.15,
+        "WMT": 0.15
+      },
+      {
+        "MSFT": 0.15,
+        "AAPL": 0.1,
+        "GOOGL": 0.05,
+        "JNJ": 0.1,
+        "UNH": 0.05,
+        "PG": 0.15,
+        "KO": 0.2,
+        "WMT": 0.2
+      },
+      {
+        "MSFT": 0.15,
+        "AAPL": 0.05,
+        "GOOGL": 0.05,
+        "JNJ": 0.1,
+        "UNH": 0.05,
+        "PG": 0.15,
+        "KO": 0.15,
+        "WMT": 0.15,
+        "XOM": 0.1,
+        "JPM": 0.05
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "0bf294108360",
+        "timestamp": "2026-10-18T02:20:47Z",
+        "client_id": "C91",
+        "verdict": "VIOLATIONS_REPAIRED",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": false,
+            "actual": 0.11991682068866061,
+            "limit": 0.11,
+            "violation": 0.009916820688660608,
+            "explain": "Annual volatility is 12.0% (limit 11.0%): BROKEN. The client said: 'Annual volatility at most 11%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.35,
+            "limit": 0.25,
+            "violation": 0.0,
+            "explain": "Tech is 35.0% of the portfolio (limit 25.0%): OK. The client said: 'Tech at least 25%.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.2,
+            "limit": 0.15,
+            "violation": 0.0,
+            "explain": "Healthcare is 20.0% of the portfolio (limit 15.0%): OK. The client said: 'Healthcare at least 15%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.15,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is MSFT at 15.0% (limit 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 8.0,
+            "limit": 7.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 8 holdings (limit 7): OK. The client said: 'At least 7 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.1,
+            "limit": 0.05,
+            "violation": 0.0,
+            "explain": "The smallest position is AAPL at 10.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of GLD, TLT (limit 0.0%): OK. The client said: 'Stocks only: no gold or bond funds.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AAPL": 0.0698293168639328,
+          "MSFT": 0.14999999995026794,
+          "NVDA": 0.059264861722867476,
+          "JNJ": 0.10000000011874446,
+          "UNH": 0.09087427224021356,
+          "PG": 0.15000000000533795,
+          "KO": 0.15000000002476874,
+          "WMT": 0.14939215314301774,
+          "XOM": 0.08063939593084943
+        },
+        "capital_moved": 0.08063939607970053,
+        "sharpe_before": 1.587511750252003,
+        "sharpe_after": 1.6008698778255244,
+        "vol_after": 0.10999000406745389,
+        "summary": "The proposal broke 1 of 7 rules. The nearest compliant portfolio moves 8% of capital and changes Sharpe from 1.59 to 1.60.",
+        "notes": []
+      },
+      {
+        "receipt_id": "e96705361cb3",
+        "timestamp": "2026-10-18T02:20:51Z",
+        "client_id": "C91",
+        "verdict": "VIOLATIONS_REPAIRED",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": false,
+            "actual": 0.11762759467981221,
+            "limit": 0.11,
+            "violation": 0.007627594679812208,
+            "explain": "Annual volatility is 11.8% (limit 11.0%): BROKEN. The client said: 'Annual volatility at most 11%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.3,
+            "limit": 0.25,
+            "violation": 0.0,
+            "explain": "Tech is 30.0% of the portfolio (limit 25.0%): OK. The client said: 'Tech at least 25%.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.15000000000000002,
+            "limit": 0.15,
+            "violation": 0.0,
+            "explain": "Healthcare is 15.0% of the portfolio (limit 15.0%): OK. The client said: 'Healthcare at least 15%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.2,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is KO at 20.0% (limit 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 8.0,
+            "limit": 7.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 8 holdings (limit 7): OK. The client said: 'At least 7 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.05,
+            "limit": 0.05,
+            "violation": 0.0,
+            "explain": "The smallest position is GOOGL at 5.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of GLD, TLT (limit 0.0%): OK. The client said: 'Stocks only: no gold or bond funds.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "AAPL": 0.08362075605758536,
+          "MSFT": 0.15000000000000002,
+          "GOOGL": 0.05,
+          "JNJ": 0.10000000000000003,
+          "UNH": 0.05,
+          "PG": 0.15000000000000002,
+          "KO": 0.20000000000000007,
+          "WMT": 0.14677032132003348,
+          "XOM": 0.06960892262238115
+        },
+        "capital_moved": 0.06960892262238123,
+        "sharpe_before": 1.4672319111243837,
+        "sharpe_after": 1.5291579233046608,
+        "vol_after": 0.10999241430244197,
+        "summary": "The proposal broke 1 of 7 rules. The nearest compliant portfolio moves 7% of capital and changes Sharpe from 1.47 to 1.53.",
+        "notes": []
+      },
+      {
+        "receipt_id": "5d0f102b1b51",
+        "timestamp": "2026-10-18T02:20:51Z",
+        "client_id": "C91",
+        "verdict": "PASS",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "max_volatility",
+            "passed": true,
+            "actual": 0.10715787480569208,
+            "limit": 0.11,
+            "violation": 0.0,
+            "explain": "Annual volatility is 10.7% (limit 11.0%): OK. The client said: 'Annual volatility at most 11%.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.25,
+            "limit": 0.25,
+            "violation": 0.0,
+            "explain": "Tech is 25.0% of the portfolio (limit 25.0%): OK. The client said: 'Tech at least 25%.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.15000000000000002,
+            "limit": 0.15,
+            "violation": 0.0,
+            "explain": "Healthcare is 15.0% of the portfolio (limit 15.0%): OK. The client said: 'Healthcare at least 15%.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.15,
+            "limit": 0.2,
+            "violation": 0.0,
+            "explain": "The largest position is MSFT at 15.0% (limit 20.0%): OK. The client said: 'No single position above 20%.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 10.0,
+            "limit": 7.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 10 holdings (limit 7): OK. The client said: 'At least 7 holdings.'"
+          },
+          {
+            "rule_id": "R6",
+            "type": "buy_in",
+            "passed": true,
+            "actual": 0.05,
+            "limit": 0.05,
+            "violation": 0.0,
+            "explain": "The smallest position is AAPL at 5.0% (limit 5.0%): OK. The client said: 'No position smaller than 5%.'"
+          },
+          {
+            "rule_id": "R7",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of GLD, TLT (limit 0.0%): OK. The client said: 'Stocks only: no gold or bond funds.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": true,
+        "conflict_set": [],
+        "conflict_explain": "",
+        "cheapest_relaxation": [],
+        "repaired_weights": {
+          "MSFT": 0.15,
+          "AAPL": 0.05,
+          "GOOGL": 0.05,
+          "JNJ": 0.1,
+          "UNH": 0.05,
+          "PG": 0.15,
+          "KO": 0.15,
+          "WMT": 0.15,
+          "XOM": 0.1,
+          "JPM": 0.05
+        },
+        "capital_moved": 0.0,
+        "sharpe_before": 1.6116924790009324,
+        "sharpe_after": 1.6116924790009324,
+        "vol_after": 0.10715787480569208,
+        "summary": "The proposal follows all 7 rules. Sharpe 1.61, volatility 10.7%.",
+        "notes": []
+      }
+    ]
+  }
+}
