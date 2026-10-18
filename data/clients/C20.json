@@ -1,0 +1,85 @@
+{
+ "client_id": "C20",
+ "name": "Ms. Delgado (synthetic)",
+ "story": "Hedge-fund analyst who wants exactly the conviction-portfolio style she uses at work: a handful of big, similar-sized bets.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_holdings",
+   "params": {
+    "k": 4
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "4 stocks at most."
+  },
+  {
+   "id": "R2",
+   "type": "buy_in",
+   "params": {
+    "min": 0.21
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "Each one at least 21%."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.29
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "None above 29%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.32
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at most 32%."
+  },
+  {
+   "id": "R5",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD",
+     "TLT"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "Only operating companies, no funds."
+  }
+ ],
+ "planted_conflict": null
+}

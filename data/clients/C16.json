@@ -1,0 +1,97 @@
+{
+ "client_id": "C16",
+ "name": "Ms. Fitzgerald (synthetic)",
+ "story": "Former regional-bank executive who wants a big financials stake but is wary of Wall Street investment banks.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.28
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "At least 28% in financials."
+  },
+  {
+   "id": "R2",
+   "type": "max_weight",
+   "params": {
+    "ticker": "JPM",
+    "max": 0.08
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "JPMorgan no more than 8%."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "GS",
+    "max": 0.08
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Goldman Sachs no more than 8%, too much trading risk."
+  },
+  {
+   "id": "R4",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.16
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No position above 16%."
+  },
+  {
+   "id": "R5",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.18
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Consumer brands at least 18%."
+  },
+  {
+   "id": "R6",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "AMZN"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No Amazon, it put my brother's store out of business."
+  }
+ ],
+ "planted_conflict": null
+}

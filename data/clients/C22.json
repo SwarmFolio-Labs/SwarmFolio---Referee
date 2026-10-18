@@ -1,0 +1,128 @@
+{
+ "client_id": "C22",
+ "name": "Dr. Beaumont (synthetic)",
+ "story": "Hospital physician who avoids healthcare stocks for conflict-of-interest reasons and wants a broad, stable portfolio.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_max",
+   "params": {
+    "sector": "Healthcare",
+    "max": 0.09
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "Healthcare at most 9%, I don't want conflicts of interest."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.27
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Tech at most 27%."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.14
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single holding above 14%."
+  },
+  {
+   "id": "R4",
+   "type": "min_holdings",
+   "params": {
+    "k": 9
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "At least 9 holdings."
+  },
+  {
+   "id": "R5",
+   "type": "buy_in",
+   "params": {
+    "min": 0.06
+   },
+   "priority": 3,
+   "hard": false,
+   "source": "No position smaller than 6%."
+  },
+  {
+   "id": "R6",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.15
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Financials at least 15%."
+  },
+  {
+   "id": "R7",
+   "type": "sector_min",
+   "params": {
+    "sector": "Consumer",
+    "min": 0.21
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Consumer at least 21%."
+  },
+  {
+   "id": "R8",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM",
+     "CVX"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No oil."
+  },
+  {
+   "id": "R9",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.102
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 10.2%."
+  }
+ ],
+ "planted_conflict": null
+}

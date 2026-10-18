@@ -1,0 +1,96 @@
+{
+ "client_id": "C11",
+ "name": "Mr. Castellanos (synthetic)",
+ "story": "29-year-old chip designer who wants a real tech tilt but already has plenty of NVDA exposure through his stock grants.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Tech",
+    "min": 0.43
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "At least 43% in tech, I believe in it."
+  },
+  {
+   "id": "R2",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.54
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "But no more than 54% tech overall."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "NVDA",
+    "max": 0.07
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Keep NVDA under 7%, my RSUs are already NVDA."
+  },
+  {
+   "id": "R4",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.16
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single holding above 16%."
+  },
+  {
+   "id": "R5",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "GLD"
+    ]
+   },
+   "priority": 8,
+   "hard": true,
+   "source": "No gold, it doesn't produce anything."
+  },
+  {
+   "id": "R6",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.113
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Still, keep annual volatility at 11.3% or less."
+  }
+ ],
+ "planted_conflict": null
+}

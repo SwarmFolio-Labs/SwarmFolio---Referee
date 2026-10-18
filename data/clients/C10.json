@@ -1,0 +1,86 @@
+{
+ "client_id": "C10",
+ "name": "Ms. Abernathy (synthetic)",
+ "story": "ICU nurse in her 40s who trusts the healthcare industry she works in, but wants a calm ride and no fossil fuels.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {},
+ "rules": [
+  {
+   "id": "R1",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.26
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "I want at least 26% in healthcare; it's the industry I know best."
+  },
+  {
+   "id": "R2",
+   "type": "max_weight",
+   "params": {
+    "ticker": "JNJ",
+    "max": 0.08
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Don't let Johnson & Johnson go over 8%, my hospital already buys a lot from them."
+  },
+  {
+   "id": "R3",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.14
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Nothing bigger than 14% in any one name."
+  },
+  {
+   "id": "R4",
+   "type": "exclude",
+   "params": {
+    "tickers": [
+     "XOM",
+     "CVX"
+    ]
+   },
+   "priority": 9,
+   "hard": true,
+   "source": "No oil companies, period."
+  },
+  {
+   "id": "R5",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.1
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "I don't want the portfolio to swing more than 10% in a year."
+  }
+ ],
+ "planted_conflict": null
+}

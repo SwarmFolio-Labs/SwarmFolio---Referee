@@ -1,0 +1,102 @@
+{
+ "client_id": "C23",
+ "name": "Ms. Vasquez (synthetic)",
+ "story": "Union pension trustee rebalancing a tech-heavy fund toward banks and healthcare, under a strict trading budget.",
+ "universe": [
+  "AAPL",
+  "MSFT",
+  "GOOGL",
+  "NVDA",
+  "AMZN",
+  "META",
+  "JPM",
+  "GS",
+  "BAC",
+  "JNJ",
+  "UNH",
+  "PFE",
+  "PG",
+  "KO",
+  "WMT",
+  "XOM",
+  "CVX",
+  "GLD",
+  "TLT"
+ ],
+ "current_weights": {
+  "NVDA": 0.2,
+  "META": 0.15,
+  "AAPL": 0.15,
+  "AMZN": 0.15,
+  "JPM": 0.1,
+  "UNH": 0.1,
+  "TLT": 0.15
+ },
+ "rules": [
+  {
+   "id": "R1",
+   "type": "max_turnover",
+   "params": {
+    "max": 0.53
+   },
+   "priority": 7,
+   "hard": false,
+   "source": "The board allows at most 53% turnover this year."
+  },
+  {
+   "id": "R2",
+   "type": "sector_min",
+   "params": {
+    "sector": "Financials",
+    "min": 0.19
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Financials at least 19%."
+  },
+  {
+   "id": "R3",
+   "type": "sector_min",
+   "params": {
+    "sector": "Healthcare",
+    "min": 0.2
+   },
+   "priority": 4,
+   "hard": false,
+   "source": "Healthcare at least 20%."
+  },
+  {
+   "id": "R4",
+   "type": "sector_max",
+   "params": {
+    "sector": "Tech",
+    "max": 0.26
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "Tech at most 26%."
+  },
+  {
+   "id": "R5",
+   "type": "max_weight",
+   "params": {
+    "ticker": "*",
+    "max": 0.24
+   },
+   "priority": 5,
+   "hard": false,
+   "source": "No single holding above 24%."
+  },
+  {
+   "id": "R6",
+   "type": "max_volatility",
+   "params": {
+    "max": 0.138
+   },
+   "priority": 6,
+   "hard": false,
+   "source": "Annual volatility at most 13.8%."
+  }
+ ],
+ "planted_conflict": null
+}
