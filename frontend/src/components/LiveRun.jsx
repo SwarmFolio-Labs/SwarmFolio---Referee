@@ -1,7 +1,7 @@
 // Live committee run: POST /run/{client} starts it, GET /run/{job} is polled for progress events.
 // Shows which agent is working and the round progress, then the debate and receipt when done.
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { getRun, startRun } from '../api.js'
+import { getCapabilities, getRun, startRun } from '../api.js'
 import { AGENTS, VERDICTS } from '../format.js'
 import { buildSteps } from '../steps.js'
 import DebateTimeline from './DebateTimeline.jsx'
@@ -165,6 +165,8 @@ function FutureRound({ round }) {
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
 export default function LiveRun({ client, receiptVariant, onDisabled }) {
+  // Real committee by default whenever the API has an LLM key; scripted only when it doesn't.
+  const [caps, setCaps] = useState(null)
   const [useFakes, setUseFakes] = useState(true)
   const [fresh, setFresh] = useState(false)
   const [job, setJob] = useState(null) // {job_id, status, max_rounds, result, error}
@@ -173,13 +175,25 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const timer = useRef(null)
   const [now, setNow] = useState(0)
 
+  useEffect(() => {
+    getCapabilities()
+      .then((c) => {
+        setCaps(c)
+        setUseFakes(!c.llm_available)
+      })
+      .catch(() => setCaps({ live_runs: true, llm_available: false }))
+  }, [])
+
+  const realLabel = `Real committee (${caps?.model ?? 'LLM'})`
+  const modeLabel = (fakes) => (fakes ? 'Scripted (no API key)' : realLabel)
+
   const start = async () => {
     setStartError(null)
     setEvents([])
     setJob(null)
     try {
-      const { job_id } = await startRun(client.client_id, { fakes: useFakes, fresh: fresh && !useFakes, stepDelay: useFakes ? 0.8 : 0 })
-      setJob({ job_id, status: 'running' })
+      const { job_id, fakes, run_mode } = await startRun(client.client_id, { fakes: useFakes, fresh: fresh && !useFakes, stepDelay: useFakes ? 0.8 : 0 })
+      setJob({ job_id, status: 'running', fakes, run_mode })
     } catch (e) {
       // 503: live runs are off in this deployment, so fall back to the saved committee run.
       if (e.status === 503 && onDisabled) onDisabled()
@@ -238,20 +252,29 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           {job?.status === 'done' && `Finished in ${result.rounds} round${result.rounds > 1 ? 's' : ''}`}
           {job?.status === 'error' && 'The live run failed.'}
         </div>
-        <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 text-xs text-muted">
-            <input type="checkbox" checked={useFakes} disabled={running} onChange={(e) => setUseFakes(e.target.checked)} />
-            Scripted analysts (no API key)
-          </label>
+        <div className="flex flex-wrap items-center gap-3">
+          <div data-component="run-mode-picker" role="radiogroup" aria-label="Who answers" className="flex flex-wrap items-center gap-3 text-xs">
+            <label
+              title={caps?.llm_available ? undefined : 'No LLM key is configured on this server'}
+              className={`flex items-center gap-2 whitespace-nowrap ${caps?.llm_available ? 'text-ink' : 'text-faint'}`}
+            >
+              <input type="radio" name="run-mode" value="real" checked={!useFakes} disabled={running || !caps?.llm_available} onChange={() => setUseFakes(false)} />
+              {realLabel}
+            </label>
+            <label className="flex items-center gap-2 whitespace-nowrap text-muted">
+              <input type="radio" name="run-mode" value="scripted" checked={useFakes} disabled={running} onChange={() => setUseFakes(true)} />
+              Scripted (no API key)
+            </label>
+          </div>
           <label
             data-component="fresh-run-toggle"
             title="Every LLM answers anew instead of replaying cached answers. Needs the real analysts, not the scripted ones."
-            className={`flex items-center gap-2 text-xs ${useFakes ? 'text-faint' : 'text-muted'}`}
+            className={`flex items-center gap-2 whitespace-nowrap text-xs ${useFakes ? 'text-faint' : 'text-muted'}`}
           >
             <input type="checkbox" checked={fresh && !useFakes} disabled={running || useFakes} onChange={(e) => setFresh(e.target.checked)} />
             Fresh run (no cache)
           </label>
-          <button className="btn-primary" disabled={running} onClick={start}>
+          <button className="btn-primary" disabled={running || !caps} onClick={start}>
             {running ? 'Running…' : job ? 'Run again' : 'Start live run'}
           </button>
         </div>
@@ -262,6 +285,11 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
 
       {job && (
         <div data-component="run-progress" className="grid gap-8">
+          {job.fakes != null && (
+            <div data-component="run-mode-badge" data-mode={job.fakes ? 'scripted' : 'real'} className="label">
+              {modeLabel(job.fakes)}{!job.fakes && ` · ${job.run_mode === 'fresh' ? 'fresh, no cache' : 'cached answers when available'}`}
+            </div>
+          )}
           <div className="flex flex-wrap items-end justify-between gap-6">
             <p className="max-w-lede font-display text-lg text-prose">
               {running

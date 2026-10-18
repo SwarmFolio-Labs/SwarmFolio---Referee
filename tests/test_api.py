@@ -139,3 +139,39 @@ def test_run_reports_cached_or_fresh(monkeypatch):
     assert c.post("/api/run/C02?fresh=1").json()["run_mode"] == "fresh"
     assert c.post("/api/run/C02").json()["run_mode"] == "cached"
     assert started == [True, False]
+
+
+def test_run_capabilities_reports_llm(client, monkeypatch):
+    """GET /run/capabilities: the UI defaults to the real committee only when an LLM key is configured."""
+    monkeypatch.setattr(api, "ENABLE_LIVE_RUNS", True)
+    monkeypatch.setattr(api.config, "USE_FAKES", False)
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    r = client.get("/api/run/capabilities")
+    assert r.json() == {"live_runs": True, "llm_available": True,
+                        "provider": config.LLM_PROVIDER, "model": config.CHAIR_MODEL}
+    assert "test-not-a-real-key" not in r.text  # the key itself never leaves the server
+    monkeypatch.delenv("ASI1_API_KEY")
+    assert client.get("/api/run/capabilities").json()["llm_available"] is False
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    monkeypatch.setattr(api.config, "USE_FAKES", True)
+    assert client.get("/api/run/capabilities").json()["llm_available"] is False
+    monkeypatch.setattr(api.config, "USE_FAKES", False)
+    monkeypatch.setattr(api, "ENABLE_LIVE_RUNS", False)  # the public demo: no live runs, no LLM
+    body = client.get("/api/run/capabilities").json()
+    assert body["live_runs"] is False and body["llm_available"] is False
+    assert client.get("/api/run/nosuchjob").status_code == 404  # GET /run/{job_id} still works
+
+
+def test_run_capabilities_import_no_committee():
+    """GET /run/capabilities answers without importing committee/ (so the public image stays LLM-free)."""
+    import os
+    import subprocess
+    import sys
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    code = ("import sys, api\nfrom fastapi.testclient import TestClient\n"
+            "print(TestClient(api.app).get('/api/run/capabilities').status_code)\n"
+            "print(any(m == 'committee' or m.startswith('committee.') for m in sys.modules))")
+    for value in ("true", "false"):
+        env = {**os.environ, "ENABLE_LIVE_RUNS": value}
+        out = subprocess.run([sys.executable, "-c", code], cwd=repo, env=env, capture_output=True, text=True)
+        assert out.stdout.split() == ["200", "False"], (value, out.stderr[-300:])

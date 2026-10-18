@@ -23,6 +23,8 @@ export const getPrices = (id) => request(`/prices/${id}`)
 export const getExperiment = () => request('/experiment')
 /** {live_runs}: false in the public demo (no live committee runs). */
 export const getSettings = () => request('/settings')
+/** {live_runs, llm_available, provider, model}: whether a live run can use a real LLM here. */
+export const getCapabilities = () => request('/run/capabilities')
 export const checkProposal = (clientId, weights) =>
   request('/referee', {
     method: 'POST',

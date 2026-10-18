@@ -251,3 +251,13 @@ body {
     print-color-adjust: exact;
   }
 }
+
+/* Sideways-scrolling strips (the tab bar on phones): no scrollbar; a right-edge fade shows there is more. */
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}

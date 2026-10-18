@@ -10,6 +10,7 @@ Endpoints:
     GET  /prices/{client_id}   what each rule costs (referee.prices.rule_prices), cached per client
     GET  /experiment           eval/results/experiment.json, if it exists
     GET  /settings             {live_runs}: whether POST /run is on (the UI hides the Live run tab if not)
+    GET  /run/capabilities     {live_runs, llm_available, provider, model}: real committee or scripted by default
     POST /run/{client_id}      start a live committee run (503 when ENABLE_LIVE_RUNS=false)
     GET  /run/{job_id}         its progress events
     POST /extract              {text} -> {rules, unmapped}: plain-English rules -> Rule objects (LLM; 503 when ENABLE_LIVE_RUNS=false)
@@ -271,6 +272,15 @@ async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int, 
 def get_settings() -> dict:
     """What this deployment allows (the public demo has no live committee runs)."""
     return {"live_runs": ENABLE_LIVE_RUNS}
+
+
+@api.get("/run/capabilities")
+def get_run_capabilities() -> dict:
+    """What a live run can use here. The UI picks the real committee by default when llm_available,
+    and the scripted analysts only when no LLM key is configured. Never imports committee/."""
+    llm_available = ENABLE_LIVE_RUNS and not config.USE_FAKES and bool(os.getenv("ASI1_API_KEY"))
+    return {"live_runs": ENABLE_LIVE_RUNS, "llm_available": llm_available,
+            "provider": config.LLM_PROVIDER, "model": config.CHAIR_MODEL}
 
 
 @api.post("/run/{client_id}")
