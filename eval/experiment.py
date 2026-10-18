@@ -76,11 +76,11 @@ def run_condition(client: Client, draft, mode: str) -> list[dict]:
             history.append(state)  # stopped early: the state just carries forward
             continue
         feedback_text = format_feedback(state["receipt"], client, mode)
-        try:
-            proposal = chair_revise_with(client, proposal, feedback_text)
-            state = measure(client, proposal.weights)
-        except Exception as e:  # a failed LLM call counts as "no progress this round"
-            print(f"    {client.client_id} {mode}: revision failed ({e})", flush=True)
+        # No try/except here on purpose: if the LLM call fails (e.g. a rate limit), the whole
+        # client-trial fails and is left out. Counting an API error as "the AI made no progress"
+        # would make that condition look worse than it really is.
+        proposal = chair_revise_with(client, proposal, feedback_text)
+        state = measure(client, proposal.weights)
         history.append(state)
     return history
 
@@ -90,12 +90,8 @@ def run_trial(client: Client, trial: int) -> dict:
     with llm.sampling(TEMPERATURE, f"Trial {trial}"):
         req = AnalysisRequest(client_id=client.client_id, client_story=client.story,
                               rules_text=[r.source for r in client.rules], as_of=market.as_of())
-        memos = []
-        for agent in ANALYSTS:
-            try:
-                memos.append(analyze(agent, req))
-            except Exception as e:
-                print(f"    {client.client_id} t{trial}: {agent} memo failed ({e})", flush=True)
+        # A failed memo fails the whole trial too: every trial must start from 3 real memos.
+        memos = [analyze(agent, req) for agent in ANALYSTS]
         draft = chair_propose(client, memos)
         conditions = {mode: run_condition(client, draft, mode) for mode in MODES}
 

@@ -1,0 +1,856 @@
+Experiment: 19 feasible clients x 3 trials = 57 client-trials
+[solve.c:4216] ERROR: (node 22731) unresolved numerical troubles in LP 7501 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11216dc60>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 22731) unresolved numerical troubles in LP 7501 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11216db40>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 22731) unresolved numerical troubles in LP 7501 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11216e710>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 28831) unresolved numerical troubles in LP 8622 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x111479ea0>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 55715) unresolved numerical troubles in LP 16254 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11216fb50>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 4134) unresolved numerical troubles in LP 1276 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x111479ab0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 11418) unresolved numerical troubles in LP 3108 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11216db40>: SCIP: error in LP solver!
+  C10 t1: rounds to comply {'self': None, 'bare': None, 'explained': None} (11s)
+[solve.c:4216] ERROR: (node 6680) unresolved numerical troubles in LP 2300 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0fd00>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 52195) unresolved numerical troubles in LP 14958 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0e320>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 111120) unresolved numerical troubles in LP 35169 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: [solve.c:4216] ERROR: Error <-6> in function call
+(node 158295) unresolved numerical troubles in LP 47099 cannot be dealt with
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0fe20>: SCIP: error in LP solver!
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:4216] ERROR: Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca403a0>: SCIP: error in LP solver!
+(node 78881) unresolved numerical troubles in LP 25618 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0f520>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 11810) unresolved numerical troubles in LP 4061 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0f910>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 57680) unresolved numerical troubles in LP 16628 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11a585750>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 105040) unresolved numerical troubles in LP 34308 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0d900>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 57680) unresolved numerical troubles in LP 16628 cannot be dealt with
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: [solve.c:4511] ERROR: (node 85461) unresolved numerical troubles in LP 22437 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca40310>: SCIP: error in LP solver!
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41c60>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 608) unresolved numerical troubles in LP 201 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: [solve.c:5335] ERROR: (node 57680) unresolved numerical troubles in LP 16628 cannot be dealt with
+[solve.c:4216] ERROR: [solve.c:4511] ERROR: (node 266191) unresolved numerical troubles in LP 83953 cannot be dealt with
+Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11caff880>: SCIP: error in LP solver!
+Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11caffa30>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: /Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/referee/solver.py:200: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  problem.solve(solver=cp.SCIP, scip_params=params)
+(node 52195) unresolved numerical troubles in LP 14958 cannot be dealt with
+[solve.c:4511] ERROR: [solve.c:4216] ERROR: (node 41266) unresolved numerical troubles in LP 10965 cannot be dealt with
+Error <-6> in function call
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: [solve.c:5335] ERROR: Error <-6> in function call
+Error <-6> in function call
+[scip_solve.c:2766] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafca60>: SCIP: error in LP solver!
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0c5e0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 42200) unresolved numerical troubles in LP 15450 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafcaf0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 6680) unresolved numerical troubles in LP 2300 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0ec20>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 32464) unresolved numerical troubles in LP 9046 cannot be dealt with
+[solve.c:4216] ERROR: [solve.c:4511] ERROR: (node 23183) unresolved numerical troubles in LP 6131 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+Error <-6> in function call
+[solve.c:5335] ERROR: [solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafd240>: SCIP: error in LP solver!
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafe170>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: [solve.c:4216] ERROR: (node 106781) unresolved numerical troubles in LP 34676 cannot be dealt with
+[solve.c:4511] ERROR: (node 26359) unresolved numerical troubles in LP 7105 cannot be dealt with
+Error <-6> in function call
+[solve.c:4511] ERROR: [solve.c:5335] ERROR: Error <-6> in function call
+Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafcee0>: SCIP: error in LP solver!
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafef80>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 158295) unresolved numerical troubles in LP 47099 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41c60>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 299741) unresolved numerical troubles in LP 103771 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafdb40>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 57891) unresolved numerical troubles in LP 16927 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafcca0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 11160) unresolved numerical troubles in LP 3877 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafdd80>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 42460) unresolved numerical troubles in LP 12922 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0d7e0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 52195) unresolved numerical troubles in LP 14958 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca42ef0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/referee/solver.py:200: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  problem.solve(solver=cp.SCIP, scip_params=params)
+[solve.c:4216] ERROR: (node 111120) unresolved numerical troubles in LP 35169 cannot be dealt with
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 29978) unresolved numerical troubles in LP 7872 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 34290) unresolved numerical troubles in LP 11452 cannot be dealt with
+Error <-6> in function call
+[solve.c:4511] ERROR: [solve.c:4511] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41ab0>: SCIP: error in LP solver!
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0e950>: SCIP: error in LP solver!
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0d120>: SCIP: error in LP solver!
+  C12 t1: rounds to comply {'self': 2, 'bare': None, 'explained': None} (151s)
+[solve.c:4216] ERROR: (node 6680) unresolved numerical troubles in LP 2300 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0d000>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 14659) unresolved numerical troubles in LP 4620 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11a585750>: SCIP: error in LP solver!
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 51591) unresolved numerical troubles in LP 16327 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4216] ERROR: (node 124351) unresolved numerical troubles in LP 34547 cannot be dealt with
+[solve.c:5335] ERROR: Error <-6> in function call
+[solve.c:4511] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca431c0>: SCIP: error in LP solver!
+[solve.c:5335] ERROR: [solve.c:4216] ERROR: Error <-6> in function call
+(node 177211) unresolved numerical troubles in LP 60423 cannot be dealt with
+[solve.c:4511] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca40c10>: SCIP: error in LP solver!
+Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0d090>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 20898) unresolved numerical troubles in LP 5867 cannot be dealt with
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/referee/solver.py:200: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  problem.solve(solver=cp.SCIP, scip_params=params)
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca0feb0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 188091) unresolved numerical troubles in LP 55237 cannot be dealt with
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+Cannot set feasibility tolerance to small value 1e-12 without GMP - using 1e-10.
+[solve.c:4511] ERROR: [solve.c:4216] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+(node 72748) unresolved numerical troubles in LP 19416 cannot be dealt with
+[solve.c:4511] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41240>: SCIP: error in LP solver!
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41000>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 158295) unresolved numerical troubles in LP 47099 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11a585480>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 57461) unresolved numerical troubles in LP 15259 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[solve.c:4216] ERROR: [scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca42c20>: SCIP: error in LP solver!
+(node 237141) unresolved numerical troubles in LP 73889 cannot be dealt with
+[solve.c:4216] ERROR: (node 52441) unresolved numerical troubles in LP 16320 cannot be dealt with
+[solve.c:4511] ERROR: [solve.c:4511] ERROR: Error <-6> in function call
+Error <-6> in function call
+[solve.c:5335] ERROR: [solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca41ea0>: SCIP: error in LP solver!
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca40b80>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 76802) unresolved numerical troubles in LP 23850 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: [solve.c:4216] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11a587f40>: SCIP: error in LP solver!
+(node 111120) unresolved numerical troubles in LP 35169 cannot be dealt with
+[solve.c:4511] ERROR:   C12 t2: rounds to comply {'self': 0, 'bare': 0, 'explained': 0} (94s)Error <-6> in function call
+
+[solve.c:5335] ERROR:   C10 t2: rounds to comply {'self': None, 'bare': None, 'explained': None} (255s)Error <-6> in function call
+
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafdea0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 90811) unresolved numerical troubles in LP 26593 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11a585900>: SCIP: error in LP solver!
+  C11 t2: rounds to comply {'self': None, 'bare': None, 'explained': None} (265s)
+[solve.c:4216] ERROR: (node 229131) unresolved numerical troubles in LP 68218 cannot be dealt with
+[solve.c:4511] ERROR: [solve.c:4216] ERROR: (node 18991) unresolved numerical troubles in LP 5506 cannot be dealt with
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/referee/solver.py:200: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  problem.solve(solver=cp.SCIP, scip_params=params)
+Error <-6> in function call
+[solve.c:5335] ERROR: [solve.c:4511] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca409d0>: SCIP: error in LP solver!
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11ca40940>: SCIP: error in LP solver!
+  C10 t3: rounds to comply {'self': None, 'bare': None, 'explained': None} (294s)
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/referee/solver.py:200: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  problem.solve(solver=cp.SCIP, scip_params=params)
+  C11 t3: rounds to comply {'self': None, 'bare': None, 'explained': None} (327s)
+[solve.c:4216] ERROR: (node 74851) unresolved numerical troubles in LP 23475 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11cafdc60>: SCIP: error in LP solver!
+  C12 t3: rounds to comply {'self': 0, 'bare': 0, 'explained': 0} (75s)
+  C13 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C11 explained: revision failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C11 t1: rounds to comply {'self': None, 'bare': None, 'explained': None} (331s)
+    C14 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C13 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C14 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C13 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C14 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C14 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C14 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C13 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C13 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C14 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C14 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C14 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C15 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C14 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C14 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C14 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C14 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C15 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C15 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C15 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C16 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C15 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C15 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C17 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C16 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C16 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C16 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C16 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C17 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C16 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C17 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C19 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C17 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C17 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C18 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C18 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C19 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C19 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C18 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C19 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C19 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C18 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C18 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C18 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C19 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C19 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C18 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C19 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C19 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C20 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C19 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C19 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C19 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C20 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C21 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C20 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C20 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C20 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C20 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C21 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C21 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C21 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C21 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C22 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C22 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C22 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C23 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C22 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C23 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C24 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C24 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C24 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C23 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C23 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C24 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C24 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C24 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C24 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})    C24 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+
+    C24 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C24 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C24 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C24 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C91 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C91 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C91 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C91 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C92 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C92 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C92 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C92 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C93 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t1: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C93 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t2: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t3: macro memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C93 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t1: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C93 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t2: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t3: fundamentals memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t1: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t2: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+    C94 t3: risk memo failed (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C94 t1: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C94 t2: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+  C94 t3: FAILED (Error code: 429 - {'error': {'message': 'rate limit exceeded', 'type': 'rate_limit_error', 'param': None, 'code': 'rate_limit_exceeded', 'status': 429, 'data': {'axis': 'requests', 'window': 'eon', 'model': 'asi1-mini', 'user_id': '327ffb30-5848-4dd0-876e-e88989d09111', 'limit': 100, 'current': 100, 'resets_at': '2026-10-18T04:15:00Z'}}})
+# The feedback experiment
+
+*Model: asi1-mini (temperature 0.7). Clients: C10, C11, C12. Feedback wording: Referee explain sentences use 'minimum'/'maximum' (fixed 2026-10-17; the earlier asi1 run on C91-C94 used 'limit').*
+
+9 client-trials; 7 first drafts broke ≥1 rule. 95% bootstrap CIs in brackets.
+
+| Condition | Round 0 | Round 1 | Round 2 | Round 3 | Capital moved |
+|---|---|---|---|---|---|
+| A. Self-check (compliance) | 22% [0, 56] | 22% [0, 56] | 33% [0, 67] | 33% [0, 67] | 27% [15, 40] |
+| B. Bare verdict (compliance) | 22% [0, 56] | 22% [0, 56] | 22% [0, 56] | 22% [0, 56] | 25% [14, 36] |
+| C. Explained (compliance) | 22% [0, 56] | 22% [0, 56] | 22% [0, 56] | 22% [0, 56] | 22% [13, 31] |
+
+| Condition | Round 0 | Round 1 | Round 2 | Round 3 |
+|---|---|---|---|---|
+| A. Self-check | 1.56 broken, 5.2 pp | 1.44 broken, 4.4 pp | 1.22 broken, 3.4 pp | 1.22 broken, 4.8 pp |
+| B. Bare verdict | 1.56 broken, 5.2 pp | 1.22 broken, 3.9 pp | 1.33 broken, 2.5 pp | 1.22 broken, 2.7 pp |
+| C. Explained | 1.56 broken, 5.2 pp | 1.00 broken, 1.7 pp | 1.22 broken, 3.6 pp | 1.33 broken, 4.4 pp |
+
+**C vs B** (rounds to compliance): C fewer 0, same 9, more 0; sign test p = 1.000
+
+**C vs A** (rounds to compliance): C fewer 0, same 8, more 1; sign test p = 1.000
+
+## Finding
+
+Out of 9 client-trials, 7 first drafts broke at least one rule. After 3 rounds of revision, compliance was 33% with self-check, 22% with the bare verdict and 22% with the explained feedback. Explained feedback reached compliance in fewer rounds than bare in 0, the same in 9 and more in 0 client-trials (sign test p = 1.000); versus self-check: 0 / 8 / 1 (p = 1.000).
+

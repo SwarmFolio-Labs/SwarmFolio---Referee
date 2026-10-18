@@ -79,3 +79,12 @@ def test_eval_metrics_from_rows():
     assert m["M1_first_violates"] == 0.5 and m["M2_last_own_violates"] == 0.5 and m["M3_final_passes"] == 1.0
     assert m["M4_median_capital_moved"] == 0.2 and m["M5_infeasible_detected"] == 1
     assert m["M5_conflict_matches_planted"] == 1 and m["M6_concede"] == 0.5 and m["M6_mean_rounds"] == 2
+
+
+def test_a_failed_revision_fails_the_trial_instead_of_scoring_it(monkeypatch):
+    """An API error (e.g. rate limit) must not count as 'the AI made no progress'."""
+    def boom(*a, **k):
+        raise RuntimeError("Error code: 429 - rate limit exceeded")
+    monkeypatch.setattr(experiment, "chair_revise_with", boom)
+    with pytest.raises(RuntimeError, match="429"):
+        experiment.run_condition(PATEL, Proposal(weights=BAD, thesis="t", reasons={}), "explained")
