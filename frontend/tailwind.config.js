@@ -95,6 +95,7 @@ export default {
         conflict: '1fr var(--aside-width)',
         receipt: 'var(--receipt-width) 1fr',
         'receipt-row': '1fr auto',
+        who: 'calc(var(--space-unit) * 3) calc(var(--space-unit) * 26) 1fr auto',
       },
       borderWidth: { 3: '3px' },
       keyframes: {

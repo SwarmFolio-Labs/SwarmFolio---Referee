@@ -159,7 +159,9 @@ function RunView({ client, demo, demoError, steps, replay, onTab }) {
     : 0
   const ruleById = Object.fromEntries(client.rules.map((r) => [r.id, r]))
   const conflict = new Set(demo.receipt.conflict_set)
-  const sectionTitle = /stock grant/i.test(client.story)
+  const sectionTitle = !demo.receipt.rules_feasible
+    ? "From the starting book to the committee's draft"
+    : /stock grant/i.test(client.story)
     ? 'From stock grants to a balanced book'
     : Object.keys(client.current_weights).length
       ? 'From the starting book to a compliant one'
@@ -309,7 +311,7 @@ function ClientDetail({ id }) {
 
   return (
     <div className={page}>
-      <nav className="flex items-center gap-2 text-ui text-muted">
+      <nav className={`items-center gap-2 text-ui text-muted ${current.id === 'receipt' ? 'hidden md:flex' : 'flex'}`}>
         <Link to="/" className="hover:text-ink">Clients</Link>
         <span>/</span>
         <span className="num">{client.client_id}</span>
@@ -317,10 +319,10 @@ function ClientDetail({ id }) {
         <span className="text-ink">{current.label}</span>
       </nav>
 
-      <div className={`mt-5 flex-wrap items-start justify-between gap-8 ${current.id === 'receipt' ? 'hidden' : 'flex'}`}>
+      <div className={`mt-5 flex-wrap items-start justify-between gap-8 ${['receipt', 'prices'].includes(current.id) ? 'hidden' : 'flex'}`}>
         <div className="max-w-lede">
           <div className="flex flex-wrap items-baseline gap-3">
-            <h1 className="font-display text-6xl font-semibold tracking-tight">{displayName(client.name)}</h1>
+            <h1 className="font-display text-4xl font-semibold tracking-tight md:text-6xl">{displayName(client.name)}</h1>
             {isSynthetic(client.name) && <span className="font-display text-lg italic text-muted">synthetic client</span>}
           </div>
           <p className="mt-3 font-display text-lead text-prose">{client.story}</p>
@@ -334,7 +336,7 @@ function ClientDetail({ id }) {
       </div>
 
       {showRules && (
-        <section className="mt-10">
+        <section className="mt-10 hidden md:block">
           <div className="label border-b border-ink pb-2.5">
             {pronoun(displayName(client.name), client.story)} {client.rules.length} rules, in {pronoun(displayName(client.name), client.story)} own words
           </div>
@@ -349,7 +351,7 @@ function ClientDetail({ id }) {
         </section>
       )}
 
-      <div className="mt-8 mb-10 flex gap-6 overflow-x-auto overflow-y-hidden border-b border-line">
+      <div className={`mt-8 mb-10 gap-6 overflow-x-auto overflow-y-hidden border-b border-line ${current.id === 'receipt' ? 'hidden md:flex' : 'flex'}`}>
         {tabs.map((t) => (
           <button
             key={t.id}
@@ -393,7 +395,7 @@ function ClientDetail({ id }) {
         </div>
       )}
       <div className={current.id === 'prices' ? '' : 'hidden'}>
-        <PriceTags clientId={client.client_id} client={client} />
+        <PriceTags clientId={client.client_id} client={client} onBack={() => setTab('run')} />
       </div>
       <div className={current.id === 'try' ? '' : 'hidden'}>
         {(demo || demoError) && <TryReferee key={demo ? 'demo' : 'nodemo'} client={client} presets={presets} receiptVariant={receiptVariant} />}

@@ -29,10 +29,28 @@ function NavItem({ to, active, children }) {
 export default function App() {
   const { pathname, search } = useLocation()
   const onPrices = pathname.startsWith('/client/') && search.includes('tab=prices')
+  // Phones get a back link instead of the nav: receipt → committee run, anything else → clients.
+  const back =
+    pathname === '/'
+      ? null
+      : pathname.startsWith('/client/') && search.includes('tab=receipt')
+        ? { to: `${pathname}?tab=run`, label: 'Committee run' }
+        : { to: '/', label: 'Clients' }
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-line">
-        <div className="mx-auto flex h-16 max-w-page items-center justify-between px-6 xl:px-0">
+        <div className="flex h-14 items-center justify-between px-4 md:hidden">
+          {back ? (
+            <NavLink to={back.to} className="text-sm">‹ {back.label}</NavLink>
+          ) : (
+            <span className="text-ui text-muted">AI proposes. Math decides.</span>
+          )}
+          <NavLink to="/" className="flex items-center gap-2">
+            <Mark />
+            <span className="font-display text-lg font-semibold">Referee</span>
+          </NavLink>
+        </div>
+        <div className="mx-auto hidden h-16 max-w-page items-center justify-between px-6 md:flex xl:px-0">
           <NavLink to="/" className="flex items-center gap-2.5">
             <Mark />
             <span className="font-display text-lg font-semibold">SwarmFolio Referee</span>
@@ -45,7 +63,7 @@ export default function App() {
           </nav>
         </div>
       </header>
-      <main className="w-full flex-1">
+      <main className="w-full flex-1 overflow-x-clip">
         <Routes>
           <Route path="/" element={<ClientsPage />} />
           <Route path="/client/:id" element={<ClientPage />} />

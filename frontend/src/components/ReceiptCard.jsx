@@ -164,7 +164,7 @@ export default function ReceiptCard({
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="label">Referee receipt</div>
-            <div className="mt-1 font-display text-3xl font-semibold sm:text-5xl">
+            <div className="mt-1 font-display text-2xl font-semibold sm:text-5xl">
               {r.client_id} · {name}
             </div>
             {client && isSynthetic(client.name) && <div className="mt-1 font-display text-md italic text-muted">synthetic client</div>}
