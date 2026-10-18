@@ -2,6 +2,7 @@
 // Each round: the Chair's draft → what the Referee found → the committee's answers. All text is the saved run's.
 import { AGENTS, sortedWeights } from '../format.js'
 import StanceBadge from './StanceBadge.jsx'
+import ReadMore from './ReadMore.jsx'
 
 const ANALYSTS = ['macro', 'fundamentals', 'risk']
 const NO_ANSWER = "Didn't reply in time. The Chair went ahead with the other answers; the Referee's check is unaffected."
@@ -69,7 +70,7 @@ function Round({ round, steps, rules, last, done, final }) {
         {proposal && (
           <div className="hidden md:block">
             <Label>{chairLabel(round, last, done)}</Label>
-            <p className="font-display text-base">{proposal.text}</p>
+            <ReadMore text={proposal.text} limit={160} label="Read full draft" className="font-display text-base" />
             {proposal.weights && (
               <p className="num mt-2 text-xs text-muted">
                 {sortedWeights(proposal.weights).map(([t, w]) => `${t} ${(w * 100).toFixed(0)}`).join(' · ')}
@@ -127,7 +128,7 @@ export default function DebateTimeline({ steps, visible, rules = [], final }) {
             {memos.map((m) => (
               <div key={m.key} className="animate-reveal">
                 <div className="mb-1 text-xs font-semibold">{AGENTS[m.agent]?.label ?? m.agent}</div>
-                <p className="font-display text-md text-prose">{m.text}</p>
+                <ReadMore text={m.text} className="font-display text-md text-prose" />
               </div>
             ))}
           </div>

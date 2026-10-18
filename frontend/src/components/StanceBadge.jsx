@@ -1,6 +1,7 @@
-// An analyst's answer to the Referee: shape + "Stance · Analyst" label, then the text (wraps freely, no clamping).
+// An analyst's answer to the Referee: shape + "Stance · Analyst" label, then the text (answers over ~240 characters get "Read more").
 // Concede ● moss, defend ■ brick, modify ◆ ochre; a missing analyst gets a dashed hollow dot and muted italics.
 import { AGENTS } from '../format.js'
+import ReadMore from './ReadMore.jsx'
 
 const STANCES = {
   concede: { tone: 'text-concede', shape: 'h-2 w-2 rounded-full bg-concede' },
@@ -21,7 +22,7 @@ export default function StanceBadge({ stance, agent, text }) {
         {who ? ` · ${who}` : ''}
       </span>
       <span />
-      <p className={`font-display text-base ${s ? 'text-ink' : 'italic text-muted'}`}>{text}</p>
+      <ReadMore text={text} className={`font-display text-base ${s ? 'text-ink' : 'italic text-muted'}`} />
     </div>
   )
 }

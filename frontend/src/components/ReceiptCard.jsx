@@ -173,7 +173,8 @@ export default function ReceiptCard({
               <span>{time}</span>
             </div>
           </div>
-          <Stamp verdict={r.verdict} sub={stampSub(r)} />
+          <div className="shrink-0 sm:hidden"><Stamp verdict={r.verdict} sub={stampSub(r)} size="sm" /></div>
+          <div className="hidden shrink-0 sm:block"><Stamp verdict={r.verdict} sub={stampSub(r)} /></div>
         </div>
 
         <div className="my-6 border-t border-dashed border-perforation" />

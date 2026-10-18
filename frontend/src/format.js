@@ -74,3 +74,14 @@ export function ruleSubject(rule) {
   if (p.tickers) return p.tickers.join(', ')
   return null
 }
+
+/** Shortened text for long LLM answers: the first sentence, or ~limit characters cut at a word boundary.
+ *  Returns null when the text is already short enough to show in full. */
+export function shorten(text, limit) {
+  if (!text || text.length <= limit) return null
+  const first = text.match(/^.+?[.!?](?=\s|$)/)?.[0]
+  if (first && first.length <= limit) return first
+  const cut = text.slice(0, limit)
+  const space = cut.lastIndexOf(' ')
+  return `${(space > 0 ? cut.slice(0, space) : cut).replace(/[\s,;:]+$/, '')}…`
+}

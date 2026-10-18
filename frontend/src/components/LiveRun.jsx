@@ -9,6 +9,7 @@ import ReceiptCard from './ReceiptCard.jsx'
 import StartingWeights from './StartingWeights.jsx'
 import StanceBadge from './StanceBadge.jsx'
 import { ErrorNote } from './ui.jsx'
+import ReadMore from './ReadMore.jsx'
 
 const POLL_MS = 600
 
@@ -112,7 +113,7 @@ function LiveRound({ round, events, rules, current, rows }) {
       {draft && (
         <div className="mt-5">
           <div className="label">{round === 1 ? "Chair's first draft" : "Chair's revision"}</div>
-          <p className="mt-1 font-display text-lg">{draft.text}</p>
+          <ReadMore text={draft.text} limit={160} label="Read full draft" className="mt-1 font-display text-lg" />
         </div>
       )}
       {ref && (
@@ -165,6 +166,7 @@ const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStar
 
 export default function LiveRun({ client, receiptVariant, onDisabled }) {
   const [useFakes, setUseFakes] = useState(true)
+  const [fresh, setFresh] = useState(false)
   const [job, setJob] = useState(null) // {job_id, status, max_rounds, result, error}
   const [events, setEvents] = useState([])
   const [startError, setStartError] = useState(null)
@@ -176,7 +178,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
     setEvents([])
     setJob(null)
     try {
-      const { job_id } = await startRun(client.client_id, { fakes: useFakes, stepDelay: useFakes ? 0.8 : 0 })
+      const { job_id } = await startRun(client.client_id, { fakes: useFakes, fresh: fresh && !useFakes, stepDelay: useFakes ? 0.8 : 0 })
       setJob({ job_id, status: 'running' })
     } catch (e) {
       // 503: live runs are off in this deployment, so fall back to the saved committee run.
@@ -240,6 +242,14 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           <label className="flex items-center gap-2 text-xs text-muted">
             <input type="checkbox" checked={useFakes} disabled={running} onChange={(e) => setUseFakes(e.target.checked)} />
             Scripted analysts (no API key)
+          </label>
+          <label
+            data-component="fresh-run-toggle"
+            title="Every LLM answers anew instead of replaying cached answers. Needs the real analysts, not the scripted ones."
+            className={`flex items-center gap-2 text-xs ${useFakes ? 'text-faint' : 'text-muted'}`}
+          >
+            <input type="checkbox" checked={fresh && !useFakes} disabled={running || useFakes} onChange={(e) => setFresh(e.target.checked)} />
+            Fresh run (no cache)
           </label>
           <button className="btn-primary" disabled={running} onClick={start}>
             {running ? 'Running…' : job ? 'Run again' : 'Start live run'}
