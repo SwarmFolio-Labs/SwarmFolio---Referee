@@ -14,3 +14,4 @@ langchain-core
 langchain-openai
 langchain-google-genai
 langchain-anthropic
+stripe>=13,<15
