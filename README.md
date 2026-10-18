@@ -10,6 +10,8 @@ SwarmFolio Referee is an autonomous investment committee. Three AI analysts and 
 
 ## Live links
 
+All 5 agents and the Interactive Cards are live in ASI:One.
+
 | What | Link |
 |---|---|
 | Chair Agent (Agentverse profile) | `TODO: https://agentverse.ai/agents/details/<chair-address>` |
@@ -108,10 +110,17 @@ The same `run_committee` works with both.
 - a **client picker** with a "Build portfolio" button on each client;
 - a **price-tag card**.
 
+**Pay per check (Fetch Agent Payment Protocol + Stripe, TEST mode):** we sell verification, not advice. With `REFEREE_PAYMENTS=true`, an outside user or agent who asks the Referee for a full check pays **$0.50** first (`agents/payments.py`):
+1. The Referee sends `RequestPayment` (`payment_method="stripe"`, an embedded Stripe Checkout in `metadata["stripe"]`), plus a plain-text note on how to pay for chat clients that can't show the checkout.
+2. The buyer pays and approves, which sends `CommitPayment` with the Checkout session id.
+3. The Referee asks Stripe whether that session is paid. If it is, it sends `CompletePayment` and then the receipt; if not, `CancelPayment` and no receipt.
+
+The committee's own checks are free: the Chair talks to the Referee with `VerifyRequest`, and the Chair's address is exempt from chat payments too. Only Stripe test keys (`sk_test_` / `pk_test_`) are accepted, and the flag is off by default.
+
 | Agent | Handles | Calls |
 |---|---|---|
 | **Chair** (port 8001) | Chat Protocol: "list clients", "Build a portfolio for C02", "price tags for C02" | `run_committee(client, AgentTransport)` |
-| **Referee** (8002) | `VerifyRequest`; also Chat Protocol (pasted JSON) from anyone | `referee(client, proposal)` |
+| **Referee** (8002) | `VerifyRequest`; also Chat Protocol (pasted JSON) from anyone; Payment Protocol (seller) when `REFEREE_PAYMENTS=true` | `referee(client, proposal)` |
 | **Macro** (8003), **Fundamentals** (8004), **Risk** (8005) | `AnalysisRequest` → `Memo`, `ReviewRequest` → `Stance` | `analyze(role, …)`, `review(role, …)` |
 
 The analyst and Chair brains are built with **LangChain** (`committee/llm.py`). The default model is Fetch's **ASI:One**, and Gemini or Anthropic can be switched in with `LLM_PROVIDER`. Every response is validated with Pydantic, retried once with the validation error if invalid, and cached on disk, so reruns are free and reproducible.
@@ -174,6 +183,25 @@ For Dr. Patel:
 | "Annual volatility at most 18%." | **0.70 points** | 1.95 → 1.79 (it takes more risk) |
 | The other 5 rules | nothing: they never bind | 1.95 → 1.95 |
 
+### Live example from ASI:One: Mr. Alvarez (synthetic client C04)
+
+He's a 55-year-old tech executive with 60% of his money in NVDA, MSFT and AAPL from stock grants. He wants to de-risk before retiring without a big tax bill from selling too much at once. His 8 rules include annual volatility at most 14%, turnover at most 45% from his current holdings (taxes), Tech at most 40%, at least 8 holdings, and no position under 4%.
+
+In a live run of the five agents in ASI:One:
+- **Round 1:** the AI's first draft broke the turnover rule and the minimum position size.
+- **Round 2:** the revision broke the volatility cap, the Tech cap and turnover.
+- **Round 3:** compliant with all 8 rules, Sharpe 1.64, volatility 13.4%.
+
+His price tags (`price tags for C04`, reproducible from the current code) show where the tension is:
+
+| Rule (his words) | Cost per year | Sharpe with → without |
+|---|---|---|
+| "Turnover at most 45% from current holdings (taxes)." | **4.23 points** | 1.96 → 2.26 |
+| "Annual volatility at most 14%." | **2.43 points** | 1.96 → 1.76 (it takes more risk) |
+| "Tech at most 40%." | **0.04 points** | 1.96 → 1.96 |
+
+His tax rule is the expensive one, not his Tech cap.
+
 ---
 
 ## The feedback experiment
@@ -200,7 +228,7 @@ There are three conditions. Each one gets up to 3 rounds of Chair-only revision,
 - 95% bootstrap confidence intervals;
 - paired sign tests for C vs. B and C vs. A.
 
-A larger run on the 15 generated feasible clients (C10–C24) with `asi1-mini` is in progress.
+A larger run with `asi1-mini` on 19 clients is in progress (results below when it finishes).
 
 ### Results (C91–C94 × 3 trials = 12 client-trials, `asi1`)
 
@@ -226,6 +254,10 @@ Paired sign tests compare how many rounds each client-trial needed to become com
 - Even with the best feedback, half the portfolios still broke a rule after 3 tries. Only the Referee's repair reached 100% compliance.
 
 Full tables, including broken-rule counts and capital moved, are in `eval/results/experiment.md`.
+
+### Results: `asi1-mini`, 19 clients (in progress)
+
+> **TODO:** first drafts that broke a rule `__` of `__`; compliance after 3 rounds: A `__%` [CI], B `__%` [CI], C `__%` [CI]; sign tests C vs. B p = `__`, C vs. A p = `__`.
 
 The evaluation (`eval/run_eval.py`, metrics M1–M6) judges the infeasible clients separately. C03, C25, C26 and C27 each have a planted conflict, and M5 checks that the Referee flags each one as impossible and returns exactly the planted conflict set.
 
@@ -277,6 +309,10 @@ It prints each agent's address and **Inspector** link. For each agent:
 2. Wait for "Successfully registered as mailbox agent in Agentverse" in the log.
 3. Edit the agent's Agentverse profile (name, handle, description).
 
+To turn on pay-per-check for outside users, also set `REFEREE_PAYMENTS=true`, `STRIPE_SECRET_KEY=sk_test_...` and `STRIPE_PUBLISHABLE_KEY=pk_test_...`. Test it from the Referee's Inspector chat (Fetch's docs say plain ASI:One chat may not show the checkout): paste a portfolio, pay with test card 4242 4242 4242 4242 (any future date, any CVC, any ZIP), and approve.
+
+`run_all` stops all 5 agents on Ctrl+C, `kill <pid>` (SIGTERM) or a closed terminal (SIGHUP).
+
 Then chat with the Chair in ASI:One:
 - `list clients`
 - `Build a portfolio for Dr. Patel`
@@ -308,7 +344,7 @@ pytest           # Referee math, the Dr. Patel example, generated clients, agent
 
 | Pre-existing (open source, MIT) | Built at LA Hacks (what gets judged) |
 |---|---|
-| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
+| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, pay-per-check (Agent Payment Protocol + Stripe test mode), the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
 
 *Design notes were written before the event; all code was written during it.* The commit history shows the build step by step.
 
@@ -321,3 +357,4 @@ All clients are synthetic. This is a tool for advisors: the Referee only checks 
 - **[CVXPY](https://www.cvxpy.org/)**: the convex optimization modeling layer
 - **[SCIP](https://www.scipopt.org/)** (via PySCIPOpt): the mixed-integer solver behind every Referee answer
 - **[LangChain](https://www.langchain.com/)**: the LLM layer for the analysts and the Chair
+- **[Stripe](https://stripe.com/)** (test mode): the checkout behind pay-per-check, following Fetch's Stripe Payment Protocol example

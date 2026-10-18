@@ -29,13 +29,20 @@ SwarmFolio Referee is an investment committee made of five Fetch.ai agents, whic
    Everything goes into a reproducible **receipt**.
 4. The analysts read the receipt and **concede, defend or modify**, and the Chair revises. This runs for up to 3 rounds, and you can watch who changes their mind.
 5. **Price tags:** the Referee also says what each rule *costs* the client. For example, Dr. Patel's "Keep at least 30% in legacy JNJ" costs 0.85 points of risk-adjusted return a year, while her Healthcare cap costs nothing.
+6. **Pay per check: we sell verification, not advice.** Outside users and agents pay the Referee **$0.50 per check** through Fetch's **Agent Payment Protocol** with Stripe Checkout (TEST mode). The Referee sends a payment request, verifies with Stripe that the checkout is paid, then sends the receipt. The committee's own checks are free. It's behind the `REFEREE_PAYMENTS` flag.
 
-In ASI:One, the answers come with **Interactive Cards**: a receipt card, a client picker with a "Build portfolio" button for each client, and a price-tag card. The Referee is also a standalone agent, so any other AI can paste a portfolio and rules and get a receipt.
+All 5 agents and the Interactive Cards are live in ASI:One. The answers come with **Interactive Cards**: a receipt card, a client picker with a "Build portfolio" button for each client, and a price-tag card. The Referee is also a standalone agent, so any other AI can paste a portfolio and rules and get a receipt.
 
 **Example:** an AI proposes NVDA 41%, JNJ 30%, GOOGL 15%, XOM 14% for Dr. Patel, a synthetic client.
 - The Referee finds 3 broken rules: NVDA is over the 35% cap, XOM breaks "no fossil fuels", and volatility is 20.8% against an 18% limit.
 - It repairs the portfolio while moving 20% of capital.
 - Add "hold at least 10% UNH" and it proves the rules are impossible: 30% JNJ + 10% UNH = 40% Healthcare > 35%. The cheapest fix is to raise the Healthcare cap to 40%.
+
+**Live example (ASI:One):** Mr. Alvarez, a synthetic 55-year-old tech executive, wants to de-risk without a big tax bill.
+- The AI's first draft broke his turnover rule and the minimum position size.
+- Round 2 broke volatility, the Tech cap and turnover.
+- Round 3 was compliant with all 8 rules: Sharpe 1.64, volatility 13.4%.
+- His price tags: the 45% turnover rule (taxes) costs 4.23 points a year, the 14% volatility cap 2.43, and "Tech at most 40%" only 0.04.
 
 ## How we built it
 
@@ -47,7 +54,7 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
   - An **L1 projection** finds the nearest compliant portfolio.
   - Rule price tags re-solve a mean-variance utility problem without each rule.
 - **Committee (LangChain):** the analysts and the Chair run on Fetch's **ASI:One** model by default, with a Gemini/Anthropic switch. Every response is validated with Pydantic, retried once on bad JSON, and cached for reproducibility.
-- **Agents (Fetch.ai uAgents → Agentverse → ASI:One):** 5 agents with stable seeds, mailbox-connected to Agentverse. The Chair and Referee speak the Chat Protocol, and all 5 speak a committee protocol of JSON envelopes.
+- **Agents (Fetch.ai uAgents → Agentverse → ASI:One):** 5 agents with stable seeds, mailbox-connected to Agentverse. The Chair and Referee speak the Chat Protocol, and all 5 speak a committee protocol of JSON envelopes. The Referee also speaks the Agent Payment Protocol as a seller, with Stripe embedded Checkout (test keys only).
   - **Brains vs. phones:** every agent is a thin wrapper around plain Python functions. The committee loop takes either a local transport or a Fetch transport, so the whole system also runs without the network.
   - **Reliability:**
     - The Referee gets a timeout and one retry, then falls back to the local Referee.
@@ -55,9 +62,9 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
     - Every handler failure becomes an error message instead of a crash.
 - **Evaluation:**
   - 26 synthetic clients, including seeded "hard" clients whose volatility caps sit 0.5–1.0 points above the solver's minimum, and clients with planted conflicts.
-  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests. The run reported here covers the 4 hard clients C91–C94 × 3 trials (12 client-trials, `asi1`). A larger run on C10–C24 with `asi1-mini` is in progress.
+  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests. The run reported here covers the 4 hard clients C91–C94 × 3 trials (12 client-trials, `asi1`). A larger run with `asi1-mini` on 19 clients is in progress: `TODO: results`.
 - **Web app:** FastAPI + React (Vite, Tailwind, Recharts), designed in Paper (**TODO-confirm**).
-- **Tests:** `__` pytest tests (currently 210), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
+- **Tests:** `__` pytest tests (currently 237), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
 
 ## Challenges we ran into
 
@@ -87,19 +94,19 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
 
 ## What's next for SwarmFolio Referee
 
-- **Pay per verification** with Fetch's Payment Protocol. The Referee is already a standalone service any wealthtech platform or AI agent can call.
+- **Live payments:** move pay-per-check from Stripe test mode to live after Stripe's go-live checklist. The Referee is already a standalone service any wealthtech platform or AI agent can call.
 - **Plain-English rules:** paste an investment policy statement and get the rule JSON, with the Referee confirming the result is feasible.
 - **PSO searches, the Referee certifies:** use SwarmFolio's swarm to explore good portfolios and the Referee to certify them.
 - More rule types (tax lots, ESG scores, factor exposures) and a larger universe than 19 tickers.
 
 ## Built with
 
-`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `pytest` · `paper` (TODO-confirm) · `devin` · `claude-code`
+`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `stripe` · `pytest` · `paper` (TODO-confirm) · `devin` · `claude-code`
 
 ## Built at LA Hacks vs. before
 
 | Pre-existing (open source, MIT) | Built at LA Hacks |
 |---|---|
-| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
+| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, pay-per-check (Agent Payment Protocol + Stripe test mode), the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
 
 *Design notes were written before the event; all code was written during it.*
