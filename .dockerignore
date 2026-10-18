@@ -1,0 +1,10 @@
+# Whitelist: send only what the API image needs to the Docker build (never .env, .venv, cache/).
+*
+!api.py
+!config.py
+!models.py
+!requirements-api.txt
+!referee/
+!data/
+!eval/results/experiment.json
+**/__pycache__

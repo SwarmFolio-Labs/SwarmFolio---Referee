@@ -1,0 +1,10 @@
+# Only what the public API needs (api.py + referee/): pure math, no LLM or agent packages,
+# so a public deployment can't call an LLM or spend API quota. Full dev setup: requirements.txt.
+cvxpy
+pyscipopt
+numpy
+pandas
+pydantic
+python-dotenv
+fastapi
+uvicorn
