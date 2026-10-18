@@ -198,8 +198,10 @@ def finding_text(s: dict) -> str:
 
 
 def write_markdown(s: dict, path: str) -> None:
-    lines = ["# The feedback experiment", "",
-             f"{s['n_trials']} client-trials; {s['n_draft_violates']} first drafts broke ≥1 rule. "
+    lines = ["# The feedback experiment", ""]
+    if s.get("run_note"):
+        lines += [f"*{s['run_note']}*", ""]
+    lines += [f"{s['n_trials']} client-trials; {s['n_draft_violates']} first drafts broke ≥1 rule. "
              "95% bootstrap CIs in brackets.", "",
              "| Condition | " + " | ".join(f"Round {r}" for r in range(ROUNDS + 1)) + " | Capital moved |",
              "|---|" + "---|" * (ROUNDS + 2)]
@@ -276,9 +278,19 @@ def main() -> None:
     parser.add_argument("--trials", type=int, default=3, help="trials per client")
     parser.add_argument("--concurrency", type=int, default=4, help="client-trials run at the same time")
     parser.add_argument("--ids", type=str, default=None, help="only these clients, e.g. C91,C92")
-    parser.add_argument("--log", type=str, default=os.path.join(RESULTS_DIR, "llm_calls.jsonl"),
-                        help="where to write one line per LLM call (seconds + tokens)")
+    parser.add_argument("--live", action="store_true",
+                        help="use the fast live model (config.LIVE_MODEL, capped answers) instead of the default")
+    parser.add_argument("--suffix", type=str, default="",
+                        help="output names get _<suffix>, e.g. experiment_mini.md (keeps earlier runs)")
+    parser.add_argument("--note", type=str, default="", help="extra line for the results header")
+    parser.add_argument("--log", type=str, default=None,
+                        help="where to write one line per LLM call (default: eval/results/llm_calls[_suffix].jsonl)")
     args = parser.parse_args()
+    tail = f"_{args.suffix}" if args.suffix else ""
+    if args.log is None:
+        args.log = os.path.join(RESULTS_DIR, f"llm_calls{tail}.jsonl")
+    if args.live:
+        llm.use_live_model()
 
     # One JSON line per LLM call, so we can see why calls are slow.
     os.makedirs(os.path.dirname(args.log), exist_ok=True)
@@ -300,13 +312,19 @@ def main() -> None:
     if not trials:
         raise SystemExit("Every client-trial failed; nothing to report.")
     summary = summarize(trials)
+    # Say exactly what produced these numbers, so different runs are never mixed up.
+    summary["model"] = {"chair": llm.model_id_for("chair"), "analyst": llm.model_id_for("analyst")}
+    summary["clients"] = sorted({t["client_id"] for t in trials})
+    summary["run_note"] = (f"Model: {summary['model']['chair']} (temperature {TEMPERATURE}). "
+                           f"Clients: {', '.join(summary['clients'])}. " + args.note).strip()
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    with open(os.path.join(RESULTS_DIR, "experiment.json"), "w") as f:
+    md_path = os.path.join(RESULTS_DIR, f"experiment{tail}.md")
+    with open(os.path.join(RESULTS_DIR, f"experiment{tail}.json"), "w") as f:
         json.dump({"summary": summary, "trials": trials}, f, indent=2)
-    write_markdown(summary, os.path.join(RESULTS_DIR, "experiment.md"))
-    plot_curves(summary, os.path.join(RESULTS_DIR, "learning_curves.png"))
-    print(open(os.path.join(RESULTS_DIR, "experiment.md")).read())
+    write_markdown(summary, md_path)
+    plot_curves(summary, os.path.join(RESULTS_DIR, f"learning_curves{tail}.png"))
+    print(open(md_path).read())
 
 
 if __name__ == "__main__":
