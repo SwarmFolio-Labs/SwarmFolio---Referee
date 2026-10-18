@@ -195,3 +195,13 @@ def test_retry_after_parsing():
     assert llm._retry_after(Exception('429 RESOURCE_EXHAUSTED {"retryDelay": "17s"}')) == 17
     assert llm._retry_after(Exception("nothing here")) is None
     assert llm._status_code(Overloaded(503)) == 503
+
+
+def test_pinned_model_never_falls_back(gemini):
+    """use_model(): every call uses that one model, even after many 429/503s (it just keeps waiting)."""
+    make, used, sleeps = gemini
+    llm.use_model("gemini-3.5-flash-lite")
+    make(fail_times=3)
+    llm.complete_json("chair", "s", "u", Answer)
+    assert set(used) == {"gemini-3.5-flash-lite"} and len(sleeps) == 3
+    assert llm.model_id_for("analyst") == "gemini-3.5-flash-lite"

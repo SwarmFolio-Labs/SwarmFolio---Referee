@@ -293,6 +293,8 @@ def main() -> None:
     parser.add_argument("--suffix", type=str, default="",
                         help="output names get _<suffix>, e.g. experiment_mini.md (keeps earlier runs)")
     parser.add_argument("--note", type=str, default="", help="extra line for the results header")
+    parser.add_argument("--model", type=str, default=None,
+                        help="pin ONE model for every call (no fallback), e.g. gemini-3.5-flash-lite")
     parser.add_argument("--provider", type=str, default=None,
                         help="LLM provider for this run only (e.g. gemini); .env's LLM_PROVIDER stays for the agents")
     parser.add_argument("--log", type=str, default=None,
@@ -303,6 +305,8 @@ def main() -> None:
         args.log = os.path.join(RESULTS_DIR, f"llm_calls{tail}.jsonl")
     if args.provider:
         llm.use_provider(args.provider)
+    if args.model:
+        llm.use_model(args.model)  # one model for everything, no fallback
     if args.live:
         llm.use_live_model()
 
@@ -337,7 +341,9 @@ def main() -> None:
         partial = (f"PARTIAL RESULTS: {len(trials)} of {counts['planned']} planned client-trials finished "
                    f"({counts['failed']} failed and were excluded, {counts['skipped']} skipped after "
                    f"{STOP_AFTER_FAILED_CALLS} failed LLM calls in a row). ")
-    summary["run_note"] = (f"{partial}Provider: {llm.provider()}, model: {summary['model']['chair']} "
+    summary["single_model"] = bool(args.model)
+    summary["run_note"] = (f"{partial}Provider: {llm.provider()}, model: {summary['model']['chair']}"
+                           f"{' (the only model: no fallback)' if args.model else ''} "
                            f"(temperature {TEMPERATURE}). Clients: {', '.join(summary['clients'])}. "
                            + args.note).strip()
 

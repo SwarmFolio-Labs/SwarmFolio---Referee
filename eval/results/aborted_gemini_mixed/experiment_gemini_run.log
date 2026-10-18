@@ -1,0 +1,161 @@
+Experiment: 10 feasible clients x 2 trials = 20 client-trials
+[solve.c:4216] ERROR: (node 38371) unresolved numerical troubles in LP 10340 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x114c0b370>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 38371) unresolved numerical troubles in LP 10340 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x114c465f0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 66221) unresolved numerical troubles in LP 19353 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x114c46ef0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 38371) unresolved numerical troubles in LP 10340 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x114c93010>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 38371) unresolved numerical troubles in LP 10340 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x114cea0e0>: SCIP: error in LP solver!
+  C10 t1: rounds to comply {'self': 3, 'bare': 1, 'explained': 1} (11s)
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 2700) unresolved numerical troubles in LP 941 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d57fac0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 49508) unresolved numerical troubles in LP 14720 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d6243a0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 135231) unresolved numerical troubles in LP 39016 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62dab0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 14389) unresolved numerical troubles in LP 3987 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62e710>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 55531) unresolved numerical troubles in LP 15900 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d57e3b0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 14389) unresolved numerical troubles in LP 3987 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d57d360>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 55531) unresolved numerical troubles in LP 15900 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62c0d0>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 2700) unresolved numerical troubles in LP 941 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62c280>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 14389) unresolved numerical troubles in LP 3987 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62d900>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 49508) unresolved numerical troubles in LP 14720 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62d900>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 13360) unresolved numerical troubles in LP 3679 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62e7a0>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 49508) unresolved numerical troubles in LP 14720 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62d990>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 23721) unresolved numerical troubles in LP 7450 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62f880>: SCIP: error in LP solver!
+[solve.c:4216] ERROR: (node 2700) unresolved numerical troubles in LP 941 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62f880>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 71790) unresolved numerical troubles in LP 22874 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d6d8550>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+[solve.c:4216] ERROR: (node 52888) unresolved numerical troubles in LP 15488 cannot be dealt with
+[solve.c:4511] ERROR: Error <-6> in function call
+[solve.c:5335] ERROR: Error <-6> in function call
+[scip_solve.c:2766] ERROR: Error <-6> in function call
+Error encountered when optimising <pyscipopt.scip.Model object at 0x11d62e440>: SCIP: error in LP solver!
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+  C11 t1: rounds to comply {'self': None, 'bare': None, 'explained': 2} (2241s)
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+  C10 t2: rounds to comply {'self': None, 'bare': None, 'explained': None} (2373s)
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
+/Users/samarthmukhi/SwarmFolio LaHacks AI Hackathon/.venv/lib/python3.14/site-packages/langchain_google_genai/chat_models.py:3919: UserWarning: Model 'gemini-3.5-flash-lite' uses fixed sampling defaults; the sampling parameter(s) temperature will be ignored.
+  request = self._build_request_config(
