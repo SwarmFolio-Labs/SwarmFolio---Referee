@@ -106,6 +106,7 @@
   --space-unit: 0.25rem;
   --page-width: 1200px;
   --prose-width: 46rem;
+  --lede-width: 720px; /* page intro column */
   --price-meter-width: 220px;
 
   /* Shape: hairlines and near-square corners, no shadows */
@@ -145,14 +146,14 @@ body {
     @apply font-mono tabular-nums;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-sm font-medium transition
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition
       disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .btn-primary {
     @apply btn bg-accent text-on-accent hover:bg-accent/90;
   }
   .btn-ghost {
-    @apply btn border border-line bg-surface text-ink hover:bg-sunken;
+    @apply btn border border-ink bg-transparent text-ink hover:bg-surface;
   }
 }
 

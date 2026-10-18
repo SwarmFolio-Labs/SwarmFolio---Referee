@@ -10,7 +10,7 @@ const TOKEN_COLORS = ['bg', 'surface', 'sunken', 'ink', 'muted', 'faint', 'prose
   'concede', 'defend', 'modify']
 
 // Tailwind's default spacing keys, each a multiple of --space-unit (p-4 = 4 units = 1rem by default).
-const SPACING_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40,
+const SPACING_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 20, 24, 28, 32, 36, 40,
   44, 48, 52, 56, 60, 64, 72, 80, 96]
 const spacing = {
   0: '0px',
@@ -74,6 +74,7 @@ export default {
       full: '100%',
       page: 'var(--page-width)',
       prose: 'var(--prose-width)',
+      lede: 'var(--lede-width)',
     },
     borderRadius: {
       none: '0px',
