@@ -9,8 +9,12 @@ Endpoints:
     POST /referee              {client_id, proposal} -> Receipt from the real Referee (pure math, no API keys)
     GET  /prices/{client_id}   what each rule costs (referee.prices.rule_prices), cached per client
     GET  /experiment           eval/results/experiment.json, if it exists
+    GET  /settings             {live_runs}: whether POST /run is on (the UI hides the Live run tab if not)
+    POST /run/{client_id}      start a live committee run (503 when ENABLE_LIVE_RUNS=false)
+    GET  /run/{job_id}         its progress events
 
-Live committee runs take minutes, so the app replays saved runs instead of calling run_committee here.
+Live committee runs take minutes, so the app replays saved runs by default.
+ENABLE_LIVE_RUNS=false (the public deployment) turns /run off; committee/ is then never imported.
 Every route is also available under /api (that's what the frontend calls).
 If frontend/dist exists (after `npm run build`), it is served at / so one process runs the whole app.
 """
@@ -28,7 +32,6 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 import config
-from committee import loop as committee_loop
 from models import Receipt, RulePrice
 from referee.prices import rule_prices
 from referee.receipt import referee
@@ -39,6 +42,11 @@ CLIENTS_DIR = os.path.join(ROOT, "data", "clients")
 DEMO_DIR = os.path.join(ROOT, "data", "demo_runs")
 EXPERIMENT_PATH = os.path.join(ROOT, "eval", "results", "experiment.json")
 FRONTEND_DIST = os.path.join(ROOT, "frontend", "dist")
+
+# Live committee runs need committee/ (LLM code). The public image sets ENABLE_LIVE_RUNS=false and
+# doesn't ship committee/, so it is only imported inside the live-run code.
+ENABLE_LIVE_RUNS = os.getenv("ENABLE_LIVE_RUNS", "true").strip().lower() not in ("0", "false", "no", "off")
+LIVE_RUNS_DISABLED = "Live committee runs are disabled in the public demo"
 
 app = FastAPI(title="SwarmFolio Referee")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -198,16 +206,23 @@ class _FakeTransport:
         return await asyncio.to_thread(referee, req.client, req.proposal)
 
 
+def _committee_loop():
+    from committee import loop
+    return loop
+
+
 def _brains(use_fakes: bool):
     """(transport, chair_propose, chair_revise) for a real or a fake run."""
     if use_fakes:
         import fakes
         return _FakeTransport(), fakes.chair_propose, fakes.chair_revise
     from committee.transport_local import LocalTransport
+    committee_loop = _committee_loop()
     return LocalTransport(), committee_loop.chair_propose, committee_loop.chair_revise
 
 
 async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) -> None:
+    committee_loop = _committee_loop()
     inner, propose, revise = _brains(use_fakes)
     transport = ProgressTransport(inner, job)
     delay = job["step_delay"]
@@ -245,8 +260,16 @@ async def _run_job(job: dict, client: Client, use_fakes: bool, max_rounds: int) 
             committee_loop.chair_propose, committee_loop.chair_revise = original
 
 
+@api.get("/settings")
+def get_settings() -> dict:
+    """What this deployment allows (the public demo has no live committee runs)."""
+    return {"live_runs": ENABLE_LIVE_RUNS}
+
+
 @api.post("/run/{client_id}")
 async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0) -> dict:
+    if not ENABLE_LIVE_RUNS:
+        raise HTTPException(503, LIVE_RUNS_DISABLED)
     """Start run_committee for a client in the background; poll GET /run/{job_id} for progress."""
     client = load_client(client_id)
     use_fakes = fakes or config.USE_FAKES

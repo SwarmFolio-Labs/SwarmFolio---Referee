@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 import api
 import config
+from committee import loop as committee_loop
 
 
 @pytest.fixture
@@ -64,7 +65,7 @@ def test_live_run_with_fakes_reports_progress(client, monkeypatch):
     assert [e["type"] for e in tail] == ["done"]
     # The Chair patch is undone after the run.
     from committee import chair
-    assert api.committee_loop.chair_propose is chair.chair_propose
+    assert committee_loop.chair_propose is chair.chair_propose
 
 
 def test_live_run_needs_key_or_fakes(client, monkeypatch):
@@ -78,7 +79,7 @@ def test_live_run_needs_key_or_fakes(client, monkeypatch):
 def test_live_run_failure_is_reported(client, monkeypatch):
     async def boom(*a, **k):
         raise RuntimeError("chair exploded")
-    monkeypatch.setattr(api.committee_loop, "run_committee", boom)
+    monkeypatch.setattr(committee_loop, "run_committee", boom)
     job_id = client.post("/api/run/C02?fakes=true").json()["job_id"]
     body = _wait_done(client, job_id)
     assert body["status"] == "error" and "chair exploded" in body["error"]
@@ -94,3 +95,29 @@ def test_step_delay_keeps_working_state_visible(client):
             continue
         result = next(x for x in events[i + 1:] if x.get("agent") == e["agent"] and x["type"] != "working")
         assert result["t"] - e["t"] >= 0.15, (e, result)
+
+
+def test_live_runs_can_be_disabled(client, monkeypatch):
+    """The public demo (ENABLE_LIVE_RUNS=false): /run answers 503 and /settings tells the UI to hide it."""
+    assert client.get("/api/settings").json() == {"live_runs": True}
+    monkeypatch.setattr(api, "ENABLE_LIVE_RUNS", False)
+    assert client.get("/api/settings").json() == {"live_runs": False}
+    r = client.post("/api/run/C02?fakes=true")
+    assert r.status_code == 503
+    assert r.json()["detail"] == "Live committee runs are disabled in the public demo"
+    assert client.get("/api/demo/C02").status_code == 200  # saved runs still work
+
+
+def test_enable_live_runs_env_flag():
+    """ENABLE_LIVE_RUNS comes from the environment: on by default, off for false/0/no/off."""
+    import os
+    import subprocess
+    import sys
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for value, expected in ((None, "True"), ("false", "False"), ("0", "False"), ("off", "False"), ("true", "True")):
+        env = {k: v for k, v in os.environ.items() if k != "ENABLE_LIVE_RUNS"}
+        if value is not None:
+            env["ENABLE_LIVE_RUNS"] = value
+        out = subprocess.run([sys.executable, "-c", "import api; print(api.ENABLE_LIVE_RUNS)"],
+                             cwd=repo, env=env, capture_output=True, text=True)
+        assert out.stdout.strip() == expected, (value, out.stderr[-300:])

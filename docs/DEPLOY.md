@@ -7,7 +7,7 @@ The public deployment has two parts:
 | API | Render (Docker, free plan) | `api.py` + `referee/` only: saved demo runs, the live Referee (`POST /api/referee`) and rule price tags (`GET /api/prices/{id}`) |
 | Web app | Vercel | the React app in `frontend/`, built with `VITE_API_URL` pointing at the API |
 
-**No LLM calls and no API keys.** The Docker image installs only `requirements-api.txt` (solver + FastAPI) and copies only `api.py`, `config.py`, `models.py`, `referee/`, `data/` and `eval/results/experiment.json` (see `.dockerignore`). LangChain, the agents, the committee loop, Stripe and `.env` are not in the image, so the public site can't spend LLM quota even by accident. `tests/test_public_api.py` checks this.
+**No LLM calls and no API keys.** The Docker image installs only `requirements-api.txt` (solver + FastAPI) and copies only `api.py`, `config.py`, `models.py`, `referee/`, `data/` and `eval/results/experiment.json` (see `.dockerignore`). LangChain, the agents, the committee loop, Stripe and `.env` are not in the image, so the public site can't spend LLM quota even by accident. `tests/test_public_api.py` checks this. The image also sets `ENABLE_LIVE_RUNS=false`: `POST /api/run/...` answers 503 ("Live committee runs are disabled in the public demo") and the web app hides its Live run tab, showing the saved committee runs instead. Locally the flag defaults to on.
 
 The five Fetch agents are not part of this deployment; keep running them with `nohup python -m agents.run_all &` (README, "How to run").
 
