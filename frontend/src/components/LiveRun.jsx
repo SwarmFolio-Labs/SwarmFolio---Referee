@@ -162,6 +162,14 @@ function FutureRound({ round }) {
   )
 }
 
+// "Real committee · asi1-mini · fresh" / "Scripted analysts · real Referee": what this run actually uses.
+const runLabel = (job) => {
+  if (!job) return null
+  if (job.fakes) return 'Scripted analysts · real Referee'
+  const model = (job.model ?? '').split('/').pop() || 'live model'
+  return `Real committee · ${model} · ${job.run_mode ?? 'cached'}`
+}
+
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
 
 export default function LiveRun({ client, receiptVariant, onDisabled }) {
@@ -178,8 +186,8 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
     setEvents([])
     setJob(null)
     try {
-      const { job_id } = await startRun(client.client_id, { fakes: useFakes, fresh: fresh && !useFakes, stepDelay: useFakes ? 0.8 : 0 })
-      setJob({ job_id, status: 'running' })
+      const { job_id, fakes, model, run_mode } = await startRun(client.client_id, { fakes: useFakes, fresh: fresh && !useFakes, stepDelay: useFakes ? 0.8 : 0 })
+      setJob({ job_id, status: 'running', fakes, model, run_mode })
     } catch (e) {
       // 503: live runs are off in this deployment, so fall back to the saved committee run.
       if (e.status === 503 && onDisabled) onDisabled()
@@ -237,6 +245,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
           )}
           {job?.status === 'done' && `Finished in ${result.rounds} round${result.rounds > 1 ? 's' : ''}`}
           {job?.status === 'error' && 'The live run failed.'}
+          {job && <div data-component="run-label" className="mt-1 text-xs text-faint">{runLabel(job)}</div>}
         </div>
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-2 text-xs text-muted">

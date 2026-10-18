@@ -37,3 +37,5 @@ export const startRun = (clientId, { fakes = false, fresh = false, stepDelay = 0
   request(`/run/${clientId}?fakes=${fakes}&step_delay=${stepDelay}${fresh ? '&fresh=1' : ''}`, { method: 'POST' })
 /** A live run's status and its progress events from index `after` on. */
 export const getRun = (jobId, after = 0) => request(`/run/${jobId}?after=${after}`)
+/** What a live run would use: {live_runs, model: "provider/model" | null, fresh}. */
+export const getRunCapabilities = () => request('/run/capabilities')

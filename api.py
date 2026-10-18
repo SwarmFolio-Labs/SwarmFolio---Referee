@@ -212,12 +212,21 @@ def _committee_loop():
     return loop
 
 
+def _live_model() -> str:
+    """Switch this process to the fast live model (the same asi1-mini + capped answers as the Fetch
+    agents) and return "provider/model". Imported lazily: the public build ships no LLM code."""
+    from committee import llm
+    llm.use_live_model()
+    return f"{llm.provider()}/{llm.model_id_for('chair')}"
+
+
 def _brains(use_fakes: bool):
     """(transport, chair_propose, chair_revise) for a real or a fake run."""
     if use_fakes:
         import fakes
         return _FakeTransport(), fakes.chair_propose, fakes.chair_revise
     from committee.transport_local import LocalTransport
+    _live_model()  # real runs: fast model, so a fresh web run takes ~30-60 s like the agents
     committee_loop = _committee_loop()
     return LocalTransport(), committee_loop.chair_propose, committee_loop.chair_revise
 
@@ -287,12 +296,23 @@ async def post_run(client_id: str, fakes: bool = False, step_delay: float = 0.0,
            "max_rounds": config.MAX_ROUNDS, "started": time.time(), "events": [], "result": None,
            "error": None, "step_delay": max(0.0, min(step_delay, 5.0)),
            # "fresh" = every LLM answers anew; "cached" = saved answers are replayed when available.
-           "run_mode": "fresh" if fresh and not use_fakes else "cached"}
+           "run_mode": "fresh" if fresh and not use_fakes else "cached",
+           # "provider/model" that answers (e.g. "asi1/asi1-mini"); "scripted" for the fakes.
+           "model": "scripted" if use_fakes else _live_model()}
     JOBS[job_id] = job
     _event(job, "started", client_id=client_id, fakes=use_fakes, max_rounds=config.MAX_ROUNDS,
-           run_mode=job["run_mode"])
+           run_mode=job["run_mode"], model=job["model"])
     job["task"] = asyncio.create_task(_run_job(job, client, use_fakes, config.MAX_ROUNDS, fresh=fresh))
-    return {"job_id": job_id, "client_id": client_id, "fakes": use_fakes, "run_mode": job["run_mode"]}
+    return {"job_id": job_id, "client_id": client_id, "fakes": use_fakes, "run_mode": job["run_mode"],
+            "model": job["model"]}
+
+
+@api.get("/run/capabilities")
+def run_capabilities() -> dict:
+    """What a live run here would use: {live_runs, model: "provider/model" or null, fresh}."""
+    if not ENABLE_LIVE_RUNS:
+        return {"live_runs": False, "model": None, "fresh": False}  # public build: no committee/ to import
+    return {"live_runs": True, "model": _live_model(), "fresh": True}
 
 
 @api.get("/run/{job_id}")
@@ -301,8 +321,8 @@ def get_run(job_id: str, after: int = 0) -> dict:
     job = JOBS.get(job_id)
     if job is None:
         raise HTTPException(404, f"Unknown run {job_id}")
-    return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "run_mode", "result",
-                                "error")} | {
+    return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "run_mode", "model",
+                                "result", "error")} | {
         "events": job["events"][max(after, 0):], "event_count": len(job["events"])}
 
 

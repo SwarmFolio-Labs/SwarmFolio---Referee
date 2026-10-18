@@ -139,3 +139,36 @@ def test_run_reports_cached_or_fresh(monkeypatch):
     assert c.post("/api/run/C02?fresh=1").json()["run_mode"] == "fresh"
     assert c.post("/api/run/C02").json()["run_mode"] == "cached"
     assert started == [True, False]
+
+
+def test_run_capabilities_reports_the_live_model(monkeypatch):
+    """GET /run/capabilities is its own route (not a job id) and names the fast live model."""
+    import api as api_module
+    from fastapi.testclient import TestClient
+    monkeypatch.setattr(api_module.config, "LLM_PROVIDER", "asi1")
+    monkeypatch.setattr(api_module, "ENABLE_LIVE_RUNS", True)
+    c = TestClient(api_module.app)
+    body = c.get("/api/run/capabilities").json()
+    assert body == {"live_runs": True, "model": f"asi1/{api_module.config.LIVE_MODEL}", "fresh": True}
+    monkeypatch.setattr(api_module, "ENABLE_LIVE_RUNS", False)
+    assert c.get("/api/run/capabilities").json() == {"live_runs": False, "model": None, "fresh": False}
+
+
+def test_real_runs_use_the_live_model_and_say_so(monkeypatch):
+    import api as api_module
+    from committee import llm
+    from fastapi.testclient import TestClient
+
+    async def fake_job(job, client, use_fakes, max_rounds, fresh=False):
+        pass
+    monkeypatch.setattr(api_module, "_run_job", fake_job)
+    monkeypatch.setattr(api_module.config, "USE_FAKES", False)
+    monkeypatch.setattr(api_module.config, "LLM_PROVIDER", "asi1")
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    monkeypatch.setattr(api_module, "ENABLE_LIVE_RUNS", True)
+    c = TestClient(api_module.app)
+    real = c.post("/api/run/C02?fresh=1").json()
+    assert real["model"] == f"asi1/{api_module.config.LIVE_MODEL}" and real["run_mode"] == "fresh"
+    assert llm.model_id_for("chair") == api_module.config.LIVE_MODEL  # the process really switched
+    assert c.get(f"/api/run/{real['job_id']}").json()["model"] == real["model"]
+    assert c.post("/api/run/C02?fakes=true").json()["model"] == "scripted"
