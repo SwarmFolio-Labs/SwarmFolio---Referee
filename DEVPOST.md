@@ -62,7 +62,9 @@ All 5 agents and the Interactive Cards are live in ASI:One. The answers come wit
     - Every handler failure becomes an error message instead of a crash.
 - **Evaluation:**
   - 26 synthetic clients, including seeded "hard" clients whose volatility caps sit 0.5–1.0 points above the solver's minimum, and clients with planted conflicts.
-  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests. The run reported here covers the 4 hard clients C91–C94 × 3 trials (12 client-trials, `asi1`). A larger run with `asi1-mini` on 19 clients is in progress: `TODO: results`.
+  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests, run on two models:
+    - Run 1: `asi1`, the 4 hard clients C91–C94 × 3 trials (12 client-trials), with the older "limit" wording in the explanations.
+    - Run 2: **Google Gemini** `gemini-3.5-flash-lite` only, 10 hard clients × 2 trials (20 client-trials, 208 LLM calls), with fixed "minimum"/"maximum" wording.
 - **Web app:** FastAPI + React (Vite, Tailwind, Recharts), designed in Paper (**TODO-confirm**).
 - **Tests:** `__` pytest tests (currently 239), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
 
@@ -81,14 +83,16 @@ All 5 agents and the Interactive Cards are live in ASI:One. The answers come wit
 - A real 5-agent network where each agent has one job and its own address. The system keeps working when an agent is slow or down, and it says so.
 - Rule price tags: "constraint attribution" of the kind institutional tools sell, explained in the client's words.
 - An honest experiment with a fair, paired design.
-- A real result, reported honestly. On realistic, tight clients the AI broke a rule in **83%** of first drafts (10 of 12).
-  - After 3 rounds of feedback, compliance was 33% with self-check, 42% with a bare verdict and 50% with the Referee's explanation. The 95% CIs were [8, 58], [17, 67] and [25, 75].
-  - That's a trend, not a statistically significant result with 12 trials: C vs. B p = 1.000, C vs. A p = 0.625.
+- A real result, reported honestly, from two runs on two models. On realistic, tight clients, about **80%** of the AI's first drafts broke a rule, and no feedback style made the AI reliably fix them.
+  - **Run 1** (`asi1`, 12 client-trials): 10 of 12 first drafts (83%) broke a rule. After 3 rounds, compliance was 33% with self-check [8, 58], 42% with a bare verdict [17, 67] and 50% with the Referee's explanation [25, 75]. Not significant: explained vs. bare p = 1.000, explained vs. self-check p = 0.625.
+  - **Run 2** (`gemini-3.5-flash-lite`, 20 client-trials): 16 of 20 first drafts (80%) broke a rule. After 3 rounds, compliance was 20% with self-check [5, 40], 25% with a bare verdict [10, 45] and 25% explained [10, 45]. Explained vs. bare: 1 better / 18 same / 1 worse, p = 1.0. Only 2 of the 16 broken drafts were fixed by the AI, and self-check fixed none.
+  - Explained feedback shrank the *size* of the violations the most (6.0 percentage points vs. 8.5 bare vs. 10.4 self-check), but sometimes broke smaller rules doing it. That's too small to claim.
+  - The Referee's exact repair reached 100% compliance.
 
 ## What we learned
 
-- Keep the creative part (LLMs) and the part that must be right (the solver) separate. Then let the right part teach the creative part.
-- Prompts are suggestions and constraints are guarantees. Explaining *why* a rule broke (actual vs. limit) helped more than saying *which* rule broke, and both helped more than self-checking, but only as a trend with 12 trials. Even with the best feedback, half the portfolios still broke a rule after 3 tries. Only the Referee's repair reached 100% compliance, which is why the Referee repairs portfolios as well as giving feedback.
+- Keep the creative part (LLMs) and the part that must be right (the solver) separate, and don't count on the creative part to correct itself.
+- Prompts are suggestions and constraints are guarantees. We expected explaining *why* a rule broke to teach the AI, but across two models it did not significantly beat saying *which* rule broke, and no feedback style made the AI reliably self-correct. That's why the Referee repairs portfolios itself, and why its exact repair is what guarantees compliance.
 - Agent networks need the boring parts: timeouts, retries, fallbacks, and saying out loud when something was skipped.
 - uAgents, Agentverse mailboxes, the Chat Protocol and ASI:One Interactive Cards.
 
@@ -101,7 +105,7 @@ All 5 agents and the Interactive Cards are live in ASI:One. The answers come wit
 
 ## Built with
 
-`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `stripe` · `pytest` · `paper` (TODO-confirm) · `devin` · `claude-code`
+`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `gemini` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `stripe` · `pytest` · `paper` (TODO-confirm) · `devin` · `claude-code`
 
 ## Built at LA Hacks vs. before
 
