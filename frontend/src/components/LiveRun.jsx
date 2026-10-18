@@ -159,7 +159,7 @@ export default function LiveRun({ client, receiptVariant, onDisabled }) {
               <li key={e.seq} data-event={e.type} className="flex gap-3 items-center">
                 <span className="num w-10 shrink-0 text-right">{e.t.toFixed(1)}s</span>
                 <span>{describe(e)}</span>
-                {e.type === 'stance' && e.stance && <StanceBadge stance={e.stance} />}
+                {e.type === 'stance' && e.stance && <StanceBadge stance={e.stance} agent={e.agent} text="" />}
               </li>
             ))}
           </ol>

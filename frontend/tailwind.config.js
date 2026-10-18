@@ -91,8 +91,15 @@ export default {
     extend: {
       gridTemplateColumns: {
         'price-tag': '1fr var(--price-meter-width)',
+        stance: 'calc(var(--space-unit) * 2) 1fr',
       },
+      borderWidth: { 3: '3px' },
       keyframes: {
+        stamp: {
+          '0%': { opacity: '0', transform: 'rotate(-4deg) scale(1.6)' },
+          '70%': { opacity: '1', transform: 'rotate(-4deg) scale(0.96)' },
+          '100%': { opacity: '1', transform: 'rotate(-4deg) scale(1)' },
+        },
         reveal: {
           '0%': { opacity: '0', transform: 'translateY(6px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
@@ -100,6 +107,7 @@ export default {
       },
       animation: {
         reveal: 'reveal var(--motion-reveal) ease-out both',
+        stamp: 'stamp var(--motion-stamp) cubic-bezier(0.2, 0.8, 0.3, 1.2) both',
       },
     },
   },

@@ -50,3 +50,10 @@ export function splitConflict(explain = '') {
   const m = explain.match(ARITHMETIC)
   return m ? { sentence: explain.slice(0, m.index).trim(), arithmetic: m[1].trim() } : { sentence: explain, arithmetic: null }
 }
+
+/** "his" / "her" / "their" from the client's title, for headings like "His 8 rules". */
+export function pronoun(name = '') {
+  if (/^mr\.?\s/i.test(name)) return 'his'
+  if (/^(ms|mrs|miss)\.?\s/i.test(name)) return 'her'
+  return 'their'
+}
