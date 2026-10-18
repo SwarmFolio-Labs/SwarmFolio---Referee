@@ -26,9 +26,11 @@ LLM_PROVIDER = os.getenv("LLM_PROVIDER", "asi1")
 MODELS = {
     "asi1": {"chair": "asi1", "analyst": "asi1"},
     "anthropic": {"chair": "claude-sonnet-5-5", "analyst": "claude-haiku-5-5"},
-    # Gemini model ids get set at the event (check what the free key allows).
-    "gemini": {"chair": "gemini-2.5-flash", "analyst": "gemini-2.5-flash"},
+    # gemini-2.5-flash is retired (404). Only the experiment uses Gemini (--provider gemini).
+    "gemini": {"chair": "gemini-3.5-flash", "analyst": "gemini-3.5-flash"},
 }
+# If Gemini is overloaded (503) or rate-limited (429) twice in a row, the call moves to this lighter model.
+GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite"
 CHAIR_MODEL = MODELS[LLM_PROVIDER]["chair"]
 ANALYST_MODEL = MODELS[LLM_PROVIDER]["analyst"]
 

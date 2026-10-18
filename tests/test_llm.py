@@ -1,5 +1,7 @@
 """Offline tests for committee/llm.py (MASTER 8). A fake chat model stands in for the real LLM."""
 
+import os
+
 import pytest
 from langchain_core.language_models.fake_chat_models import FakeListChatModel
 from pydantic import BaseModel
@@ -30,7 +32,7 @@ def fake(monkeypatch, tmp_path):
 
     def make(replies):
         model = CountingFake(responses=replies)
-        monkeypatch.setattr(llm, "get_model", lambda role: model)
+        monkeypatch.setattr(llm, "get_model", lambda role, model_id=None: model)
         return model
     return make
 
@@ -101,3 +103,95 @@ def test_live_mode_is_ignored_for_other_providers(monkeypatch):
     monkeypatch.setattr(llm.config, "LLM_PROVIDER", "anthropic")
     llm.use_live_model()
     assert llm.model_id_for("chair") == llm.config.MODELS["anthropic"]["chair"]
+
+
+# ---------- Gemini: waiting out 429/503, fallback model, failure streak ----------
+
+class Overloaded(Exception):
+    """Looks like Google's error: an HTTP code and (sometimes) a retryDelay hint."""
+    def __init__(self, code=503, text="UNAVAILABLE"):
+        super().__init__(f"{code} {text}")
+        self.code = code
+
+
+class Flaky(CountingFake):
+    """Fails `fail_times` times with an overload error, then answers."""
+    fail_times: int = 0
+    error_code: int = 503
+
+    def invoke(self, *args, **kwargs):
+        if self.fail_times > 0:
+            self.fail_times -= 1
+            self.calls += 1
+            raise Overloaded(self.error_code, 'quota "retryDelay": "7s"' if self.error_code == 429 else "UNAVAILABLE")
+        return super().invoke(*args, **kwargs)
+
+
+@pytest.fixture
+def gemini(monkeypatch, tmp_path):
+    """Gemini provider, temp cache, no real sleeping; returns (make_model, used_model_ids, sleeps)."""
+    monkeypatch.setattr(llm, "CACHE_DIR", str(tmp_path))
+    llm.use_provider("gemini")
+    used, sleeps = [], []
+    monkeypatch.setattr(llm.time, "sleep", lambda s: sleeps.append(s))
+
+    def make(fail_times, code=503):
+        model = Flaky(responses=['{"ticker": "JNJ", "weight": 0.3}'] * 3, fail_times=fail_times, error_code=code)
+        monkeypatch.setattr(llm, "get_model", lambda role, model_id=None: used.append(model_id) or model)
+        return model
+    return make, used, sleeps
+
+
+def test_gemini_overload_waits_then_succeeds(gemini):
+    make, used, sleeps = gemini
+    make(fail_times=1)
+    assert llm.complete_json("chair", "s", "u", Answer).ticker == "JNJ"
+    assert sleeps == [5]                       # backoff 5 s (no Retry-After given)
+    assert used == ["gemini-3.5-flash"] * 2    # still the main model after 1 failure
+    assert llm.failure_streak() == 0
+
+
+def test_gemini_falls_back_to_lite_after_two_failures_and_caches_under_it(gemini):
+    make, used, sleeps = gemini
+    make(fail_times=2, code=429)
+    llm.complete_json("chair", "s", "u", Answer)
+    assert sleeps == [7, 7]                    # honours Google's retryDelay hint
+    assert used[-1] == llm.config.GEMINI_FALLBACK_MODEL
+    assert os.path.exists(llm._cache_path("chair", "s", "u", llm.config.GEMINI_FALLBACK_MODEL))
+    assert not os.path.exists(llm._cache_path("chair", "s", "u", "gemini-3.5-flash"))
+    llm.complete_json("chair", "s", "u", Answer)  # second ask: found under the fallback key
+    assert len(used) == 3
+
+
+def test_gemini_gives_up_after_four_waits_and_counts_the_streak(gemini):
+    make, used, sleeps = gemini
+    make(fail_times=10)
+    with pytest.raises(Overloaded):
+        llm.complete_json("chair", "s", "u", Answer)
+    assert len(sleeps) == llm.MAX_WAITS and llm.failure_streak() == 1
+    with pytest.raises(Overloaded):
+        llm.complete_json("chair", "s", "other", Answer)
+    assert llm.failure_streak() == 2
+
+
+def test_non_retryable_errors_are_not_retried(gemini):
+    make, used, sleeps = gemini
+    make(fail_times=1, code=400)
+    with pytest.raises(Overloaded):
+        llm.complete_json("chair", "s", "u", Answer)
+    assert sleeps == []
+
+
+def test_asi1_errors_are_not_retried_here(fake, monkeypatch):
+    """Only Gemini gets the wait-and-retry; the live agents on ASI:One keep failing fast."""
+    model = fake([])
+    monkeypatch.setattr(llm.time, "sleep", lambda s: (_ for _ in ()).throw(AssertionError("slept")))
+    monkeypatch.setattr(model.__class__, "invoke", lambda self, *a, **k: (_ for _ in ()).throw(Overloaded(429)))
+    with pytest.raises(Overloaded):
+        llm.complete_json("chair", "s", "u", Answer)
+
+
+def test_retry_after_parsing():
+    assert llm._retry_after(Exception('429 RESOURCE_EXHAUSTED {"retryDelay": "17s"}')) == 17
+    assert llm._retry_after(Exception("nothing here")) is None
+    assert llm._status_code(Overloaded(503)) == 503

@@ -88,3 +88,23 @@ def test_a_failed_revision_fails_the_trial_instead_of_scoring_it(monkeypatch):
     monkeypatch.setattr(experiment, "chair_revise_with", boom)
     with pytest.raises(RuntimeError, match="429"):
         experiment.run_condition(PATEL, Proposal(weights=BAD, thesis="t", reasons={}), "explained")
+
+
+def test_run_all_stops_starting_trials_after_a_failure_streak(monkeypatch):
+    """After 3 failed LLM calls in a row, new client-trials are skipped (not scored); finished ones are kept."""
+    import asyncio
+    from committee import llm
+    monkeypatch.setattr(llm, "_failure_streak", {"n": 0})
+    calls = []
+
+    def fake_trial(client, trial):
+        calls.append(trial)
+        if trial == 1:
+            return {"conditions": {m: {"rounds_to_comply": 0} for m in experiment.MODES}}
+        llm._failure_streak["n"] = 3  # this trial's LLM calls kept failing
+        raise RuntimeError("503 UNAVAILABLE")
+    monkeypatch.setattr(experiment, "run_trial", fake_trial)
+    jobs = [(PATEL, t) for t in (1, 2, 3, 4)]
+    trials, counts = asyncio.run(experiment.run_all(jobs, concurrency=1))
+    assert len(trials) == 1 and counts == {"planned": 4, "failed": 1, "skipped": 2}
+    assert calls == [1, 2]

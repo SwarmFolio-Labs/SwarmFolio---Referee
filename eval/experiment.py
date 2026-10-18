@@ -248,24 +248,38 @@ def plot_curves(s: dict, path: str) -> None:
 
 # ---------- Main ----------
 
-async def run_all(jobs: list[tuple[Client, int]], concurrency: int) -> list[dict]:
-    """Run every client-trial, `concurrency` at a time."""
+STOP_AFTER_FAILED_CALLS = 3  # this many failed LLM calls in a row -> start no new client-trials
+
+
+async def run_all(jobs: list[tuple[Client, int]], concurrency: int) -> tuple[list[dict], dict]:
+    """
+    Run every client-trial, `concurrency` at a time. Returns (finished trials, counts).
+    A trial with any failed LLM call is FAILED and left out (never scored). After
+    STOP_AFTER_FAILED_CALLS failed calls in a row, trials that haven't started are SKIPPED.
+    """
     gate = asyncio.Semaphore(concurrency)
+    counts = {"planned": len(jobs), "failed": 0, "skipped": 0}
 
     async def one(client: Client, trial: int) -> dict | None:
         async with gate:
+            if llm.failure_streak() >= STOP_AFTER_FAILED_CALLS:
+                counts["skipped"] += 1
+                print(f"  {client.client_id} t{trial}: SKIPPED ({llm.failure_streak()} failed LLM calls in a row)",
+                      flush=True)
+                return None
             start = time.time()
             try:
                 result = await asyncio.to_thread(run_trial, client, trial)
             except Exception as e:
-                print(f"  {client.client_id} t{trial}: FAILED ({e})", flush=True)
+                counts["failed"] += 1
+                print(f"  {client.client_id} t{trial}: FAILED, excluded ({str(e)[:200]})", flush=True)
                 return None
             got = {m: result["conditions"][m]["rounds_to_comply"] for m in MODES}
             print(f"  {client.client_id} t{trial}: rounds to comply {got} ({time.time() - start:.0f}s)", flush=True)
             return result
 
     results = await asyncio.gather(*(one(c, t) for c, t in jobs))
-    return [r for r in results if r is not None]
+    return [r for r in results if r is not None], counts
 
 
 def main() -> None:
@@ -279,12 +293,16 @@ def main() -> None:
     parser.add_argument("--suffix", type=str, default="",
                         help="output names get _<suffix>, e.g. experiment_mini.md (keeps earlier runs)")
     parser.add_argument("--note", type=str, default="", help="extra line for the results header")
+    parser.add_argument("--provider", type=str, default=None,
+                        help="LLM provider for this run only (e.g. gemini); .env's LLM_PROVIDER stays for the agents")
     parser.add_argument("--log", type=str, default=None,
                         help="where to write one line per LLM call (default: eval/results/llm_calls[_suffix].jsonl)")
     args = parser.parse_args()
     tail = f"_{args.suffix}" if args.suffix else ""
     if args.log is None:
         args.log = os.path.join(RESULTS_DIR, f"llm_calls{tail}.jsonl")
+    if args.provider:
+        llm.use_provider(args.provider)
     if args.live:
         llm.use_live_model()
 
@@ -304,15 +322,24 @@ def main() -> None:
     jobs = [(c, t) for c in clients for t in range(1, args.trials + 1)]
     print(f"Experiment: {len(clients)} feasible clients x {args.trials} trials = {len(jobs)} client-trials", flush=True)
 
-    trials = asyncio.run(run_all(jobs, args.concurrency))
+    trials, counts = asyncio.run(run_all(jobs, args.concurrency))
     if not trials:
-        raise SystemExit("Every client-trial failed; nothing to report.")
+        raise SystemExit(f"No client-trial finished ({counts}); nothing to report.")
     summary = summarize(trials)
     # Say exactly what produced these numbers, so different runs are never mixed up.
+    summary["provider"] = llm.provider()
     summary["model"] = {"chair": llm.model_id_for("chair"), "analyst": llm.model_id_for("analyst")}
     summary["clients"] = sorted({t["client_id"] for t in trials})
-    summary["run_note"] = (f"Model: {summary['model']['chair']} (temperature {TEMPERATURE}). "
-                           f"Clients: {', '.join(summary['clients'])}. " + args.note).strip()
+    summary["counts"] = counts
+    summary["partial"] = len(trials) < counts["planned"]
+    partial = ""
+    if summary["partial"]:
+        partial = (f"PARTIAL RESULTS: {len(trials)} of {counts['planned']} planned client-trials finished "
+                   f"({counts['failed']} failed and were excluded, {counts['skipped']} skipped after "
+                   f"{STOP_AFTER_FAILED_CALLS} failed LLM calls in a row). ")
+    summary["run_note"] = (f"{partial}Provider: {llm.provider()}, model: {summary['model']['chair']} "
+                           f"(temperature {TEMPERATURE}). Clients: {', '.join(summary['clients'])}. "
+                           + args.note).strip()
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
     md_path = os.path.join(RESULTS_DIR, f"experiment{tail}.md")

@@ -12,5 +12,7 @@ def _live_mode_off():
     """Importing agents/brains.py switches on the fast live model; every test starts with it off."""
     from committee import llm
     llm._live["on"] = False
+    llm._provider_override["name"] = None
     yield
     llm._live["on"] = False
+    llm._provider_override["name"] = None
