@@ -11,84 +11,116 @@
  * Colors are "R G B" triples so Tailwind can add opacity (bg-fail/10).
  * Any subtree can override tokens locally, e.g. the printed receipt variant at the bottom.
  */
+/* Paper design "Research report" (design/tokens.css): paper + ink, meaning colors only where they mean something. */
 :root {
   /* Surfaces and text */
-  --bg: 248 247 244;
-  --surface: 255 255 255;
-  --sunken: 241 240 236;
-  --ink: 24 24 27;
-  --muted: 113 113 122;
-  --placeholder: 156 163 175;
-  --line: 228 226 220;
-  --accent: 37 99 235;
-  --on-accent: 255 255 255; /* text on accent / status fills (primary button, pass/fail marks) */
+  --bg: 246 243 236; /* paper page */
+  --surface: 253 251 246; /* receipt paper, cards */
+  --sunken: 239 235 226; /* bar tracks, insets */
+  --ink: 27 27 26;
+  --muted: 94 90 82; /* secondary text, AA on bg + surface */
+  --faint: 111 106 96; /* tertiary text, still AA */
+  --prose: 58 55 50; /* long serif paragraphs */
+  --placeholder: 111 106 96;
+  --line: 217 211 199; /* 1px hairlines */
+  --perforation: 185 177 162; /* dashed receipt separators */
+  --before-bar: 201 193 178; /* "before" weight bar */
+  --accent: 27 27 26; /* primary action = ink */
+  --on-accent: 253 251 246;
 
-  /* Verdict + rule states */
-  --pass: 22 128 61;
-  --fail: 200 38 38;
-  --warn: 180 110 0;
+  /* Verdict + rule states (always paired with a label and a shape) */
+  --pass: 47 107 63;
+  --fail: 181 67 43;
+  --warn: 154 106 18;
+  --warn-text: 134 96 15; /* ochre text / stamp word (AA) */
+  --pass-tint: 227 236 226;
+  --fail-tint: 243 225 219;
+  --warn-tint: 242 232 211; /* changed-row highlight, working-agent row */
 
-  /* Analyst stances */
-  --concede: 22 128 61;
-  --defend: 200 38 38;
-  --modify: 37 99 235;
+  /* Analyst stances: concede ● / defend ■ / modify ◆ */
+  --concede: 47 107 63;
+  --defend: 181 67 43;
+  --modify: 154 106 18;
 
   /* Charts (Recharts reads these directly) */
-  --chart-before: rgb(161 161 170);
-  --chart-after: rgb(var(--accent));
-  --chart-self: rgb(161 161 170);
-  --chart-bare: rgb(180 110 0);
-  --chart-explained: rgb(var(--accent));
+  --chart-before: rgb(201 193 178);
+  --chart-after: rgb(var(--ink));
+  --chart-self: rgb(167 158 142);
+  --chart-bare: rgb(154 106 18);
+  --chart-explained: rgb(var(--ink));
   --chart-grid: rgb(var(--line));
   --chart-cursor: rgb(var(--sunken));
   --chart-tick-size: var(--text-2xs);
   --chart-legend-size: var(--text-xs);
 
-  /* Fonts */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* Fonts: Newsreader (headings, client quotes), IBM Plex Sans (UI), IBM Plex Mono (every measured value) */
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: Newsreader, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-  --weight-bold: 700;
+  --weight-bold: 800;
 
-  --tracking-tight: -0.025em;
-  --tracking-wide: 0.025em;
-  --tracking-wider: 0.05em;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.015em;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.12em; /* 11px caps labels */
 
-  /* Type scale (size / line height) */
+  /* Type scale (size / line height), px values from the design frames */
   --text-3xs: 10px;
   --text-2xs: 11px;
-  --text-xs: 0.75rem;
-  --leading-xs: 1rem;
-  --text-sm: 0.875rem;
-  --leading-sm: 1.25rem;
-  --text-base: 1rem;
-  --leading-base: 1.5rem;
-  --text-lg: 1.125rem;
-  --leading-lg: 1.75rem;
-  --text-xl: 1.25rem;
-  --leading-xl: 1.75rem;
-  --text-3xl: 1.875rem;
-  --leading-3xl: 2.25rem;
+  --text-xs: 12px;
+  --leading-xs: 16px;
+  --text-ui: 13px;
+  --leading-ui: 18px;
+  --text-sm: 14px;
+  --leading-sm: 20px;
+  --text-md: 15px;
+  --leading-md: 22px;
+  --text-base: 16px;
+  --leading-base: 24px;
+  --text-prose: 17px;
+  --leading-prose: 26px;
+  --text-lg: 18px;
+  --leading-lg: 28px;
+  --text-lead: 19px;
+  --leading-lead: 29px;
+  --text-xl: 20px;
+  --leading-xl: 28px;
+  --text-2xl: 22px;
+  --leading-2xl: 28px;
+  --text-h3: 26px;
+  --leading-h3: 32px;
+  --text-3xl: 28px;
+  --leading-3xl: 34px;
+  --text-4xl: 32px;
+  --leading-4xl: 38px;
+  --text-5xl: 36px;
+  --leading-5xl: 40px;
+  --text-6xl: 48px;
+  --leading-6xl: 52px;
 
   /* Spacing: every p-*, m-*, gap-*, w-*, h-* step is a multiple of this unit (p-4 = 4 units) */
   --space-unit: 0.25rem;
-  --page-width: 72rem;
-  --prose-width: 48rem;
+  --page-width: 1200px;
+  --prose-width: 46rem;
+  --lede-width: 720px; /* page intro column */
+  --aside-width: 416px; /* Screen C: the cheapest way out */
+  --receipt-width: 620px; /* Screen B: the printed receipt */
   --price-meter-width: 220px;
 
-  /* Shape */
-  --radius-sm: 0.25rem; /* small pills, round labels */
-  --radius-control: 0.375rem; /* buttons, inputs, tabs */
-  --radius-card: 10px;
-  --radius-chip: 999px;
-  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.03);
+  /* Shape: hairlines and near-square corners, no shadows */
+  --radius-sm: 2px;
+  --radius-control: 2px;
+  --radius-card: 2px;
+  --radius-chip: 2px;
+  --shadow-card: none;
 
   /* Motion */
   --motion-reveal: 360ms;
+  --motion-stamp: 420ms;
 }
 
 html,
@@ -116,14 +148,14 @@ body {
     @apply font-mono tabular-nums;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-md px-3.5 py-2 text-sm font-medium transition
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition
       disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .btn-primary {
     @apply btn bg-accent text-on-accent hover:bg-accent/90;
   }
   .btn-ghost {
-    @apply btn border border-line bg-surface text-ink hover:bg-sunken;
+    @apply btn border border-ink bg-transparent text-ink hover:bg-surface;
   }
 }
 
@@ -149,20 +181,22 @@ body {
 }
 
 /*
- * Receipt variants: <ReceiptCard variant="printed"> renders data-variant="printed" on its root.
- * Override tokens inside it to restyle the receipt alone. This is a placeholder starting point
- * for the printed audit receipt; preview it with ?receipt=printed on a client URL.
+ * Receipt variants: <ReceiptCard variant="printed"> (the default) renders data-variant="printed": receipt paper
+ * with an ink bar on top and a torn bottom edge. variant="card" drops the bar and the edge.
  */
-[data-component='receipt'] {
-  font-family: var(--font-sans);
+[data-component='receipt-paper'][data-variant='printed'] {
+  border-top: 4px solid rgb(var(--ink));
 }
-[data-component='receipt'][data-variant='printed'] {
-  --font-sans: var(--font-mono);
-  --font-display: var(--font-mono);
-  --surface: 255 255 252;
-  --radius-card: 2px;
-  --shadow-card: 0 2px 8px rgb(0 0 0 / 0.08);
-  border-style: dashed;
+[data-component='receipt-paper'][data-variant='printed']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background:
+    linear-gradient(-45deg, transparent 5px, rgb(var(--surface)) 0) 0 0 / 10px 10px repeat-x,
+    linear-gradient(45deg, transparent 5px, rgb(var(--surface)) 0) 0 0 / 10px 10px repeat-x;
 }
 
 /* ---------- Print: "Print receipt" prints only the receipt that asked for it ---------- */

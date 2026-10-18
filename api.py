@@ -12,6 +12,7 @@ Endpoints:
     GET  /settings             {live_runs}: whether POST /run is on (the UI hides the Live run tab if not)
     POST /run/{client_id}      start a live committee run (503 when ENABLE_LIVE_RUNS=false)
     GET  /run/{job_id}         its progress events
+    POST /extract              {text} -> {rules, unmapped}: plain-English rules -> Rule objects (LLM; 503 when ENABLE_LIVE_RUNS=false)
 
 Live committee runs take minutes, so the app replays saved runs by default.
 ENABLE_LIVE_RUNS=false (the public deployment) turns /run off; committee/ is then never imported.
@@ -303,6 +304,24 @@ def get_run(job_id: str, after: int = 0) -> dict:
     return {k: job[k] for k in ("job_id", "client_id", "status", "fakes", "max_rounds", "run_mode", "result",
                                 "error")} | {
         "events": job["events"][max(after, 0):], "event_count": len(job["events"])}
+
+
+class ExtractRequest(BaseModel):
+    text: str
+
+
+@api.post("/extract")
+def post_extract(req: ExtractRequest) -> dict:
+    """Plain-English rules -> {rules, unmapped} (referee/extract.py). Uses the LLM, so it's off in the public demo."""
+    if not ENABLE_LIVE_RUNS:
+        raise HTTPException(503, "Rule extraction uses an LLM and is disabled in the public demo")
+    if not req.text.strip():
+        raise HTTPException(422, "text is empty")
+    from referee.extract import extract_rules  # lazy: pulls in the LLM layer
+    try:
+        return extract_rules(req.text).model_dump()
+    except Exception as e:  # LLM down, no key, invalid JSON twice
+        raise HTTPException(502, f"Rule extraction failed: {type(e).__name__}: {e}")
 
 
 # Same routes at / and at /api (the frontend always calls /api/..., in dev via Vite's proxy).

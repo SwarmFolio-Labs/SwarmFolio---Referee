@@ -106,6 +106,7 @@ export default function TryReferee({ client, presets, receiptVariant }) {
         <ReceiptCard
           variant={receiptVariant}
           receipt={receipt}
+          client={client}
           rules={client.rules}
           before={checkedWeights}
           beforeLabel="Your weights"
