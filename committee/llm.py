@@ -126,8 +126,11 @@ def get_model(role: str, model_id: str | None = None):
         from langchain_openai import ChatOpenAI
         # ASI:One speaks the OpenAI API, so the OpenAI class works with a different base URL.
         max_tokens = config.LIVE_MAX_TOKENS[role] if _is_live() else None  # None = no cap
+        # timeout: without one, a request ASI:One never answers hangs forever (seen live at 3 AM);
+        # LangChain retries a timed-out call twice by default.
         return ChatOpenAI(model=model_id, base_url=config.ASI1_BASE_URL,
-                          api_key=os.getenv("ASI1_API_KEY"), temperature=temperature, max_tokens=max_tokens)
+                          api_key=os.getenv("ASI1_API_KEY"), temperature=temperature, max_tokens=max_tokens,
+                          timeout=config.LLM_TIMEOUT_S)
     if name == "gemini":
         from langchain_google_genai import ChatGoogleGenerativeAI
         # max_retries=1: no hidden retries inside the library; complete_json does the waiting itself.

@@ -41,6 +41,7 @@ ASI1_BASE_URL = "https://api.asi1.ai/v1"
 # takes a minute or two instead of an hour. The experiment and eval keep the models above.
 # Only applies when LLM_PROVIDER is "asi1". Answers are capped at this many tokens per call.
 LIVE_MODEL = os.getenv("LIVE_MODEL", "asi1-mini")
+LLM_TIMEOUT_S = 60  # give up on one ASI:One request after this long (it is then retried)
 LIVE_MAX_TOKENS = {"analyst": 1500, "chair": 1200}  # analyst = memos and reviews
 
 # --- Agents ---

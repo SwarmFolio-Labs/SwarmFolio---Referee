@@ -1,0 +1,371 @@
+{
+  "client_id": "C25",
+  "final_proposal": {
+    "weights": {
+      "AAPL": 0.13086695693702372,
+      "MSFT": 0.2025061525619174,
+      "GOOGL": 0.09542671405836455,
+      "NVDA": 0.014657124435985948,
+      "META": 0.02654305200670842,
+      "JNJ": 0.13907957688990955,
+      "UNH": 0.019215923275429984,
+      "PG": 0.009038568980446044,
+      "KO": 0.12442847835500029,
+      "GLD": 0.0427795341036079,
+      "TLT": 0.19545791839560622
+    },
+    "thesis": "This portfolio balances the client's non-negotiable 47%+ tech allocation with strict volatility constraints by selecting only the most stable large-cap technology leaders (MSFT, AAPL, GOOGL) that offer growth without extreme beta spikes. To satisfy the 'boring' requirement and ensure the total annual volatility remains below 10.7%, the remaining capital is allocated to uncorrelated, low-volatility defensive sectors: Healthcare (JNJ) and Consumer Staples (PG, KO). This structure avoids high-volatility tech names like NVDA and META, excludes all energy assets per client rule, and leverages the negative/zero correlations of staples and healthcare to mathematically dampen the portfolio's overall variance while maintaining sufficient equity upside. NEEDS ADVISOR APPROVAL: These rules can't all hold: 'At least 47% in tech, non-negotiable', 'Annual volatility at most 10.7%, I promised my wife'. Cheapest fix (needs advisor approval): Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078).",
+    "reasons": {
+      "AAPL": "Selected as a core tech holding with lower relative volatility (26.8%) compared to high-beta names, essential for meeting the 47% tech floor while managing risk.",
+      "GOOGL": "Offers deep value in tech with strong growth and margins at a reasonable valuation, providing quality exposure without the extreme volatility of NVDA or META.",
+      "JNJ": "Critical stabilizer with low correlation to equities; its defensive characteristics are necessary to offset tech volatility and meet the 'boring' spouse requirement.",
+      "KO": "Lowest volatility among consumer staples with zero correlation to the base equity sleeve, offering maximum diversification benefit against tech swings.",
+      "MSFT": "Top performer with strong momentum and exceptional profitability; fits the tech mandate while offering relative stability compared to speculative growth stocks.",
+      "PG": "Consumer staples are historically low-volatility; supports the 'boring' requirement and helps keep annual portfolio volatility under the 10.7% cap."
+    }
+  },
+  "receipt": {
+    "receipt_id": "d29c8ea689e3",
+    "timestamp": "2026-10-18T10:00:28Z",
+    "client_id": "C25",
+    "verdict": "RULES_INFEASIBLE",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.5,
+        "limit": 0.47,
+        "violation": 0.0,
+        "explain": "Tech is 50.0% of the portfolio (minimum 47.0%): OK. The client said: 'At least 47% in tech, non-negotiable.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.2,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "The largest position is MSFT at 20.0% (maximum 30.0%): OK. The client said: 'No single stock above 30%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No oil.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 6.0,
+        "limit": 5.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 6 holdings (minimum 5): OK. The client said: 'At least 5 holdings.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_volatility",
+        "passed": false,
+        "actual": 0.12467404081651752,
+        "limit": 0.107,
+        "violation": 0.017674040816517522,
+        "explain": "Annual volatility is 12.5% (maximum 10.7%): BROKEN. The client said: 'Annual volatility at most 10.7%, I promised my wife.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": false,
+    "conflict_set": [
+      "R1",
+      "R5"
+    ],
+    "conflict_explain": "These rules can't all hold: 'At least 47% in tech, non-negotiable', 'Annual volatility at most 10.7%, I promised my wife'.",
+    "cheapest_relaxation": [
+      {
+        "rule_id": "R5",
+        "old_limit": 0.107,
+        "new_limit": 0.111013,
+        "cost": 2.4078,
+        "explain": "Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078)."
+      }
+    ],
+    "repaired_weights": {
+      "AAPL": 0.13086695693702372,
+      "MSFT": 0.2025061525619174,
+      "GOOGL": 0.09542671405836455,
+      "NVDA": 0.014657124435985948,
+      "META": 0.02654305200670842,
+      "JNJ": 0.13907957688990955,
+      "UNH": 0.019215923275429984,
+      "PG": 0.009038568980446044,
+      "KO": 0.12442847835500029,
+      "GLD": 0.0427795341036079,
+      "TLT": 0.19545791839560622
+    },
+    "capital_moved": 0.30115970477925585,
+    "sharpe_before": 1.3704105436728418,
+    "sharpe_after": 1.4249221716065625,
+    "vol_after": 0.11100664630413885,
+    "summary": "These rules can't all hold (R1, R5). Cheapest fix: Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078). Under the relaxed rules, the nearest portfolio moves 30% of capital.",
+    "notes": [
+      "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+    ]
+  },
+  "first_receipt": {
+    "receipt_id": "d29c8ea689e3",
+    "timestamp": "2026-10-18T10:00:28Z",
+    "client_id": "C25",
+    "verdict": "RULES_INFEASIBLE",
+    "checks": [
+      {
+        "rule_id": "R1",
+        "type": "sector_min",
+        "passed": true,
+        "actual": 0.5,
+        "limit": 0.47,
+        "violation": 0.0,
+        "explain": "Tech is 50.0% of the portfolio (minimum 47.0%): OK. The client said: 'At least 47% in tech, non-negotiable.'"
+      },
+      {
+        "rule_id": "R2",
+        "type": "max_weight",
+        "passed": true,
+        "actual": 0.2,
+        "limit": 0.3,
+        "violation": 0.0,
+        "explain": "The largest position is MSFT at 20.0% (maximum 30.0%): OK. The client said: 'No single stock above 30%.'"
+      },
+      {
+        "rule_id": "R3",
+        "type": "exclude",
+        "passed": true,
+        "actual": 0.0,
+        "limit": 0.0,
+        "violation": 0.0,
+        "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No oil.'"
+      },
+      {
+        "rule_id": "R4",
+        "type": "min_holdings",
+        "passed": true,
+        "actual": 6.0,
+        "limit": 5.0,
+        "violation": 0.0,
+        "explain": "The portfolio has 6 holdings (minimum 5): OK. The client said: 'At least 5 holdings.'"
+      },
+      {
+        "rule_id": "R5",
+        "type": "max_volatility",
+        "passed": false,
+        "actual": 0.12467404081651752,
+        "limit": 0.107,
+        "violation": 0.017674040816517522,
+        "explain": "Annual volatility is 12.5% (maximum 10.7%): BROKEN. The client said: 'Annual volatility at most 10.7%, I promised my wife.'"
+      }
+    ],
+    "dust_removed": [],
+    "rules_feasible": false,
+    "conflict_set": [
+      "R1",
+      "R5"
+    ],
+    "conflict_explain": "These rules can't all hold: 'At least 47% in tech, non-negotiable', 'Annual volatility at most 10.7%, I promised my wife'.",
+    "cheapest_relaxation": [
+      {
+        "rule_id": "R5",
+        "old_limit": 0.107,
+        "new_limit": 0.111013,
+        "cost": 2.4078,
+        "explain": "Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078)."
+      }
+    ],
+    "repaired_weights": {
+      "AAPL": 0.13086695693702372,
+      "MSFT": 0.2025061525619174,
+      "GOOGL": 0.09542671405836455,
+      "NVDA": 0.014657124435985948,
+      "META": 0.02654305200670842,
+      "JNJ": 0.13907957688990955,
+      "UNH": 0.019215923275429984,
+      "PG": 0.009038568980446044,
+      "KO": 0.12442847835500029,
+      "GLD": 0.0427795341036079,
+      "TLT": 0.19545791839560622
+    },
+    "capital_moved": 0.30115970477925585,
+    "sharpe_before": 1.3704105436728418,
+    "sharpe_after": 1.4249221716065625,
+    "vol_after": 0.11100664630413885,
+    "summary": "These rules can't all hold (R1, R5). Cheapest fix: Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078). Under the relaxed rules, the nearest portfolio moves 30% of capital.",
+    "notes": [
+      "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+    ]
+  },
+  "debate_log": [
+    {
+      "round": 0,
+      "agent": "macro",
+      "kind": "memo",
+      "text": "Favor MSFT, JNJ, PG, KO, WMT; avoid XOM, CVX, GS, BAC, TLT.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "fundamentals",
+      "kind": "memo",
+      "text": "Favor MSFT, GOOGL, AMZN, JPM, GS; avoid JNJ, UNH, PFE, PG, KO, WMT, XOM, CVX, GLD, TLT.",
+      "stance": null
+    },
+    {
+      "round": 0,
+      "agent": "risk",
+      "kind": "memo",
+      "text": "Favor AAPL, MSFT, JNJ, PG, KO, TLT; avoid NVDA, META, AMZN, GOOGL, XOM, CVX.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "proposal",
+      "text": "This portfolio balances the client's non-negotiable 47%+ tech allocation with strict volatility constraints by selecting only the most stable large-cap technology leaders (MSFT, AAPL, GOOGL) that offer growth without extreme beta spikes. To satisfy the 'boring' requirement and ensure the total annual volatility remains below 10.7%, the remaining capital is allocated to uncorrelated, low-volatility defensive sectors: Healthcare (JNJ) and Consumer Staples (PG, KO). This structure avoids high-volatility tech names like NVDA and META, excludes all energy assets per client rule, and leverages the negative/zero correlations of staples and healthcare to mathematically dampen the portfolio's overall variance while maintaining sufficient equity upside.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "referee",
+      "kind": "receipt",
+      "text": "These rules can't all hold (R1, R5). Cheapest fix: Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078). Under the relaxed rules, the nearest portfolio moves 30% of capital.",
+      "stance": null
+    },
+    {
+      "round": 1,
+      "agent": "chair",
+      "kind": "note",
+      "text": "These rules can't all hold: 'At least 47% in tech, non-negotiable', 'Annual volatility at most 10.7%, I promised my wife'. Cheapest fix (needs advisor approval): Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078).",
+      "stance": null
+    }
+  ],
+  "rounds": 1,
+  "self_corrected": false,
+  "notes": [
+    "Needs advisor approval: the client's rules conflict."
+  ],
+  "checked_weights": {
+    "AAPL": 0.15,
+    "GOOGL": 0.15,
+    "JNJ": 0.15,
+    "KO": 0.15,
+    "MSFT": 0.2,
+    "PG": 0.2
+  },
+  "extras": {
+    "source": "live",
+    "model": "asi1-mini",
+    "saved_at": "2026-10-18T10:00:28Z",
+    "proposals": [
+      {
+        "AAPL": 0.15,
+        "GOOGL": 0.15,
+        "JNJ": 0.15,
+        "KO": 0.15,
+        "MSFT": 0.2,
+        "PG": 0.2
+      }
+    ],
+    "receipts": [
+      {
+        "receipt_id": "d29c8ea689e3",
+        "timestamp": "2026-10-18T10:00:28Z",
+        "client_id": "C25",
+        "verdict": "RULES_INFEASIBLE",
+        "checks": [
+          {
+            "rule_id": "R1",
+            "type": "sector_min",
+            "passed": true,
+            "actual": 0.5,
+            "limit": 0.47,
+            "violation": 0.0,
+            "explain": "Tech is 50.0% of the portfolio (minimum 47.0%): OK. The client said: 'At least 47% in tech, non-negotiable.'"
+          },
+          {
+            "rule_id": "R2",
+            "type": "max_weight",
+            "passed": true,
+            "actual": 0.2,
+            "limit": 0.3,
+            "violation": 0.0,
+            "explain": "The largest position is MSFT at 20.0% (maximum 30.0%): OK. The client said: 'No single stock above 30%.'"
+          },
+          {
+            "rule_id": "R3",
+            "type": "exclude",
+            "passed": true,
+            "actual": 0.0,
+            "limit": 0.0,
+            "violation": 0.0,
+            "explain": "The portfolio holds none of XOM, CVX (maximum 0.0%): OK. The client said: 'No oil.'"
+          },
+          {
+            "rule_id": "R4",
+            "type": "min_holdings",
+            "passed": true,
+            "actual": 6.0,
+            "limit": 5.0,
+            "violation": 0.0,
+            "explain": "The portfolio has 6 holdings (minimum 5): OK. The client said: 'At least 5 holdings.'"
+          },
+          {
+            "rule_id": "R5",
+            "type": "max_volatility",
+            "passed": false,
+            "actual": 0.12467404081651752,
+            "limit": 0.107,
+            "violation": 0.017674040816517522,
+            "explain": "Annual volatility is 12.5% (maximum 10.7%): BROKEN. The client said: 'Annual volatility at most 10.7%, I promised my wife.'"
+          }
+        ],
+        "dust_removed": [],
+        "rules_feasible": false,
+        "conflict_set": [
+          "R1",
+          "R5"
+        ],
+        "conflict_explain": "These rules can't all hold: 'At least 47% in tech, non-negotiable', 'Annual volatility at most 10.7%, I promised my wife'.",
+        "cheapest_relaxation": [
+          {
+            "rule_id": "R5",
+            "old_limit": 0.107,
+            "new_limit": 0.111013,
+            "cost": 2.4078,
+            "explain": "Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078)."
+          }
+        ],
+        "repaired_weights": {
+          "AAPL": 0.13086695693702372,
+          "MSFT": 0.2025061525619174,
+          "GOOGL": 0.09542671405836455,
+          "NVDA": 0.014657124435985948,
+          "META": 0.02654305200670842,
+          "JNJ": 0.13907957688990955,
+          "UNH": 0.019215923275429984,
+          "PG": 0.009038568980446044,
+          "KO": 0.12442847835500029,
+          "GLD": 0.0427795341036079,
+          "TLT": 0.19545791839560622
+        },
+        "capital_moved": 0.30115970477925585,
+        "sharpe_before": 1.3704105436728418,
+        "sharpe_after": 1.4249221716065625,
+        "vol_after": 0.11100664630413885,
+        "summary": "These rules can't all hold (R1, R5). Cheapest fix: Raise 'Annual volatility at most 10.7%, I promised my wife' from 10.7% to 11.1% (cost 6 x 0.4013 points = 2.4078). Under the relaxed rules, the nearest portfolio moves 30% of capital.",
+        "notes": [
+          "Repaired under the relaxed rules (cheapest fix): needs advisor approval."
+        ]
+      }
+    ]
+  }
+}

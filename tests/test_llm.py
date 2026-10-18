@@ -219,3 +219,10 @@ def test_fresh_run_skips_the_cache_both_ways(fake, tmp_path):
     assert model.calls == 2
     with llm.fresh_run(False):
         assert not llm.is_fresh()
+
+
+def test_asi1_requests_have_a_timeout(monkeypatch):
+    """A request ASI:One never answers must not hang the agents forever."""
+    monkeypatch.setattr(llm.config, "LLM_PROVIDER", "asi1")
+    monkeypatch.setenv("ASI1_API_KEY", "test-not-a-real-key")
+    assert llm.get_model("chair").request_timeout == llm.config.LLM_TIMEOUT_S
