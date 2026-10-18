@@ -12,9 +12,21 @@ import config
 from committee.chair import chair_propose, chair_revise, failures_text
 from models import AnalysisRequest, CommitteeResult, DebateEntry, Receipt, ReviewRequest, VerifyRequest
 from referee import market
+from referee.check import clean_dust
 from referee.schema import Client, Proposal
 
 ANALYSTS = ("macro", "fundamentals", "risk")
+
+
+STANCE_CHARS = 240  # each of "change" and "why" in the debate log (and so in the chat reply)
+
+
+def _short(text: str, limit: int = STANCE_CHARS) -> str:
+    """Cut long text at a word boundary and add "…" (LLMs sometimes write a whole essay)."""
+    text = " ".join(text.split())
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",;:") + "…"
 
 
 def _memo_text(memo) -> str:
@@ -22,6 +34,14 @@ def _memo_text(memo) -> str:
     favor = ", ".join(memo.favor) or "nothing in particular"
     avoid = ", ".join(memo.avoid) or "nothing in particular"
     return f"Favor {favor}; avoid {avoid}."
+
+
+def _checked_weights(client: Client, proposal: Proposal) -> dict[str, float]:
+    """The weights the Referee actually judged: the proposal after dust cleaning."""
+    try:
+        return clean_dust(proposal.weights, client.universe)[0]
+    except ValueError:
+        return dict(proposal.weights)  # the Referee couldn't clean them either (ERROR receipt)
 
 
 def _advisor_note(receipt: Receipt) -> str:
@@ -74,7 +94,8 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
                          reasons=proposal.reasons)
         return CommitteeResult(client_id=client.client_id, final_proposal=final, receipt=receipt,
                                first_receipt=first_receipt, debate_log=log, rounds=rounds,
-                               self_corrected=False, notes=notes)
+                               self_corrected=False, notes=notes,
+                               checked_weights=_checked_weights(client, proposal))
 
     # --- Debate rounds: analysts react to the Referee, the Chair revises, the Referee re-checks ---
     while receipt.verdict == "VIOLATIONS_REPAIRED" and rounds <= max_rounds:
@@ -88,7 +109,7 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
                 continue
             stances.append(stance)
             log.append(DebateEntry(round=rounds, agent=agent, kind="stance",
-                                   text=f"{stance.change} {stance.why}", stance=stance.stance))
+                                   text=f"{_short(stance.change)} {_short(stance.why)}", stance=stance.stance))
 
         proposal = await asyncio.to_thread(chair_revise, client, proposal, receipt, stances)
         rounds += 1
@@ -113,4 +134,5 @@ async def run_committee(client: Client, transport, max_rounds: int = config.MAX_
         # "Self-corrected" = the first draft broke rules, and the committee fixed it on its own.
         self_corrected=(first_receipt.verdict != "PASS" and receipt.verdict == "PASS"),
         notes=notes,
+        checked_weights=_checked_weights(client, proposal),
     )

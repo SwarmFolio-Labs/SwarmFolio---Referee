@@ -178,6 +178,7 @@ def review(agent: str, req: ReviewRequest) -> Stance:
             f"The independent Referee checked the committee's portfolio. These rules failed:\n{failures}\n"
             f"{req.conflict_explain}\n"
             "Decide: concede (accept a change), defend (keep your view, explain why it doesn't break the rules), "
-            f"or modify (propose a different change). Set \"agent\" to \"{agent}\".")
+            "or modify (propose a different change). Keep \"change\" and \"why\" to 1-2 short sentences each. "
+            f"Set \"agent\" to \"{agent}\".")
     stance = llm.complete_json("analyst", _system(agent, Stance), user, Stance)
     return stance.model_copy(update={"agent": agent})

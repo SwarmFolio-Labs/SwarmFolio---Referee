@@ -127,6 +127,10 @@ class CommitteeResult(BaseModel):
     rounds: int
     self_corrected: bool
     notes: list[str]
+    # Added after the freeze (optional, additive): the dust-cleaned weights of the last proposal the
+    # Referee checked. When the Referee repairs, final_proposal holds the repaired weights instead,
+    # so this is the "before" in "before -> after".
+    checked_weights: dict[str, float] = {}
 
 
 # ---------- Rule price tags (MASTER 6.10; additive, not part of the frozen receipt) ----------

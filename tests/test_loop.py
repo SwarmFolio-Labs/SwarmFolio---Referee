@@ -154,3 +154,21 @@ def test_analysts_are_asked_at_the_same_time(monkeypatch):
     result = _run(monkeypatch, [BAD, GOOD], transport=SlowTransport())
     assert _time.time() - start < 1.5  # sequential would be >= 1.8 s (6 x 0.3)
     assert [e.agent for e in result.debate_log if e.kind == "memo"] == ["macro", "fundamentals", "risk"]
+
+
+def test_checked_weights_are_what_the_referee_judged(monkeypatch):
+    """After a repair, final_proposal holds the repaired weights; checked_weights keeps the Chair's (cleaned) ones."""
+    result = _run(monkeypatch, [BAD, BAD, BAD], max_rounds=2)
+    assert result.final_proposal.weights == result.receipt.repaired_weights
+    assert result.checked_weights == pytest.approx(BAD.weights)  # BAD has no dust, so cleaning leaves it as is
+    assert result.checked_weights != result.final_proposal.weights
+
+
+def test_long_stances_are_cut_in_the_debate_log(monkeypatch):
+    class Chatty(StubTransport):
+        async def review(self, agent, req):
+            return Stance(agent=agent, stance="defend", change="word " * 200, why="because " * 200)
+    result = _run(monkeypatch, [BAD, GOOD], transport=Chatty())
+    text = next(e.text for e in result.debate_log if e.kind == "stance")
+    assert len(text) <= 2 * loop.STANCE_CHARS + 3 and text.count("…") == 2
+    assert loop._short("short text") == "short text"

@@ -7,6 +7,8 @@ passes when its violation is at most TOL. Every result also gets one sentence in
 plain English that quotes the client's own words.
 """
 
+import math
+
 import config
 from models import CheckResult
 from referee.market import get_market, load_sectors, portfolio_volatility
@@ -164,6 +166,24 @@ CHECKS = {
 }
 
 COUNT_RULES = {"max_holdings", "min_holdings"}
+# Rules that set a floor ("at least X"); every other rule is a cap ("at most X").
+FLOOR_RULES = {"min_weight", "sector_min", "min_holdings", "buy_in"}
+NEAR = 0.001  # within 0.1 percentage points of the limit, show 2 decimals
+
+
+def _pct_near(actual: float, limit: float, passed: bool) -> str:
+    """
+    2 decimals for a number right next to its limit. If the rule is BROKEN we round AWAY from the
+    limit (29.997% -> 29.99% under a 30% floor), so a broken rule never shows exactly the limit.
+    """
+    hundredths = actual * 100 * 100
+    if passed:
+        shown = round(hundredths)
+    elif actual < limit:
+        shown = math.floor(hundredths)
+    else:
+        shown = math.ceil(hundredths)
+    return f"{shown / 100:.2f}%"
 
 
 def check_rule(rule: Rule, weights: dict[str, float], client: Client) -> CheckResult:
@@ -176,9 +196,15 @@ def check_rule(rule: Rule, weights: dict[str, float], client: Client) -> CheckRe
     else:
         passed = violation <= config.TOL
         limit_text = _pct(limit)
+        if abs(actual - limit) < NEAR and rule.type != "exclude":  # exclusions: limit 0, any holding >= 0.5%
+            # "30.0% (minimum 30.0%): BROKEN" is confusing, so show 2 decimals near the limit.
+            fact = fact.replace(_pct(actual), _pct_near(actual, limit, passed), 1)
+            limit_text = f"{limit * 100:.2f}%"
 
+    # "minimum" / "maximum" instead of "limit": the analysts read "limit" as a cap and argued about floors.
+    bound = "minimum" if rule.type in FLOOR_RULES else "maximum"
     verdict = "OK" if passed else "BROKEN"
-    explain = f"{fact} (limit {limit_text}): {verdict}. The client said: '{rule.source}'"
+    explain = f"{fact} ({bound} {limit_text}): {verdict}. The client said: '{rule.source}'"
     return CheckResult(
         rule_id=rule.id,
         type=rule.type,

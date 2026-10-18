@@ -75,7 +75,9 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
                 reply += "\n\n" + price_tags_text(client.client_id, prices, top=3)
             except Exception as e:
                 ctx.logger.warning(f"price tags failed: {e}")
-            card = try_card(receipt_card, result.receipt, before=result.final_proposal.weights,
+            # "before" = what the Referee actually checked (final_proposal is the REPAIRED portfolio after a repair).
+            before = result.checked_weights or result.final_proposal.weights
+            card = try_card(receipt_card, result.receipt, before=before,
                             rule_sources={r.id: r.source for r in client.rules}, client_name=client.name)
             await say(ctx, sender, reply, end=True, card=card)
         except Exception as e:

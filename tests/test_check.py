@@ -155,3 +155,38 @@ def test_clean_dust_rejects_negative_and_empty():
         clean_dust({"KO": 1.2, "PG": -0.2}, UNIVERSE)
     with pytest.raises(ValueError, match="no positions"):
         clean_dust({"KO": 0.001}, UNIVERSE)
+
+
+# ---------- Explain wording and precision (live-demo fixes) ----------
+
+def _patel():
+    from committee.analysts import load_client
+    return load_client("C02")
+
+
+def _explain(weights, rule_id):
+    from referee.check import check
+    return next(c for c in check(weights, _patel()) if c.rule_id == rule_id).explain
+
+
+def test_floors_say_minimum_and_caps_say_maximum():
+    w = {"JNJ": 0.267, "MSFT": 0.35, "KO": 0.2, "PG": 0.183}
+    assert "JNJ is 26.7% of the portfolio (minimum 30.0%): BROKEN" in _explain(w, "R3")
+    assert "(maximum 35.00%)" in _explain(w, "R1")  # MSFT right at the cap: 2 decimals
+    assert "(maximum 0.0%)" in _explain(w, "R2")      # exclusion = a cap of 0
+    assert "(maximum 8)" in _explain(w, "R5")         # count rule: no %
+    assert "limit" not in _explain(w, "R3")
+
+
+def test_broken_rule_never_shows_exactly_the_limit():
+    # 29.997% JNJ under a 30% floor: rounding to 1 decimal would say "30.0% (minimum 30.0%)".
+    w = {"JNJ": 0.29997, "MSFT": 0.35, "KO": 0.2, "PG": 0.15003}
+    assert "JNJ is 29.99% of the portfolio (minimum 30.00%): BROKEN" in _explain(w, "R3")
+    # 35.004% MSFT over a 35% cap rounds up, away from the limit.
+    w = {"JNJ": 0.30, "MSFT": 0.35004, "KO": 0.2, "PG": 0.14996}
+    assert "MSFT at 35.01% (maximum 35.00%): BROKEN" in _explain(w, "R1")
+
+
+def test_passing_rule_near_the_limit_rounds_normally():
+    w = {"JNJ": 0.30, "MSFT": 0.35, "KO": 0.2, "PG": 0.15}
+    assert "JNJ is 30.00% of the portfolio (minimum 30.00%): OK" in _explain(w, "R3")
