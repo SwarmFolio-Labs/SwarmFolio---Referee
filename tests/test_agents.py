@@ -119,7 +119,7 @@ def test_price_tags_chat_text():
     assert price_tags_text("C02", prices).count("•") == len(client.rules)
 
 
-def test_run_labels_say_cached_or_fresh():
+def test_run_labels_say_saved_or_live():
     from agents.chair_agent import RUN_CACHED, RUN_FRESH, run_label
-    assert run_label(RUN_FRESH).startswith("Fresh run:") and "the Chair" in run_label(RUN_FRESH)
-    assert run_label(RUN_CACHED).startswith("Cached run:")
+    assert run_label(RUN_FRESH) == "Live run" and "the analysts" in RUN_FRESH
+    assert run_label(RUN_CACHED) == "Saved run" and "fresh" in RUN_CACHED

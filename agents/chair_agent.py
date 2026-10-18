@@ -24,13 +24,14 @@ from committee import llm
 from referee.prices import rule_prices
 
 
-RUN_CACHED = "cached run: saved answers are replayed when this exact question was asked before"
-RUN_FRESH = "fresh run: every analyst and the Chair answer anew, nothing replayed from the cache"
+RUN_CACHED = "saved run: replaying this committee's earlier answers (say \"fresh\" for a live one)"
+RUN_FRESH = "live run: the analysts are writing their memos now, about a minute"
 
 
 def run_label(mode: str) -> str:
-    """First letter up, the rest untouched ("cached run: ..." -> "Cached run: ...", "Chair" stays "Chair")."""
-    return mode[:1].upper() + mode[1:]
+    """The short tag for the final reply: "live run: ..." -> "Live run", "saved run: ..." -> "Saved run"."""
+    tag = mode.split(":")[0]
+    return tag[:1].upper() + tag[1:]
 
 
 def referee_address() -> str | None:
@@ -79,7 +80,7 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
         # "Build a portfolio for C13 fresh": ask every LLM again instead of replaying saved answers.
         fresh = bool(re.search(r"\bfresh\b", text, re.IGNORECASE))
         mode = RUN_FRESH if fresh else RUN_CACHED
-        await say(ctx, sender, f"Convening the committee for {client.client_id}… ({mode})")
+        await say(ctx, sender, f"Convening the committee for {client.name} ({client.client_id}). {run_label(mode)}: {mode.split(': ', 1)[1]}.")
         transport = AgentTransport(ctx, referee_address())
         try:
             with llm.fresh_run(fresh):
