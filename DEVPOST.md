@@ -55,8 +55,8 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
     - Every handler failure becomes an error message instead of a crash.
 - **Evaluation:**
   - 26 synthetic clients, including seeded "hard" clients whose volatility caps sit 0.5–1.0 points above the solver's minimum, and clients with planted conflicts.
-  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests.
-- **Web app:** FastAPI + React (Vite, Tailwind, Recharts), designed in Paper.
+  - A paired feedback experiment (self-check vs. bare verdict vs. the Referee's explanation) with bootstrap CIs and sign tests. The run reported here covers the 4 hard clients C91–C94 × 3 trials (12 client-trials, `asi1`). A larger run on C10–C24 with `asi1-mini` is in progress.
+- **Web app:** FastAPI + React (Vite, Tailwind, Recharts), designed in Paper (**TODO-confirm**).
 - **Tests:** `__` pytest tests (currently 210), covering the solver math, the Dr. Patel example, the generated clients, offline agent round trips, the cards and the eval.
 
 ## Challenges we ran into
@@ -74,12 +74,14 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
 - A real 5-agent network where each agent has one job and its own address. The system keeps working when an agent is slow or down, and it says so.
 - Rule price tags: "constraint attribution" of the kind institutional tools sell, explained in the client's words.
 - An honest experiment with a fair, paired design.
-- `TODO: the headline result, e.g. "explained feedback made the AI compliant in __% of cases vs __% for self-check"`
+- A real result, reported honestly. On realistic, tight clients the AI broke a rule in **83%** of first drafts (10 of 12).
+  - After 3 rounds of feedback, compliance was 33% with self-check, 42% with a bare verdict and 50% with the Referee's explanation. The 95% CIs were [8, 58], [17, 67] and [25, 75].
+  - That's a trend, not a statistically significant result with 12 trials: C vs. B p = 1.000, C vs. A p = 0.625.
 
 ## What we learned
 
 - Keep the creative part (LLMs) and the part that must be right (the solver) separate. Then let the right part teach the creative part.
-- Prompts are suggestions and constraints are guarantees. `TODO: did the experiment show that explaining *why* a rule broke helps more than just saying *which* rule broke? Fill in with the real result, including if it didn't.`
+- Prompts are suggestions and constraints are guarantees. Explaining *why* a rule broke (actual vs. limit) helped more than saying *which* rule broke, and both helped more than self-checking, but only as a trend with 12 trials. Even with the best feedback, half the portfolios still broke a rule after 3 tries. Only the Referee's repair reached 100% compliance, which is why the Referee repairs portfolios as well as giving feedback.
 - Agent networks need the boring parts: timeouts, retries, fallbacks, and saying out loud when something was skipped.
 - uAgents, Agentverse mailboxes, the Chat Protocol and ASI:One Interactive Cards.
 
@@ -92,12 +94,12 @@ In ASI:One, the answers come with **Interactive Cards**: a receipt card, a clien
 
 ## Built with
 
-`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `pytest` · `paper` · `devin` · `claude-code`
+`python` · `cvxpy` · `scip` / `pyscipopt` · `fetch.ai` · `uagents` · `agentverse` · `asi:one` · `langchain` · `pydantic` · `numpy` · `pandas` · `yfinance` · `fastapi` · `uvicorn` · `react` · `vite` · `tailwindcss` · `recharts` · `matplotlib` · `pytest` · `paper` (TODO-confirm) · `devin` · `claude-code`
 
 ## Built at LA Hacks vs. before
 
 | Pre-existing (open source, MIT) | Built at LA Hacks |
 |---|---|
-| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React, designed in Paper) |
+| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
 
 *Design notes were written before the event; all code was written during it.*

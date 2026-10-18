@@ -180,9 +180,9 @@ For Dr. Patel:
 
 **Question:** can math feedback teach an AI to follow a client's rules, and does it matter whether the math *explains* itself? (`eval/experiment.py`)
 
-**Design:** the comparison is paired, so it's fair.
-- **Clients:** every feasible client, since infeasible ones can't comply. That's currently 22: C01, C02, C04, the 15 generated clients C10–C24, and the hard clients C91–C94, whose limits sit just above the solver's floor.
-- **Trials:** 3 per client. The trial number goes into the prompt, and calls use temperature 0.7, so each trial is a genuinely different sample.
+**Design (this run):** the comparison is paired, so it's fair.
+- **Clients:** the 4 hard clients C91–C94. These are realistic, tight clients: their limits sit just above the solver's floor, the tightest limit any portfolio could meet. The AI has to calculate whether a portfolio fits, not just read the rules. (Infeasible clients can't comply, so they're judged separately.)
+- **Trials:** 3 per client, so 12 client-trials, with model `asi1`. The trial number goes into the prompt, and calls use temperature 0.7, so each trial is a genuinely different sample.
 - **Shared start:** per client-trial, the 3 memos and the Chair's **first draft** are made once and reused, so every condition starts from exactly the same draft.
 
 There are three conditions. Each one gets up to 3 rounds of Chair-only revision, with the Referee checking after every round:
@@ -200,14 +200,32 @@ There are three conditions. Each one gets up to 3 rounds of Chair-only revision,
 - 95% bootstrap confidence intervals;
 - paired sign tests for C vs. B and C vs. A.
 
-### Results
+A larger run on the 15 generated feasible clients (C10–C24) with `asi1-mini` is in progress.
 
-> **RESULTS: TODO (the full run is still in progress).**
-> Compliance after 3 rounds: A `__%` [CI], B `__%` [CI], C `__%` [CI]. C vs. B sign test p = `__`.
-> Plain-English finding: `TODO`
-> Chart: `eval/results/learning_curves.png`
+### Results (C91–C94 × 3 trials = 12 client-trials, `asi1`)
 
-Whatever the numbers say, we report them. If B ≈ C, that's a finding too: telling the AI *which* rule broke would be enough.
+**10 of 12 first drafts (83%) broke at least one rule.**
+
+| Condition | Compliant after 3 rounds [95% CI] |
+|---|---|
+| A. Self-check | 33% [8, 58] |
+| B. Bare verdict | 42% [17, 67] |
+| C. Explained | 50% [25, 75] |
+
+Paired sign tests compare how many rounds each client-trial needed to become compliant:
+
+| Comparison | C fewer / same / more | p |
+|---|---|---|
+| C vs. B | 2 / 9 / 1 | 1.000 |
+| C vs. A | 3 / 8 / 1 | 0.625 |
+
+![Compliance rate vs. revision round for each feedback condition](eval/results/learning_curves.png)
+
+**Finding:** on realistic, tight clients, the AI broke a rule in 83% of first drafts.
+- More explanation helped: compliance after 3 rounds went from 33% to 42% to 50%. With 12 trials the difference is **not statistically significant**, so it's a trend, not a proof.
+- Even with the best feedback, half the portfolios still broke a rule after 3 tries. Only the Referee's repair reached 100% compliance.
+
+Full tables, including broken-rule counts and capital moved, are in `eval/results/experiment.md`.
 
 The evaluation (`eval/run_eval.py`, metrics M1–M6) judges the infeasible clients separately. C03, C25, C26 and C27 each have a planted conflict, and M5 checks that the Referee flags each one as impossible and returns exactly the planted conflict set.
 
@@ -290,7 +308,7 @@ pytest           # Referee math, the Dr. Patel example, generated clients, agent
 
 | Pre-existing (open source, MIT) | Built at LA Hacks (what gets judged) |
 |---|---|
-| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React, designed in Paper) |
+| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
 
 *Design notes were written before the event; all code was written during it.* The commit history shows the build step by step.
 
