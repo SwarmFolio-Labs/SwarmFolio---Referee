@@ -1,40 +1,84 @@
 /**
- * Design tokens live in src/index.css as CSS variables; this file only maps them to
- * Tailwind names. To restyle the app (Paper design), change the variables, not the components.
+ * Maps the design tokens in src/index.css to Tailwind class names.
+ * Colors, fonts, type sizes, spacing, radii and shadows REPLACE Tailwind's defaults (theme, not
+ * theme.extend), so components can only use tokenized values. To restyle, edit index.css.
  */
-const v = (name) => `rgb(var(--${name}) / <alpha-value>)`
+const color = (name) => `rgb(var(--${name}) / <alpha-value>)`
+
+const TOKEN_COLORS = ['bg', 'surface', 'sunken', 'ink', 'muted', 'placeholder', 'line', 'accent', 'on-accent',
+  'pass', 'fail', 'warn', 'concede', 'defend', 'modify']
+
+// Tailwind's default spacing keys, each a multiple of --space-unit (p-4 = 4 units = 1rem by default).
+const SPACING_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40,
+  44, 48, 52, 56, 60, 64, 72, 80, 96]
+const spacing = {
+  0: '0px',
+  px: '1px',
+  ...Object.fromEntries(SPACING_STEPS.map((n) => [n, `calc(var(--space-unit) * ${n})`])),
+}
+
+const size = (name, leading = true) => (leading ? [`var(--text-${name})`, `var(--leading-${name})`] : `var(--text-${name})`)
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      inherit: 'inherit',
+      ...Object.fromEntries(TOKEN_COLORS.map((c) => [c, color(c)])),
+    },
+    borderColor: ({ theme }) => ({ ...theme('colors'), DEFAULT: color('line') }),
+    fontFamily: {
+      sans: 'var(--font-sans)',
+      display: 'var(--font-display)',
+      mono: 'var(--font-mono)',
+    },
+    fontSize: {
+      '3xs': size('3xs', false),
+      '2xs': size('2xs', false),
+      xs: size('xs'),
+      sm: size('sm'),
+      base: size('base'),
+      lg: size('lg'),
+      xl: size('xl'),
+      '3xl': size('3xl'),
+    },
+    fontWeight: {
+      normal: 'var(--weight-normal)',
+      medium: 'var(--weight-medium)',
+      semibold: 'var(--weight-semibold)',
+      bold: 'var(--weight-bold)',
+    },
+    letterSpacing: {
+      normal: '0em',
+      tight: 'var(--tracking-tight)',
+      wide: 'var(--tracking-wide)',
+      wider: 'var(--tracking-wider)',
+    },
+    spacing,
+    maxWidth: {
+      none: 'none',
+      full: '100%',
+      page: 'var(--page-width)',
+      prose: 'var(--prose-width)',
+    },
+    borderRadius: {
+      none: '0px',
+      DEFAULT: 'var(--radius-sm)',
+      md: 'var(--radius-control)',
+      card: 'var(--radius-card)',
+      chip: 'var(--radius-chip)',
+      full: '9999px',
+    },
+    boxShadow: {
+      none: 'none',
+      card: 'var(--shadow-card)',
+    },
     extend: {
-      colors: {
-        bg: v('bg'),
-        surface: v('surface'),
-        sunken: v('sunken'),
-        ink: v('ink'),
-        muted: v('muted'),
-        line: v('line'),
-        accent: v('accent'),
-        pass: v('pass'),
-        fail: v('fail'),
-        warn: v('warn'),
-        concede: v('concede'),
-        defend: v('defend'),
-        modify: v('modify'),
-      },
-      fontFamily: {
-        sans: 'var(--font-sans)',
-        display: 'var(--font-display)',
-        mono: 'var(--font-mono)',
-      },
-      borderRadius: {
-        card: 'var(--radius-card)',
-        chip: 'var(--radius-chip)',
-      },
-      boxShadow: {
-        card: 'var(--shadow-card)',
+      gridTemplateColumns: {
+        'price-tag': '1fr var(--price-meter-width)',
       },
       keyframes: {
         reveal: {
@@ -43,7 +87,7 @@ export default {
         },
       },
       animation: {
-        reveal: 'reveal 360ms ease-out both',
+        reveal: 'reveal var(--motion-reveal) ease-out both',
       },
     },
   },

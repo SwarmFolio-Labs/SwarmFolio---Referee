@@ -3,41 +3,92 @@
 @tailwind utilities;
 
 /*
- * ALL design tokens live here. Colors are "R G B" triples so Tailwind can add opacity
- * (e.g. bg-fail/10). Charts read the same variables via var(--chart-*).
- * The Paper design (task B5) should only need to change this block + tailwind.config.js.
+ * DESIGN TOKENS: the only place colors, fonts, type sizes, spacing, radii and shadows are defined.
+ * tailwind.config.js maps every token to a class name (bg-surface, text-2xs, p-4, rounded-card ...)
+ * and REPLACES Tailwind's default palette/scale, so a class without a token simply doesn't exist.
+ *
+ * Restyling (Paper design): change values in this :root block. Components shouldn't need edits.
+ * Colors are "R G B" triples so Tailwind can add opacity (bg-fail/10).
+ * Any subtree can override tokens locally, e.g. the printed receipt variant at the bottom.
  */
 :root {
+  /* Surfaces and text */
   --bg: 248 247 244;
   --surface: 255 255 255;
   --sunken: 241 240 236;
   --ink: 24 24 27;
   --muted: 113 113 122;
+  --placeholder: 156 163 175;
   --line: 228 226 220;
   --accent: 37 99 235;
+  --on-accent: 255 255 255; /* text on accent / status fills (primary button, pass/fail marks) */
 
+  /* Verdict + rule states */
   --pass: 22 128 61;
   --fail: 200 38 38;
   --warn: 180 110 0;
 
+  /* Analyst stances */
   --concede: 22 128 61;
   --defend: 200 38 38;
   --modify: 37 99 235;
 
+  /* Charts (Recharts reads these directly) */
   --chart-before: rgb(161 161 170);
   --chart-after: rgb(var(--accent));
   --chart-self: rgb(161 161 170);
   --chart-bare: rgb(180 110 0);
   --chart-explained: rgb(var(--accent));
   --chart-grid: rgb(var(--line));
+  --chart-cursor: rgb(var(--sunken));
+  --chart-tick-size: var(--text-2xs);
+  --chart-legend-size: var(--text-xs);
 
+  /* Fonts */
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-display: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-tight: -0.025em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+
+  /* Type scale (size / line height) */
+  --text-3xs: 10px;
+  --text-2xs: 11px;
+  --text-xs: 0.75rem;
+  --leading-xs: 1rem;
+  --text-sm: 0.875rem;
+  --leading-sm: 1.25rem;
+  --text-base: 1rem;
+  --leading-base: 1.5rem;
+  --text-lg: 1.125rem;
+  --leading-lg: 1.75rem;
+  --text-xl: 1.25rem;
+  --leading-xl: 1.75rem;
+  --text-3xl: 1.875rem;
+  --leading-3xl: 2.25rem;
+
+  /* Spacing: every p-*, m-*, gap-*, w-*, h-* step is a multiple of this unit (p-4 = 4 units) */
+  --space-unit: 0.25rem;
+  --page-width: 72rem;
+  --prose-width: 48rem;
+  --price-meter-width: 220px;
+
+  /* Shape */
+  --radius-sm: 0.25rem; /* small pills, round labels */
+  --radius-control: 0.375rem; /* buttons, inputs, tabs */
   --radius-card: 10px;
   --radius-chip: 999px;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.03);
+
+  /* Motion */
+  --motion-reveal: 360ms;
 }
 
 html,
@@ -50,12 +101,16 @@ body {
   @apply bg-bg text-ink font-sans antialiased;
 }
 
+::placeholder {
+  color: rgb(var(--placeholder));
+}
+
 @layer components {
   .card {
     @apply bg-surface border border-line rounded-card shadow-card;
   }
   .label {
-    @apply text-[11px] font-semibold uppercase tracking-wider text-muted;
+    @apply text-2xs font-semibold uppercase tracking-wider text-muted;
   }
   .num {
     @apply font-mono tabular-nums;
@@ -65,9 +120,47 @@ body {
       disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .btn-primary {
-    @apply btn bg-accent text-white hover:bg-accent/90;
+    @apply btn bg-accent text-on-accent hover:bg-accent/90;
   }
   .btn-ghost {
     @apply btn border border-line bg-surface text-ink hover:bg-sunken;
   }
+}
+
+/* Recharts draws SVG text itself; style it from the tokens here instead of inline props. */
+.recharts-cartesian-axis-tick-value {
+  font-size: var(--chart-tick-size);
+  font-family: var(--font-sans);
+}
+.chart-mono-x .recharts-xAxis-tick-labels .recharts-cartesian-axis-tick-value {
+  font-family: var(--font-mono);
+}
+[data-component='experiment-chart'] {
+  --chart-tick-size: var(--text-xs);
+}
+.recharts-legend-wrapper {
+  font-size: var(--chart-legend-size);
+}
+.recharts-default-tooltip {
+  background: rgb(var(--surface)) !important;
+  border-color: rgb(var(--line)) !important;
+  border-radius: var(--radius-control);
+  font-size: var(--text-xs);
+}
+
+/*
+ * Receipt variants: <ReceiptCard variant="printed"> renders data-variant="printed" on its root.
+ * Override tokens inside it to restyle the receipt alone. This is a placeholder starting point
+ * for the printed audit receipt; preview it with ?receipt=printed on a client URL.
+ */
+[data-component='receipt'] {
+  font-family: var(--font-sans);
+}
+[data-component='receipt'][data-variant='printed'] {
+  --font-sans: var(--font-mono);
+  --font-display: var(--font-mono);
+  --surface: 255 255 252;
+  --radius-card: 2px;
+  --shadow-card: 0 2px 8px rgb(0 0 0 / 0.08);
+  border-style: dashed;
 }

@@ -1,50 +1,13 @@
 // The feedback experiment (MASTER 10.3): can math feedback teach an AI to follow a client's rules?
 import { useEffect, useState } from 'react'
-import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { getExperiment } from '../api.js'
+import ExperimentChart from '../components/ExperimentChart.jsx'
+import { CONDITIONS } from '../experiment.js'
 import { ErrorNote, SectionTitle, Spinner } from '../components/ui.jsx'
 
-const CONDITIONS = [
-  { id: 'self', label: 'A. Self-check', blurb: '"Re-check your portfolio against the rules." No Referee info.', color: 'var(--chart-self)' },
-  { id: 'bare', label: 'B. Bare verdict', blurb: 'Which rules failed, in the client\'s words. No numbers.', color: 'var(--chart-bare)' },
-  { id: 'explained', label: 'C. Explained', blurb: 'The Referee\'s sentences: actual vs limit, plus any conflict.', color: 'var(--chart-explained)' },
-]
 
 const ci = ([m, lo, hi], scale = 100, digits = 0) =>
   `${(m * scale).toFixed(digits)}${scale === 100 ? '%' : ''} [${(lo * scale).toFixed(digits)}, ${(hi * scale).toFixed(digits)}]`
-
-function LearningCurve({ summary }) {
-  const rounds = summary[CONDITIONS[0].id].per_round.length
-  const data = Array.from({ length: rounds }, (_, r) => {
-    const row = { round: r }
-    for (const c of CONDITIONS) {
-      const [m, lo, hi] = summary[c.id].per_round[r].compliance
-      row[c.id] = +(m * 100).toFixed(1)
-      row[`${c.id}_ci`] = [+(lo * 100).toFixed(1), +(hi * 100).toFixed(1)]
-    }
-    return row
-  })
-  return (
-    <ResponsiveContainer width="100%" height={320}>
-      <ComposedChart data={data} margin={{ top: 10, right: 16, left: -8, bottom: 0 }}>
-        <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
-        <XAxis dataKey="round" tickFormatter={(r) => `Round ${r}`} tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
-        <YAxis domain={[0, 100]} unit="%" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
-        <Tooltip
-          formatter={(v, name) => (Array.isArray(v) ? [`${v[0]}–${v[1]}%`, `${name} 95% CI`] : [`${v}%`, name])}
-          labelFormatter={(r) => `Round ${r}`}
-        />
-        <Legend wrapperStyle={{ fontSize: 12 }} />
-        {CONDITIONS.map((c) => (
-          <Area key={`${c.id}_ci`} dataKey={`${c.id}_ci`} stroke="none" fill={c.color} fillOpacity={0.12} legendType="none" name={c.label} isAnimationActive={false} />
-        ))}
-        {CONDITIONS.map((c) => (
-          <Line key={c.id} dataKey={c.id} name={c.label} stroke={c.color} strokeWidth={2.5} dot={{ r: 4 }} type="monotone" />
-        ))}
-      </ComposedChart>
-    </ResponsiveContainer>
-  )
-}
 
 function PairedCard({ title, p }) {
   return (
@@ -54,7 +17,7 @@ function PairedCard({ title, p }) {
         {[['fewer', 'C faster'], ['same', 'same'], ['more', 'C slower']].map(([k, l]) => (
           <div key={k} className="rounded-md bg-sunken py-2">
             <div className="num text-xl font-semibold">{p[k]}</div>
-            <div className="text-[11px] text-muted">{l}</div>
+            <div className="text-2xs text-muted">{l}</div>
           </div>
         ))}
       </div>
@@ -92,7 +55,7 @@ export default function ExperimentPage() {
 
   return (
     <div className="grid gap-10">
-      <div className="max-w-3xl">
+      <div className="max-w-prose">
         <div className="label mb-2">The feedback experiment</div>
         <h1 className="font-display text-3xl font-bold tracking-tight">Can math feedback teach an AI to follow a client's rules?</h1>
         <p className="mt-3 text-muted">
@@ -119,7 +82,7 @@ export default function ExperimentPage() {
       <section>
         <SectionTitle title="Learning curve">Share of client-trials that follow every rule, after each round of revision.</SectionTitle>
         <div className="card p-4">
-          <LearningCurve summary={s} />
+          <ExperimentChart summary={s} />
         </div>
       </section>
 

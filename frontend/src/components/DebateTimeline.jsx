@@ -1,6 +1,7 @@
 // The committee's debate, grouped by round and revealed one step at a time.
 import { AGENTS } from '../format.js'
-import { AgentAvatar, Badge, PassMark, StanceBadge, VerdictBadge, WeightPills } from './ui.jsx'
+import StanceBadge from './StanceBadge.jsx'
+import { AgentAvatar, Badge, PassMark, VerdictBadge, WeightPills } from './ui.jsx'
 
 const ROUND_TITLES = (round, last) => {
   if (round === 0) return 'Analyst memos'
@@ -15,7 +16,7 @@ function ReceiptStep({ receipt, text }) {
     <div className="grid gap-2">
       <div className="flex items-center gap-2">
         <VerdictBadge verdict={receipt.verdict} />
-        <span className="num text-[11px] text-muted">#{receipt.receipt_id}</span>
+        <span className="num text-2xs text-muted">#{receipt.receipt_id}</span>
       </div>
       <p className="text-sm">{receipt.summary}</p>
       {failed.length > 0 && (
@@ -70,7 +71,7 @@ export default function DebateTimeline({ steps, visible }) {
   const lastRound = Math.max(...steps.map((s) => s.round))
   const rounds = [...new Set(shown.map((s) => s.round))]
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6" data-component="debate-timeline">
       {rounds.map((round) => (
         <section key={round}>
           <div className="flex items-center gap-3 mb-3">

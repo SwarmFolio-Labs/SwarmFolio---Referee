@@ -12,10 +12,11 @@ const TONES = {
   accent: 'bg-accent/10 text-accent border-accent/30',
 }
 
-export function Badge({ tone = 'neutral', children, className = '' }) {
+export function Badge({ tone = 'neutral', children, className = '', ...rest }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${TONES[tone]} ${className}`}
+      {...rest}
+      className={`inline-flex items-center gap-1 rounded-chip border px-2 py-0.5 text-2xs font-semibold uppercase tracking-wide ${TONES[tone]} ${className}`}
     >
       {children}
     </span>
@@ -27,16 +28,12 @@ export function VerdictBadge({ verdict }) {
   return <Badge tone={v.tone}>{v.label}</Badge>
 }
 
-export function StanceBadge({ stance }) {
-  return <Badge tone={stance}>{stance}</Badge>
-}
-
 export function AgentAvatar({ agent }) {
   const a = AGENTS[agent] ?? { short: agent.slice(0, 2).toUpperCase() }
   const dark = agent === 'referee' || agent === 'chair'
   return (
     <span
-      className={`h-8 w-8 shrink-0 rounded-full grid place-items-center font-mono text-[11px] font-bold border ${
+      className={`h-8 w-8 shrink-0 rounded-full grid place-items-center font-mono text-2xs font-bold border ${
         dark ? 'bg-ink text-bg border-ink' : 'bg-surface text-ink border-line'
       }`}
     >
@@ -48,7 +45,7 @@ export function AgentAvatar({ agent }) {
 export function PassMark({ passed }) {
   return (
     <span
-      className={`h-5 w-5 shrink-0 rounded-full grid place-items-center text-[11px] font-bold text-white ${
+      className={`h-5 w-5 shrink-0 rounded-full grid place-items-center text-2xs font-bold text-on-accent ${
         passed ? 'bg-pass' : 'bg-fail'
       }`}
       aria-label={passed ? 'passed' : 'failed'}
@@ -76,7 +73,7 @@ export function SectionTitle({ eyebrow, title, children }) {
     <div className="mb-4">
       {eyebrow && <div className="label mb-1">{eyebrow}</div>}
       <h2 className="font-display text-xl font-semibold tracking-tight">{title}</h2>
-      {children && <p className="mt-1 text-sm text-muted max-w-3xl">{children}</p>}
+      {children && <p className="mt-1 text-sm text-muted max-w-prose">{children}</p>}
     </div>
   )
 }

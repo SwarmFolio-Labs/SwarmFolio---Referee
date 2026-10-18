@@ -1,13 +1,13 @@
 // "Try the Referee": edit weights, get a real receipt back from the solver.
 import { useMemo, useState } from 'react'
 import { checkProposal } from '../api.js'
-import ReceiptView from './ReceiptView.jsx'
+import ReceiptCard from './ReceiptCard.jsx'
 import { ErrorNote, SectionTitle, Spinner } from './ui.jsx'
 
 const toPercents = (weights = {}) =>
   Object.fromEntries(Object.entries(weights).map(([t, w]) => [t, +(w * 100).toFixed(1)]))
 
-export default function TryReferee({ client, presets }) {
+export default function TryReferee({ client, presets, receiptVariant }) {
   const firstPreset = presets.find((p) => p.weights && Object.keys(p.weights).length)
   const [inputs, setInputs] = useState(() => toPercents(firstPreset?.weights))
   const [receipt, setReceipt] = useState(null)
@@ -103,7 +103,8 @@ export default function TryReferee({ client, presets }) {
       {loading && <Spinner label="The solver is checking every rule and searching for the nearest compliant portfolio…" />}
       {error && <ErrorNote>{error}</ErrorNote>}
       {receipt && !loading && (
-        <ReceiptView
+        <ReceiptCard
+          variant={receiptVariant}
           receipt={receipt}
           rules={client.rules}
           before={checkedWeights}
