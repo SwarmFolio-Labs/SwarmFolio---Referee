@@ -7,6 +7,7 @@ sees its own data block plus the client's story and rules (in the client's own w
 
 import json
 import os
+import re
 
 from committee import llm
 from models import AnalysisRequest, Memo, ReviewRequest, Stance
@@ -84,6 +85,8 @@ DATA_BLOCKS = {"macro": macro_data, "fundamentals": fundamentals_data, "risk": r
 def _system(agent: str, schema) -> str:
     return (f"You are the {agent.capitalize()} analyst on an investment committee for a financial advisor. "
             "Use ONLY the data provided. Be specific and brief. "
+            "In favor and avoid, list bare ticker symbols only (like [\"JNJ\", \"MSFT\"]); "
+            "put every explanation in reasons, keyed by ticker. "
             f"Reply with JSON matching this schema: {json.dumps(schema.model_json_schema())}.")
 
 
@@ -105,12 +108,47 @@ def analyze(agent: str, req: AnalysisRequest) -> Memo:
     memo = llm.complete_json("analyst", _system(agent, Memo), user, Memo)
 
     # Keep the memo honest: our name on it, and only tickers this client can actually buy.
-    universe = set(client.universe)
+    # LLMs often write "GOOGL: cheap at 17 P/E" instead of "GOOGL", so pull the tickers out.
+    reasons = dict(memo.reasons)
     return memo.model_copy(update={
         "agent": agent,
-        "favor": [t for t in memo.favor if t in universe],
-        "avoid": [t for t in memo.avoid if t in universe],
+        "favor": _ticker_list(memo.favor, client.universe, reasons),
+        "avoid": _ticker_list(memo.avoid, client.universe, reasons),
+        "reasons": reasons,
     })
+
+
+def _tickers_in(item: str, universe: list[str]) -> list[str]:
+    """
+    The universe tickers an item is about. "XOM/CVX: prohibited" -> ["XOM", "CVX"].
+    We look before the first ":", "(" or "—" (where the ticker usually is), and only if
+    nothing is there do we search the whole item.
+    """
+    cut = len(item)
+    for sep in (":", "(", "—"):
+        pos = item.find(sep)
+        if pos != -1:
+            cut = min(cut, pos)
+    allowed = set(universe)
+    found = [w for w in re.findall(r"\b[A-Z]+\b", item[:cut]) if w in allowed]
+    if not found:
+        found = [w for w in re.findall(r"\b[A-Z]+\b", item) if w in allowed]
+    return found
+
+
+def _ticker_list(items: list[str], universe: list[str], reasons: dict[str, str]) -> list[str]:
+    """
+    Turn the LLM's favor/avoid items into clean ticker symbols (no duplicates, universe only).
+    If an item carried an explanation and that ticker has no reason yet, keep the text as its reason.
+    """
+    tickers: list[str] = []
+    for item in items:
+        for t in _tickers_in(item, universe):
+            if t not in tickers:
+                tickers.append(t)
+            if item.strip() != t and t not in reasons:
+                reasons[t] = item.strip()
+    return tickers
 
 
 def review(agent: str, req: ReviewRequest) -> Stance:

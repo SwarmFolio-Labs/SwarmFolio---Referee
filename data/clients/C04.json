@@ -1,0 +1,17 @@
+{
+  "client_id": "C04",
+  "name": "Mr. Alvarez (synthetic)",
+  "story": "55-year-old tech executive; 60% of his money sits in NVDA, MSFT and AAPL from years of stock grants. Wants to de-risk before retiring without a big tax bill from selling too much at once.",
+  "universe": ["AAPL","MSFT","GOOGL","NVDA","AMZN","META","JPM","GS","BAC","JNJ","UNH","PFE","PG","KO","WMT","XOM","CVX","GLD","TLT"],
+  "current_weights": {"NVDA": 0.25, "MSFT": 0.20, "AAPL": 0.15, "AMZN": 0.10, "JPM": 0.10, "JNJ": 0.10, "KO": 0.10},
+  "rules": [
+    {"id": "R1", "type": "max_volatility","params": {"max": 0.14},                         "priority": 6,  "hard": false, "source": "Annual volatility at most 14%."},
+    {"id": "R2", "type": "max_turnover",  "params": {"max": 0.45},                         "priority": 7,  "hard": false, "source": "Turnover at most 45% from current holdings (taxes)."},
+    {"id": "R3", "type": "sector_max",    "params": {"sector": "Tech", "max": 0.40},       "priority": 5,  "hard": false, "source": "Tech at most 40%."},
+    {"id": "R4", "type": "max_weight",    "params": {"ticker": "*", "max": 0.20},          "priority": 5,  "hard": false, "source": "No single position above 20%."},
+    {"id": "R5", "type": "min_holdings",  "params": {"k": 8},                              "priority": 3,  "hard": false, "source": "At least 8 holdings."},
+    {"id": "R6", "type": "buy_in",        "params": {"min": 0.04},                         "priority": 3,  "hard": false, "source": "No position under 4%."},
+    {"id": "R7", "type": "sector_min",    "params": {"sector": "Financials", "min": 0.10}, "priority": 4,  "hard": false, "source": "Financials at least 10%."},
+    {"id": "R8", "type": "exclude",       "params": {"tickers": ["XOM","CVX"]},            "priority": 10, "hard": true,  "source": "No tobacco or energy companies (XOM, CVX)."}
+  ]
+}

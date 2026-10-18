@@ -116,3 +116,15 @@ def test_chair_revise_uses_explained_feedback(monkeypatch, bad_receipt):
     monkeypatch.setattr(llm, "complete_json", fake)
     chair.chair_revise(PATEL, BAD, bad_receipt, [])
     assert seen["user"].count("41.0%") >= 1
+
+
+def test_c04_alvarez_is_feasible_but_35pct_turnover_is_not():
+    """Selling 20% out of Tech means buying 20% elsewhere: turnover >= 40%, so a 35% cap clashes with Tech <= 40%."""
+    from referee.conflicts import find_conflicts
+    from referee.solver import is_feasible
+    c04 = analysts.load_client("C04")
+    assert is_feasible(c04)
+    tight = c04.model_copy(deep=True)
+    next(r for r in tight.rules if r.type == "max_turnover").params["max"] = 0.35
+    assert not is_feasible(tight)
+    assert sorted(find_conflicts(tight)) == ["R2", "R3"]

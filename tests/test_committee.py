@@ -84,3 +84,23 @@ def test_chair_revise_sees_failures_but_not_repaired_weights(stub):
     assert "XOM" in seen["user"] and "BROKEN" in seen["user"]
     for t, w in receipt.repaired_weights.items():
         assert f'"{t}": {w}' not in seen["user"]  # the answer key is never shown (honest M2)
+
+
+def test_analyze_pulls_tickers_out_of_described_items(stub):
+    """LLMs write 'GOOGL: cheap at 17 P/E' instead of 'GOOGL'; the tickers must survive, the text becomes a reason."""
+    stub(Memo(agent="fundamentals",
+              favor=["GOOGL: cheap at 17 P/E", "MSFT", "GOOGL (again)", "TSLA: not ours"],
+              avoid=["XOM/CVX: prohibited", "UNH — shrinking revenue", "the energy names like XOM"],
+              sector_views={}, reasons={"MSFT": "Strong margins."}, confidence=0.7))
+    memo = analysts.analyze("fundamentals", _request())
+    assert memo.favor == ["GOOGL", "MSFT"]  # deduped, TSLA dropped (not in the universe)
+    assert memo.avoid == ["XOM", "CVX", "UNH"]  # last item: no ticker before a separator, falls back to the whole text
+    assert memo.reasons["GOOGL"] == "GOOGL: cheap at 17 P/E"  # first explanation wins
+    assert memo.reasons["CVX"] == "XOM/CVX: prohibited"
+    assert memo.reasons["MSFT"] == "Strong margins."  # an existing reason is never overwritten
+
+
+def test_analyst_prompt_asks_for_bare_tickers(stub):
+    seen = stub(Memo(agent="macro", favor=[], avoid=[], sector_views={}, reasons={}, confidence=0.5))
+    analysts.analyze("macro", _request())
+    assert "bare ticker symbols" in seen["system"]
