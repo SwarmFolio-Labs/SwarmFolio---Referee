@@ -13,9 +13,9 @@ export default function RuleChip({ rule, state }) {
       title={`${rule.id} · ${rule.type} · priority ${rule.priority}${rule.hard ? ' · hard rule (never relaxed)' : ''}`}
       className={`inline-flex items-center gap-1.5 rounded-chip border px-2.5 py-1 text-xs ${ring}`}
     >
-      <span className="num text-[10px] text-muted">{rule.id}</span>
+      <span className="num text-3xs text-muted">{rule.id}</span>
       <span>{rule.source.replace(/\.$/, '')}</span>
-      {rule.hard && <span className="text-[10px] font-semibold uppercase text-muted">hard</span>}
+      {rule.hard && <span className="text-3xs font-semibold uppercase text-muted">hard</span>}
     </span>
   )
 }

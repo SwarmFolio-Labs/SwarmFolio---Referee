@@ -1,10 +1,11 @@
 // Client picker: one card per client, rules in the client's own words.
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getClients } from '../api.js'
-import RuleChip from '../components/RuleChip.jsx'
-import { Badge, ErrorNote, Spinner } from '../components/ui.jsx'
-import { displayName, isSynthetic } from '../format.js'
+import ClientCard from '../components/ClientCard.jsx'
+import { ErrorNote, Spinner } from '../components/ui.jsx'
+
+// Mr. Alvarez: the best live debate, shown first when data/demo_runs/C04.json exists.
+const FEATURED = 'C04'
 
 export default function ClientsPage() {
   const [clients, setClients] = useState(null)
@@ -14,12 +15,13 @@ export default function ClientsPage() {
     getClients().then(setClients).catch((e) => setError(e.message))
   }, [])
 
-  // Clients with a saved committee run first: those are the demo.
-  const sorted = clients && [...clients].sort((a, b) => Number(b.has_demo) - Number(a.has_demo))
+  // Clients with a saved committee run first (those are the demo); C04 leads once its run is saved.
+  const rank = (c) => (c.client_id === FEATURED && c.has_demo ? 0 : c.has_demo ? 1 : 2)
+  const sorted = clients && [...clients].sort((a, b) => rank(a) - rank(b))
 
   return (
     <div>
-      <div className="mb-8 max-w-3xl">
+      <div className="mb-8 max-w-prose">
         <div className="label mb-2">Pick a client</div>
         <h1 className="font-display text-3xl font-bold tracking-tight">
           An AI investment committee, refereed by exact math.
@@ -35,28 +37,7 @@ export default function ClientsPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {sorted?.map((c) => (
-          <Link
-            key={c.client_id}
-            to={`/client/${c.client_id}`}
-            className="card p-5 flex flex-col gap-3 transition hover:border-ink/30 hover:-translate-y-0.5"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="num text-xs text-muted">{c.client_id}</span>
-                  {isSynthetic(c.name) && <span className="text-[10px] uppercase tracking-wide text-muted">synthetic</span>}
-                </div>
-                <h2 className="font-display text-lg font-semibold tracking-tight">{displayName(c.name)}</h2>
-              </div>
-              {c.has_demo ? <Badge tone="accent">committee run</Badge> : <Badge>referee only</Badge>}
-            </div>
-            <p className="text-sm text-muted">{c.story}</p>
-            <div className="flex flex-wrap gap-1.5">
-              {c.rules.map((r) => (
-                <RuleChip key={r.id} rule={r} />
-              ))}
-            </div>
-          </Link>
+          <ClientCard key={c.client_id} client={c} />
         ))}
       </div>
     </div>
