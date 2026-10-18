@@ -6,6 +6,7 @@ It reads the user's message, loads the client, runs the committee loop with Agen
 Run it with:  python -m agents.chair_agent
 """
 
+import asyncio
 import os
 
 from uagents import Agent, Context, Protocol
@@ -14,8 +15,10 @@ from uagents_core.identity import Identity
 
 import config
 from agents import brains, event_loop
-from agents.chat import CHAIR_HELP, acknowledge, committee_reply, find_client, list_clients_text, say, text_of
+from agents.chat import (CHAIR_HELP, acknowledge, committee_reply, find_client, list_clients_text,
+                         price_tags_text, say, text_of)
 from agents.transport import AgentTransport
+from referee.prices import rule_prices
 
 
 def referee_address() -> str | None:
@@ -48,12 +51,27 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
             await say(ctx, sender, CHAIR_HELP, end=True)
             return
 
+        # "price tags for C02": just the rule costs (pure math, under a second).
+        if "price" in text.lower():
+            try:
+                prices = await asyncio.to_thread(rule_prices, client)
+                await say(ctx, sender, price_tags_text(client.client_id, prices), end=True)
+            except Exception as e:
+                await say(ctx, sender, f"⚠️ Sorry, I couldn't price those rules: {e}", end=True)
+            return
+
         # The committee takes a while with real LLMs, so say something first.
         await say(ctx, sender, f"Convening the committee for {client.client_id}…")
         transport = AgentTransport(ctx, referee_address())
         try:
             result = await brains.run_committee(client, transport, max_rounds=config.MAX_ROUNDS)
-            await say(ctx, sender, committee_reply(result, transport.notes), end=True)
+            reply = committee_reply(result, transport.notes)
+            try:  # the top 3 rule price tags go under the verdict; never let them block the answer
+                prices = await asyncio.to_thread(rule_prices, client)
+                reply += "\n\n" + price_tags_text(client.client_id, prices, top=3)
+            except Exception as e:
+                ctx.logger.warning(f"price tags failed: {e}")
+            await say(ctx, sender, reply, end=True)
         except Exception as e:
             ctx.logger.error(f"committee failed: {e}")
             await say(ctx, sender, f"⚠️ Sorry, the committee hit an error: {e}", end=True)

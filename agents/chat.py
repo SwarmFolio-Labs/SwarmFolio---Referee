@@ -19,7 +19,7 @@ from uagents_core.contrib.protocols.chat import (
     TextContent,
 )
 
-from models import CommitteeResult, Receipt
+from models import CommitteeResult, Receipt, RulePrice
 from referee.schema import Client
 
 CLIENTS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "clients")
@@ -103,6 +103,7 @@ CHAIR_HELP = (
     "Hi! I'm the SwarmFolio investment committee. Try:\n"
     "• \"list clients\"\n"
     "• \"Build a portfolio for Dr. Patel\" or \"Build a portfolio for C02\"\n"
+    "• \"price tags for C02\" (what each of the client's rules costs)\n"
     "• or paste a client as JSON"
 )
 
@@ -168,4 +169,16 @@ def committee_reply(result: CommitteeResult, notes: list[str]) -> str:
         lines.append("")
         lines.append("**Notes**")
         lines += [f"• {n}" for n in all_notes]
+    return "\n".join(lines)
+
+
+def price_tags_text(client_id: str, prices: list[RulePrice], top: int | None = None) -> str:
+    """Rule price tags as chat text (MASTER 6.10). top=3 for the short version under a committee reply."""
+    shown = prices if top is None else [p for p in prices if p.binds][:top]
+    title = "**What each rule costs**" if top is None else "**Top rule price tags**"
+    lines = [f"{title} ({client_id})"]
+    if not shown:
+        lines.append("• None of this client's rules hold the portfolio back: they all cost nothing.")
+    for p in shown:
+        lines.append(f"• {p.explain}")
     return "\n".join(lines)

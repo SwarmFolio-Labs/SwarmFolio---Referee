@@ -127,3 +127,17 @@ class CommitteeResult(BaseModel):
     rounds: int
     self_corrected: bool
     notes: list[str]
+
+
+# ---------- Rule price tags (MASTER 6.10; additive, not part of the frozen receipt) ----------
+
+class RulePrice(BaseModel):
+    """What one client rule costs: how much better the best portfolio gets if the rule is dropped."""
+
+    rule_id: str
+    source: str              # the client's own words
+    binds: bool              # False = the rule costs nothing (it never limits the best portfolio)
+    utility_cost_pts: float  # points of risk-adjusted return per year lost to this rule (>= 0)
+    sharpe_with: float       # Sharpe of the best portfolio with all rules
+    sharpe_without: float    # Sharpe of the best portfolio without this rule
+    explain: str

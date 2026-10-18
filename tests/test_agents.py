@@ -105,3 +105,15 @@ def test_chat_request_ignores_asi1_mentions():
     req = referee_agent.parse_chat_request(text)
     assert req is not None and req.client.client_id == "C02"
     assert referee_agent.parse_chat_request("@swarmfolio-referee hello") is None
+
+
+def test_price_tags_chat_text():
+    """'price tags for C02' finds the client; the short version lists only binding rules, top 3."""
+    from agents.chat import price_tags_text
+    from referee.prices import rule_prices
+    client = find_client("price tags for C02")
+    assert client.client_id == "C02"
+    prices = rule_prices(client)
+    short = price_tags_text("C02", prices, top=3)
+    assert "JNJ" in short and "volatility" in short and "never binds" not in short
+    assert price_tags_text("C02", prices).count("•") == len(client.rules)

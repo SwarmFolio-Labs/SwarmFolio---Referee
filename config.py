@@ -56,3 +56,6 @@ LOOKBACK_DAYS = 756  # ~3 years of trading days for returns and risk
 
 # --- Committee ---
 MAX_ROUNDS = 3  # debate rounds before giving up and letting the Referee repair
+
+# --- Rule price tags (MASTER 6.10) ---
+RISK_AVERSION = 3.0  # gamma in U(w) = mu'w - (gamma/2) * variance
