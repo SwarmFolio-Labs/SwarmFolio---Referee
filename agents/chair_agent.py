@@ -15,8 +15,9 @@ from uagents_core.identity import Identity
 
 import config
 from agents import brains, event_loop
+from agents.cards import client_picker_card, price_tags_card, receipt_card, selection_text, try_card
 from agents.chat import (CHAIR_HELP, acknowledge, committee_reply, find_client, list_clients_text,
-                         price_tags_text, say, text_of)
+                         load_clients, price_tags_text, say, text_of)
 from agents.transport import AgentTransport
 from referee.prices import rule_prices
 
@@ -41,10 +42,12 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
     @chat.on_message(ChatMessage)
     async def on_chat(ctx: Context, sender: str, msg: ChatMessage):
         await acknowledge(ctx, sender, msg)
-        text = text_of(msg)
+        text = selection_text(text_of(msg))  # a "Build portfolio" card click arrives as JSON
 
         if "list" in text.lower() and "client" in text.lower():
-            await say(ctx, sender, list_clients_text(), end=True)
+            card = try_card(client_picker_card, load_clients())
+            # Keep the session open when the picker shows, so a click comes back to us.
+            await say(ctx, sender, list_clients_text(), end=card is None, card=card)
             return
         client = find_client(text)
         if client is None:
@@ -55,7 +58,8 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
         if "price" in text.lower():
             try:
                 prices = await asyncio.to_thread(rule_prices, client)
-                await say(ctx, sender, price_tags_text(client.client_id, prices), end=True)
+                await say(ctx, sender, price_tags_text(client.client_id, prices), end=True,
+                          card=try_card(price_tags_card, client, prices))
             except Exception as e:
                 await say(ctx, sender, f"⚠️ Sorry, I couldn't price those rules: {e}", end=True)
             return
@@ -71,7 +75,9 @@ def build_agent(seed: str, port: int, mailbox: bool = True, publish: bool = True
                 reply += "\n\n" + price_tags_text(client.client_id, prices, top=3)
             except Exception as e:
                 ctx.logger.warning(f"price tags failed: {e}")
-            await say(ctx, sender, reply, end=True)
+            card = try_card(receipt_card, result.receipt, before=result.final_proposal.weights,
+                            rule_sources={r.id: r.source for r in client.rules}, client_name=client.name)
+            await say(ctx, sender, reply, end=True, card=card)
         except Exception as e:
             ctx.logger.error(f"committee failed: {e}")
             await say(ctx, sender, f"⚠️ Sorry, the committee hit an error: {e}", end=True)
