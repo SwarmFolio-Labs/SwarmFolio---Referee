@@ -13,6 +13,8 @@ The yes/no variables are what make rules like "at most 8 holdings" and "no
 position smaller than 5%" possible to write as math.
 """
 
+import contextvars
+import time
 from dataclasses import dataclass
 
 import cvxpy as cp
@@ -25,6 +27,31 @@ from referee.schema import Client, Rule
 SOLVED = {cp.OPTIMAL, cp.OPTIMAL_INACCURATE}
 INFEASIBLE = {cp.INFEASIBLE, cp.INFEASIBLE_INACCURATE}
 SOLVER_TIME_LIMIT = 15  # seconds per SCIP attempt
+
+# Optional record of every SCIP call made while a log is open (api.py opens one per request,
+# so each certificate can show what the solver actually did). None = not recording.
+_solve_log: contextvars.ContextVar[list | None] = contextvars.ContextVar("solve_log", default=None)
+
+
+def start_solve_log() -> list[dict]:
+    """Start recording SCIP calls in this context; returns the list they are appended to."""
+    log: list[dict] = []
+    _solve_log.set(log)
+    return log
+
+
+def _record(problem: cp.Problem, seconds: float, status) -> None:
+    log = _solve_log.get()
+    if log is None:
+        return
+    variables = problem.variables()
+    log.append({
+        "status": str(status),
+        "seconds": round(seconds, 4),
+        "variables": int(sum(v.size for v in variables)),
+        "binaries": int(sum(v.size for v in variables if v.attributes.get("boolean"))),
+        "constraints": len(problem.constraints),
+    })
 
 
 @dataclass
@@ -196,12 +223,15 @@ def solve(problem: cp.Problem) -> bool:
     ]
     status = None
     for params in attempts:
+        start = time.perf_counter()
         try:
             problem.solve(solver=cp.SCIP, scip_params=params)
         except cp.error.SolverError as e:
             status = f"solver error ({e})"
+            _record(problem, time.perf_counter() - start, "solver_error")
             continue
         status = problem.status
+        _record(problem, time.perf_counter() - start, status)
         if status in SOLVED:
             return True
         if status in INFEASIBLE:

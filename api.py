@@ -7,6 +7,8 @@ Endpoints:
     GET  /clients              every client: id, name, story, universe, current weights, rules (+ source text)
     GET  /demo/{client_id}     a saved committee run (data/demo_runs/<id>.json, see save_demo_run.py)
     POST /referee              {client_id, proposal} -> Receipt from the real Referee (pure math, no API keys)
+    POST /verify               {client_id, weights} -> {receipt, certificate}: solved live, with solver telemetry
+    GET  /verify/{client_id}/round/{n}   re-verify the AI's saved round-n draft live -> {weights, receipt, certificate}
     GET  /prices/{client_id}   what each rule costs (referee.prices.rule_prices), cached per client
     GET  /experiment           eval/results/experiment.json, if it exists
     GET  /settings             {live_runs}: whether POST /run is on (the UI hides the Live run tab if not)
@@ -21,6 +23,7 @@ If frontend/dist exists (after `npm run build`), it is served at / so one proces
 """
 
 import asyncio
+import hashlib
 import json
 import os
 import time
@@ -37,6 +40,7 @@ from models import Receipt, RulePrice
 from referee.prices import rule_prices
 from referee.receipt import referee
 from referee.schema import Client, Proposal
+from referee.solver import start_solve_log
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CLIENTS_DIR = os.path.join(ROOT, "data", "clients")
@@ -49,7 +53,7 @@ FRONTEND_DIST = os.path.join(ROOT, "frontend", "dist")
 ENABLE_LIVE_RUNS = os.getenv("ENABLE_LIVE_RUNS", "true").strip().lower() not in ("0", "false", "no", "off")
 LIVE_RUNS_DISABLED = "Live committee runs are disabled in the public demo"
 
-app = FastAPI(title="SwarmFolio Referee")
+app = FastAPI(title="SwarmFolio Verify")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 api = APIRouter()
 
@@ -121,6 +125,71 @@ class RefereeRequest(BaseModel):
 def post_referee(req: RefereeRequest) -> Receipt:
     """Check a proposal with the real Referee. Never raises: bad input comes back as an ERROR receipt."""
     return referee(load_client(req.client_id), req.proposal)
+
+
+def _sha256(obj) -> str:
+    return hashlib.sha256(json.dumps(obj, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+@lru_cache(maxsize=1)
+def _solver_versions() -> dict:
+    import cvxpy
+    import pyscipopt
+    m = pyscipopt.Model()
+    return {
+        "scip": f"{m.getMajorVersion()}.{m.getMinorVersion()}.{m.getTechVersion()}",
+        "cvxpy": cvxpy.__version__,
+    }
+
+
+def _verify(client: Client, weights: dict[str, float]) -> dict:
+    """Run the Referee now and return its receipt plus a certificate of what the solver did.
+
+    The certificate is the proof that this answer was computed for this request: every SCIP
+    call with its status, time and model size, hashes of the exact inputs and outputs (anyone
+    can recompute them), and the git commit of the code that ran.
+    """
+    log = start_solve_log()
+    t0 = time.perf_counter()
+    receipt = referee(client, Proposal(weights=weights, thesis="Verified via the public API", reasons={}))
+    wall = time.perf_counter() - t0
+    out = receipt.model_dump(mode="json")
+    outcome = {k: v for k, v in out.items() if k not in ("timestamp", "receipt_id")}
+    certificate = {
+        "verified_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "wall_ms": round(wall * 1000, 1),
+        "solver_ms": round(sum(x["seconds"] for x in log) * 1000, 1),
+        "solves": log,
+        "largest_model": max(log, key=lambda x: x["variables"], default=None),
+        "versions": _solver_versions(),
+        "input_sha256": _sha256({"client": client.model_dump(mode="json"), "weights": weights}),
+        "output_sha256": _sha256(outcome),
+        "commit": (os.getenv("RENDER_GIT_COMMIT") or "local")[:7],
+        "host": "render" if os.getenv("RENDER") else "local",
+    }
+    return {"receipt": out, "certificate": certificate}
+
+
+class VerifyRequest(BaseModel):
+    client_id: str
+    weights: dict[str, float]
+
+
+@api.post("/verify")
+def post_verify(req: VerifyRequest) -> dict:
+    """Verify any weights against a client's rules, solved live, with a solver certificate."""
+    return _verify(load_client(req.client_id), req.weights)
+
+
+@api.get("/verify/{client_id}/round/{n}")
+def verify_saved_round(client_id: str, n: int = 1) -> dict:
+    """Re-verify the AI's saved round-n draft for this client, live (the draft is recorded; the check is not)."""
+    client = load_client(client_id)
+    drafts = get_demo(client_id).get("extras", {}).get("proposals", [])
+    if not 1 <= n <= len(drafts):
+        raise HTTPException(404, f"{client_id} has {len(drafts)} saved rounds")
+    weights = drafts[n - 1]
+    return {"weights": weights, "rounds": len(drafts), **_verify(client, weights)}
 
 
 @api.get("/prices/{client_id}")

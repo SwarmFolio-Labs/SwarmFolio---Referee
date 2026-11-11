@@ -39,3 +39,12 @@ export const startRun = (clientId, { fakes = false, fresh = false, stepDelay = 0
 export const getRun = (jobId, after = 0) => request(`/run/${jobId}?after=${after}`)
 /** What a live run would use: {live_runs, model: "provider/model" | null, fresh}. */
 export const getRunCapabilities = () => request('/run/capabilities')
+/** Verify any weights against a client's rules, solved live: {receipt, certificate}. */
+export const verify = (clientId, weights) =>
+  request('/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ client_id: clientId, weights }),
+  })
+/** Re-verify the AI's recorded round-n draft, live: {weights, rounds, receipt, certificate}. */
+export const verifyRound = (clientId, n) => request(`/verify/${clientId}/round/${n}`)
