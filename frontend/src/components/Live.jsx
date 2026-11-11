@@ -1,7 +1,8 @@
 // Building blocks for anything the verifier computes live: the request hook, the solver
-// certificate, the constraint table and the before -> after weights.
+// certificate, the verdict chip and the constraint table.
 import { useCallback, useEffect, useState } from 'react'
-import { fmtActual, fmtLimit, formal, pct, VERDICT } from '../mandates.js'
+import { fmtActual, fmtLimit, formal, VERDICT } from '../mandates.js'
+import { Gauge } from './Figures.jsx'
 
 const REPO = 'https://github.com/SwarmFolio-Labs/SwarmFolio---Referee'
 
@@ -22,27 +23,50 @@ export function useLive(fn, deps) {
   return { ...state, run }
 }
 
-/** While a request is in flight: a plain status line that admits when the free server is waking. */
+/** While a request is in flight: a status line that admits when the free server is waking. */
 export function Pending({ busy, error }) {
   const [slow, setSlow] = useState(false)
   useEffect(() => {
     if (!busy) return
-    setSlow(false)
     const t = setTimeout(() => setSlow(true), 4000)
-    return () => clearTimeout(t)
+    return () => {
+      clearTimeout(t)
+      setSlow(false)
+    }
   }, [busy])
-  if (error) return <p className="bad">Verifier unreachable: {error}</p>
+  if (error)
+    return (
+      <p className="status">
+        <span className="dot bad" /> Verifier unreachable: {error}
+      </p>
+    )
   if (!busy) return null
   return (
-    <p className="live busy muted">
+    <p className="status muted">
+      <span className="dot busy" />
       {slow ? 'Waking the solver server (free hosting tier, up to ~50 s)…' : 'Solving…'}
     </p>
   )
 }
 
+/** "Solved live 2.1 s ago" style indicator for a case header. */
+export function LiveChip({ busy, cert }) {
+  return (
+    <span className="chip accent">
+      <span className={`dot ${busy ? 'busy' : ''}`} />
+      {busy ? 'Solving' : cert ? `Solved live · ${cert.solver_ms} ms` : 'Live'}
+    </span>
+  )
+}
+
 export function Verdict({ receipt }) {
-  const tone = receipt.verdict === 'PASS' ? 'good' : receipt.verdict === 'ERROR' ? 'bad' : ''
-  return <span className={`tag ${tone}`}>{VERDICT[receipt.verdict] ?? receipt.verdict}</span>
+  const ok = receipt.verdict === 'PASS'
+  return (
+    <span className="chip" style={{ borderColor: ok ? 'var(--good)' : 'var(--bad)' }}>
+      <span className={`dot ${ok ? '' : 'bad'}`} />
+      {VERDICT[receipt.verdict] ?? receipt.verdict}
+    </span>
+  )
 }
 
 const short = (h) => `${h.slice(0, 10)}…${h.slice(-6)}`
@@ -55,38 +79,36 @@ export function Certificate({ cert, receipt, onRerun, busy }) {
     const blob = new Blob([JSON.stringify({ receipt, certificate: cert }, null, 2)], { type: 'application/json' })
     const a = Object.assign(document.createElement('a'), {
       href: URL.createObjectURL(blob),
-      download: `certificate-${receipt.client_id}-${cert.input_sha256.slice(0, 8)}.json`,
+      download: `certus-${receipt.client_id}-${cert.input_sha256.slice(0, 8)}.json`,
     })
     a.click()
     URL.revokeObjectURL(a.href)
   }
   const rows = [
     ['computed', `${cert.verified_at.replace('T', ' ').replace('Z', ' UTC')} · ${cert.wall_ms} ms on the server`],
-    ['solver', `SCIP ${cert.versions.scip} via CVXPY ${cert.versions.cvxpy} · ${cert.solves.length} solve${cert.solves.length === 1 ? '' : 's'} · ${cert.solver_ms} ms`],
+    [
+      'solver',
+      `SCIP ${cert.versions.scip} via CVXPY ${cert.versions.cvxpy} · ${cert.solves.length} solve${cert.solves.length === 1 ? '' : 's'} · ${cert.solver_ms} ms`,
+    ],
     ['model', m ? `${m.variables} variables (${m.binaries} binary) · ${m.constraints} constraint blocks` : '—'],
     ['status', statuses],
     ['input', `sha256 ${short(cert.input_sha256)}`],
     ['output', `sha256 ${short(cert.output_sha256)}`],
-    [
-      'code',
-      cert.commit === 'local' ? (
-        'local build'
-      ) : (
-        <a href={`${REPO}/commit/${cert.commit}`}>commit {cert.commit} ↗</a>
-      ),
-    ],
+    ['code', cert.commit === 'local' ? 'local build' : <a href={`${REPO}/commit/${cert.commit}`}>commit {cert.commit} ↗</a>],
   ]
   return (
     <div className="cert">
-      <div className="ex-head" style={{ borderBottomColor: 'var(--rule)', paddingBottom: 8, marginBottom: 8 }}>
-        <span className="u">Solver certificate</span>
-        <span className="links">
+      <div className="cert-head">
+        <span className="label" style={{ color: 'var(--accent)' }}>
+          Certus · solver certificate
+        </span>
+        <span style={{ display: 'flex', gap: 8 }}>
           {onRerun && (
-            <button className="btn ghost" onClick={onRerun} disabled={busy}>
+            <button className="btn sm" onClick={onRerun} disabled={busy}>
               {busy ? 'Solving…' : 'Re-solve now ↻'}
             </button>
           )}
-          <button className="btn ghost" onClick={download}>
+          <button className="btn ghost sm" onClick={download}>
             JSON ↓
           </button>
         </span>
@@ -112,6 +134,7 @@ export function Checks({ checks, rules }) {
             <th>ID</th>
             <th>Constraint</th>
             <th className="hide-sm">Formal</th>
+            <th className="hide-sm" />
             <th className="r">Actual</th>
             <th className="r">Limit</th>
             <th className="r">Result</th>
@@ -120,55 +143,28 @@ export function Checks({ checks, rules }) {
         <tbody>
           {checks.map((c) => (
             <tr key={c.rule_id}>
-              <td className="faint">{c.rule_id}</td>
+              <td className="num faint">{c.rule_id}</td>
               <td>{byId[c.rule_id]?.source.replace(/\.$/, '')}</td>
-              <td className="hide-sm nw muted">{byId[c.rule_id] && formal(byId[c.rule_id])}</td>
-              <td className={`r nw ${c.passed ? '' : 'bad'}`}>{fmtActual(c)}</td>
-              <td className="r nw muted">{fmtLimit(c)}</td>
-              <td className={`r nw ${c.passed ? 'good' : 'bad'}`}>{c.passed ? 'OK' : 'VIOLATED'}</td>
+              <td className="hide-sm nw num muted" style={{ fontSize: 12.5 }}>
+                {byId[c.rule_id] && formal(byId[c.rule_id])}
+              </td>
+              <td className="hide-sm">
+                <Gauge check={c} />
+              </td>
+              <td className="r nw num" style={c.passed ? undefined : { fontWeight: 600 }}>
+                {fmtActual(c)}
+              </td>
+              <td className="r nw num muted">{fmtLimit(c)}</td>
+              <td className="r">
+                <span className="status">
+                  <i style={{ color: c.passed ? 'var(--good)' : 'var(--bad)' }}>{c.passed ? '✓' : '✕'}</i>
+                  {c.passed ? 'OK' : 'VIOLATED'}
+                </span>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
-}
-
-/** Before -> after weights, sorted by how much each position moved. */
-export function WeightsDiff({ before, after, beforeLabel = 'Draft', afterLabel = 'Repaired' }) {
-  const tickers = [...new Set([...Object.keys(before), ...Object.keys(after)])]
-  const rows = tickers
-    .map((t) => ({ t, a: before[t] ?? 0, b: after[t] ?? 0 }))
-    .filter((r) => r.a > 1e-4 || r.b > 1e-4)
-    .sort((x, y) => Math.abs(y.b - y.a) - Math.abs(x.b - x.a))
-  const max = Math.max(...rows.map((r) => Math.max(r.a, r.b)), 0.01)
-  return (
-    <table className="tbl">
-      <thead>
-        <tr>
-          <th>Ticker</th>
-          <th className="r">{beforeLabel}</th>
-          <th className="r">{afterLabel}</th>
-          <th className="r">Δ</th>
-          <th className="hide-sm" style={{ width: '30%' }} />
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map(({ t, a, b }) => (
-          <tr key={t}>
-            <td>{t}</td>
-            <td className="r muted">{a > 1e-4 ? pct(a) : '—'}</td>
-            <td className="r">{b > 1e-4 ? pct(b) : '—'}</td>
-            <td className="r nw">{`${b - a >= 0 ? '+' : '−'}${(Math.abs(b - a) * 100).toFixed(1)}`}</td>
-            <td className="hide-sm">
-              <div className="wbar">
-                <i style={{ width: `${(a / max) * 100}%` }} />
-                <i style={{ width: `${(b / max) * 100}%` }} />
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
   )
 }

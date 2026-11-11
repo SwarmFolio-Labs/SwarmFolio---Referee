@@ -2,7 +2,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getDemo, getPrices, verifyRound } from '../api.js'
-import { Certificate, Checks, Pending, useLive, Verdict, WeightsDiff } from '../components/Live.jsx'
+import { Dumbbell } from '../components/Figures.jsx'
+import { Certificate, Checks, Pending, useLive, Verdict } from '../components/Live.jsx'
+import { TopBar } from '../components/TopBar.jsx'
 import { formal, mandateId, mandateName } from '../mandates.js'
 
 const top = (w) =>
@@ -28,14 +30,14 @@ function Round({ client, n, draft, recorded, open }) {
   }, [open])
   const r = state.data?.receipt
   return (
-    <section style={{ borderTop: '1px solid var(--rule)', padding: '14px 0' }}>
-      <div className="ex-head" style={{ borderBottom: 0, paddingBottom: 0 }}>
+    <section className="case" style={{ marginTop: 16 }}>
+      <div className="case-head">
         <span>
-          <b>Round {n}</b> <span className="muted small">&nbsp;{top(draft)}…</span>
+          <b>Round {n}</b> <span className="muted small num">&nbsp;{top(draft)}…</span>
         </span>
-        <span className="links small">
+        <span className="actions small">
           <span className="muted">recorded: {recorded?.verdict === 'PASS' ? 'compliant' : `${recorded?.checks.filter((c) => !c.passed).length ?? '?'} violated`}</span>
-          <button className="btn ghost" onClick={run} disabled={state.busy}>
+          <button className="btn ghost sm" onClick={run} disabled={state.busy}>
             {state.busy ? 'Solving…' : r ? 'Re-solve ↻' : 'Verify live →'}
           </button>
         </span>
@@ -43,17 +45,16 @@ function Round({ client, n, draft, recorded, open }) {
       <Pending busy={state.busy && !r} error={state.error} />
       {r && (
         <>
-          <div className="gap" />
-          <p>
+          <div style={{ height: 14 }} />
+          <p className="small">
             <Verdict receipt={r} /> <span className="muted">&nbsp;{r.summary}</span>
           </p>
-          <div className="gap" />
+          <div style={{ height: 12 }} />
           <Checks checks={r.checks} rules={client.rules} />
           {r.verdict === 'VIOLATIONS_REPAIRED' && (
-            <>
-              <div className="gap" />
-              <WeightsDiff before={draft} after={r.repaired_weights} beforeLabel="AI draft" />
-            </>
+            <div style={{ marginTop: 20 }}>
+              <Dumbbell before={draft} after={r.repaired_weights} />
+            </div>
           )}
           <Certificate cert={state.data.certificate} receipt={r} onRerun={run} busy={state.busy} />
         </>
@@ -71,30 +72,26 @@ export default function Mandate({ clients }) {
   const recorded = demo.data?.extras?.receipts ?? []
 
   return (
+    <>
+    <TopBar>
+      <Link to="/#mandates">← Mandate book</Link>
+    </TopBar>
     <main className="page">
-      <header className="bar">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <b>SwarmFolio Verify</b>
-        </Link>
-        <nav>
-          <Link to="/#mandates">← Mandate book</Link>
-        </nav>
-      </header>
-      <div className="gap2" />
+      <div style={{ height: 48 }} />
       {!client ? (
         <Pending busy={!clients} error={clients ? `No mandate ${id}` : null} />
       ) : (
         <>
-          <span className="tag">Mandate {mandateId(id)} · synthetic</span>
-          <div className="gap" />
-          <h1 className="title" style={{ fontSize: 'clamp(30px, 5vw, 48px)' }}>
+          <span className="kicker">Mandate {mandateId(id)} · synthetic</span>
+          <h1 className="title" style={{ fontSize: 'clamp(32px, 5vw, 52px)' }}>
             {mandateName(client)}
           </h1>
-          <div className="gap" />
-          <p className="lede muted">{client.story}</p>
+          <p className="lede muted" style={{ marginTop: 16 }}>
+            {client.story}
+          </p>
 
-          <h2 className="sec small">
-            <b>§1</b> Constraints
+          <h2 className="section-head" style={{ paddingTop: 64 }}>
+            <span className="label">§ 1</span> <span>Constraints</span>
           </h2>
           <div className="scroll">
             <table className="tbl">
@@ -109,9 +106,9 @@ export default function Mandate({ clients }) {
               <tbody>
                 {client.rules.map((r) => (
                   <tr key={r.id}>
-                    <td className="faint">{r.id}</td>
+                    <td className="num faint">{r.id}</td>
                     <td>{r.source.replace(/\.$/, '')}</td>
-                    <td className="nw muted">{formal(r)}</td>
+                    <td className="nw num muted" style={{ fontSize: 12.5 }}>{formal(r)}</td>
                     <td className="r">{r.hard ? 'hard' : r.priority}</td>
                   </tr>
                 ))}
@@ -119,15 +116,15 @@ export default function Mandate({ clients }) {
             </table>
           </div>
 
-          <h2 className="sec small">
-            <b>§2</b> Recorded AI drafts, verified live
+          <h2 className="section-head" style={{ paddingTop: 64 }}>
+            <span className="label">§ 2</span> <span>Recorded AI drafts, verified live</span>
           </h2>
-          <p className="lede muted">
+          <p className="muted">
             The allocator LLM's drafts for this mandate{demo.data?.extras?.model ? ` (${demo.data.extras.model})` : ''}{' '}
             were recorded on {demo.data?.extras?.saved_at?.slice(0, 10) ?? 'Oct 18, 2026'}. Each one is re-checked
             against the mandate by the verifier when you ask; the final round is checked on load.
           </p>
-          <div className="gap" />
+          <div style={{ height: 16 }} />
           <Pending busy={demo.busy} error={null} />
           {!demo.busy && drafts.length === 0 && <p className="muted">No recorded drafts for this mandate.</p>}
           {drafts.map((d, i) => (
@@ -141,14 +138,14 @@ export default function Mandate({ clients }) {
             />
           ))}
 
-          <h2 className="sec small">
-            <b>§3</b> Shadow cost of each constraint
+          <h2 className="section-head" style={{ paddingTop: 64 }}>
+            <span className="label">§ 3</span> <span>Shadow cost of each constraint</span>
           </h2>
-          <p className="lede muted">
+          <p className="muted">
             How much risk-adjusted return the best portfolio gives up because of each constraint: re-solve without
             it and compare. Constraints that never bind cost nothing.
           </p>
-          <div className="gap" />
+          <div style={{ height: 16 }} />
           <Pending busy={prices.busy} error={prices.error} />
           {prices.data && (
             <div className="scroll">
@@ -164,7 +161,7 @@ export default function Mandate({ clients }) {
                 <tbody>
                   {prices.data.map((p) => (
                     <tr key={p.rule_id}>
-                      <td className="faint">{p.rule_id}</td>
+                      <td className="num faint">{p.rule_id}</td>
                       <td>{p.source.replace(/\.$/, '')}</td>
                       <td className={`r ${p.binds ? '' : 'faint'}`}>{p.binds ? p.utility_cost_pts.toFixed(2) : '0 · slack'}</td>
                       <td className="r nw muted">
@@ -176,12 +173,13 @@ export default function Mandate({ clients }) {
               </table>
             </div>
           )}
-          <footer className="foot links muted">
-            <Link to="/">SwarmFolio Verify</Link>
+          <footer className="foot">
+            <Link to="/">SwarmFolio Certus</Link>
             <a href="https://github.com/SwarmFolio-Labs/SwarmFolio---Referee">GitHub ↗</a>
           </footer>
         </>
       )}
     </main>
+    </>
   )
 }

@@ -53,7 +53,7 @@ FRONTEND_DIST = os.path.join(ROOT, "frontend", "dist")
 ENABLE_LIVE_RUNS = os.getenv("ENABLE_LIVE_RUNS", "true").strip().lower() not in ("0", "false", "no", "off")
 LIVE_RUNS_DISABLED = "Live committee runs are disabled in the public demo"
 
-app = FastAPI(title="SwarmFolio Verify")
+app = FastAPI(title="SwarmFolio Certus")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 api = APIRouter()
 

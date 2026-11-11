@@ -1,4 +1,4 @@
-# SwarmFolio Verify
+# SwarmFolio Certus
 
 *Formerly SwarmFolio Referee (LA Hacks 2026). Live at [swarmfolio.biz](https://swarmfolio.biz).*
 
