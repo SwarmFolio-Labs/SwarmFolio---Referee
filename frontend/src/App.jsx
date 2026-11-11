@@ -34,8 +34,8 @@ export default function App() {
     pathname === '/'
       ? null
       : pathname.startsWith('/client/') && search.includes('tab=receipt')
-        ? { to: `${pathname}?tab=run`, label: 'Committee run' }
-        : { to: '/', label: 'Clients' }
+        ? { to: `${pathname}?tab=run`, label: 'Verification run' }
+        : { to: '/', label: 'Case studies' }
   return (
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-line">
@@ -57,8 +57,8 @@ export default function App() {
             <span className="ml-1 hidden border-l border-line pl-3.5 text-ui text-muted sm:inline">AI proposes. Math decides.</span>
           </NavLink>
           <nav className="flex items-center gap-7">
-            <NavItem to="/" active={pathname === '/' || (pathname.startsWith('/client/') && !onPrices)}>Clients</NavItem>
-            <NavItem to="/client/C04?tab=prices" active={onPrices}>Price tags</NavItem>
+            <NavItem to="/" active={pathname === '/' || (pathname.startsWith('/client/') && !onPrices)}>Case studies</NavItem>
+            <NavItem to="/client/C04?tab=prices" active={onPrices}>Constraint costs</NavItem>
             <NavItem to="/experiment" active={pathname === '/experiment'}>Experiment</NavItem>
           </nav>
         </div>

@@ -1,0 +1,13 @@
+# Render's free tier sleeps after ~15 idle minutes and takes ~50 s to wake.
+# Ping the API every 10 minutes so the first visitor never waits.
+name: keep-warm
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: curl -fsS -m 90 -o /dev/null https://swarmfolio-api.onrender.com/api/clients

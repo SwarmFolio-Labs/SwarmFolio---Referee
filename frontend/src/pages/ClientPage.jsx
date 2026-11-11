@@ -17,9 +17,9 @@ import { buildSteps } from '../steps.js'
 
 const STEP_MS = 900
 const TABS = [
-  { id: 'run', label: 'Committee run' },
+  { id: 'run', label: 'Verification run' },
   { id: 'receipt', label: 'Receipt' },
-  { id: 'prices', label: 'Price tags' },
+  { id: 'prices', label: 'Constraint costs' },
   { id: 'try', label: 'Try the Referee' },
   { id: 'live', label: 'Live run' },
 ]
@@ -150,7 +150,7 @@ function RunView({ client, demo, demoError, steps, replay, onTab }) {
       </div>
     )
   }
-  if (!demo) return <Spinner label="Loading the saved committee run…" />
+  if (!demo) return <Spinner label="Loading the saved run…" slowLabel="Waking the solver server (free hosting tier, up to ~50 s)…" />
 
   const start = Object.keys(client.current_weights).length ? client.current_weights : demo.extras?.proposals?.[0]
   const final = demo.final_proposal.weights
@@ -314,7 +314,7 @@ function ClientDetail({ id }) {
 
   const page = 'mx-auto max-w-page px-6 pb-16 pt-8 md:pt-10 xl:px-0'
   if (error) return <div className={page}><ErrorNote>{error}</ErrorNote></div>
-  if (!client) return <div className={page}><Spinner label="Loading client…" /></div>
+  if (!client) return <div className={page}><Spinner label="Loading case…" slowLabel="Waking the solver server (free hosting tier, up to ~50 s)…" /></div>
 
   const presets = [
     { label: 'Committee final', weights: demo?.final_proposal?.weights },
@@ -328,7 +328,7 @@ function ClientDetail({ id }) {
   return (
     <div className={page}>
       <nav className={`items-center gap-2 text-ui text-muted ${current.id === 'receipt' ? 'hidden md:flex' : 'flex'}`}>
-        <Link to="/" className="hover:text-ink">Clients</Link>
+        <Link to="/" className="hover:text-ink">Case studies</Link>
         <span>/</span>
         <span className="num">{client.client_id}</span>
         <span>/</span>

@@ -10,18 +10,13 @@ SwarmFolio Referee is an autonomous investment committee. Three AI analysts and 
 
 ## Live links
 
-All 5 agents and the Interactive Cards are live in ASI:One.
-
 | What | Link |
 |---|---|
-| Chair Agent (Agentverse profile) | `TODO: https://agentverse.ai/agents/details/<chair-address>` |
-| Referee Agent (Agentverse profile) | `TODO` |
-| Macro Agent | `TODO` |
-| Fundamentals Agent | `TODO` |
-| Risk Agent | `TODO` |
-| Chat with the committee in ASI:One | `TODO: https://asi1.ai/...` |
-| Demo video | `TODO` |
-| Devpost | `TODO` |
+| Live app | https://swarmfolio.biz |
+| Demo video | https://youtu.be/ngHaVytPs6M |
+| Devpost | https://devpost.com/software/swarmfolio-referee |
+
+The five committee agents were registered on Fetch.ai's Agentverse for the hackathon. The live app replays saved runs, so it doesn't depend on them.
 
 ---
 
@@ -358,7 +353,7 @@ pytest           # Referee math, the Dr. Patel example, generated clients, agent
 
 | Pre-existing (open source, MIT) | Built at LA Hacks (what gets judged) |
 |---|---|
-| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, pay-per-check (Agent Payment Protocol + Stripe test mode), the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React; designed in Paper: **TODO-confirm**) |
+| SwarmFolio: the price-download code and cached prices for 19 stocks, return and covariance math, a PSO optimizer, a backtest | Rule schema (10 rule types), the Referee (exact solver, conflict finder, cheapest relaxation, repair, receipt, rule price tags), the analyst and Chair logic, the feedback loop, the 5 Fetch agents and their messages, ASI:One Interactive Cards, pay-per-check (Agent Payment Protocol + Stripe test mode), the synthetic clients, the evaluation and feedback experiment, the web app (FastAPI + React) |
 
 *Design notes were written before the event; all code was written during it.* The commit history shows the build step by step.
 

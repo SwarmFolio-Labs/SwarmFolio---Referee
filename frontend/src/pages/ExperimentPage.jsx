@@ -47,7 +47,7 @@ export default function ExperimentPage() {
     ) : (
       <ErrorNote>{error.message}</ErrorNote>
     )
-  if (!data) return <Spinner label="Loading experiment results…" />
+  if (!data) return <Spinner label="Loading experiment results…" slowLabel="Waking the solver server (free hosting tier, up to ~50 s)…" />
 
   const s = data.summary
   const last = (m) => s[m].per_round[s[m].per_round.length - 1].compliance[0]

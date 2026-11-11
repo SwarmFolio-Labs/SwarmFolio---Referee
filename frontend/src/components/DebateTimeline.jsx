@@ -5,7 +5,7 @@ import StanceBadge from './StanceBadge.jsx'
 import ReadMore from './ReadMore.jsx'
 
 const ANALYSTS = ['macro', 'fundamentals', 'risk']
-const NO_ANSWER = "Didn't reply in time. The Chair went ahead with the other answers; the Referee's check is unaffected."
+const NO_ANSWER = "Timed out. The Chair proceeded without this analyst; the Referee's check is unaffected."
 
 const chairLabel = (round, last, done) =>
   round === 1 ? "Chair's first draft" : round === last && done ? "Chair's final" : "Chair's revision"

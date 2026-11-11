@@ -1,4 +1,5 @@
 // Tiny shared building blocks. Colors come from the tokens in index.css.
+import { useEffect, useState } from 'react'
 import { AGENTS, VERDICTS } from '../format.js'
 
 const TONES = {
@@ -55,11 +56,18 @@ export function PassMark({ passed }) {
   )
 }
 
-export function Spinner({ label }) {
+/** slowLabel replaces label after a few seconds (the free-tier API can take ~50 s to wake). */
+export function Spinner({ label, slowLabel }) {
+  const [slow, setSlow] = useState(false)
+  useEffect(() => {
+    if (!slowLabel) return
+    const t = setTimeout(() => setSlow(true), 4000)
+    return () => clearTimeout(t)
+  }, [slowLabel])
   return (
     <div className="flex items-center gap-3 text-sm text-muted">
       <span className="h-4 w-4 rounded-full border-2 border-line border-t-accent animate-spin" />
-      {label}
+      {slow ? slowLabel : label}
     </div>
   )
 }
