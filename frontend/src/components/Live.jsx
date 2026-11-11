@@ -34,16 +34,10 @@ export function Pending({ busy, error }) {
       setSlow(false)
     }
   }, [busy])
-  if (error)
-    return (
-      <p className="status">
-        <span className="dot bad" /> Verifier unreachable: {error}
-      </p>
-    )
+  if (error) return <p style={{ color: 'var(--bad)' }}>✕ Verifier unreachable: {error}</p>
   if (!busy) return null
   return (
-    <p className="status muted">
-      <span className="dot busy" />
+    <p className="livemark busy muted">
       {slow ? 'Waking the solver server (free hosting tier, up to ~50 s)…' : 'Solving…'}
     </p>
   )
@@ -52,8 +46,7 @@ export function Pending({ busy, error }) {
 /** "Solved live 2.1 s ago" style indicator for a case header. */
 export function LiveChip({ busy, cert }) {
   return (
-    <span className="chip accent">
-      <span className={`dot ${busy ? 'busy' : ''}`} />
+    <span className={`livemark ${busy ? 'busy' : ''}`}>
       {busy ? 'Solving' : cert ? `Solved live · ${cert.solver_ms} ms` : 'Live'}
     </span>
   )
@@ -62,8 +55,8 @@ export function LiveChip({ busy, cert }) {
 export function Verdict({ receipt }) {
   const ok = receipt.verdict === 'PASS'
   return (
-    <span className="chip" style={{ borderColor: ok ? 'var(--good)' : 'var(--bad)' }}>
-      <span className={`dot ${ok ? '' : 'bad'}`} />
+    <span className={`tag ${ok ? 'line' : ''}`}>
+      {ok ? '✓ ' : '✕ '}
       {VERDICT[receipt.verdict] ?? receipt.verdict}
     </span>
   )
@@ -99,16 +92,16 @@ export function Certificate({ cert, receipt, onRerun, busy }) {
   return (
     <div className="cert">
       <div className="cert-head">
-        <span className="label" style={{ color: 'var(--accent)' }}>
-          Certus · solver certificate
+        <span className="u">
+          <b>Solver certificate</b> <span className="faint">· certus</span>
         </span>
         <span style={{ display: 'flex', gap: 8 }}>
           {onRerun && (
-            <button className="btn sm" onClick={onRerun} disabled={busy}>
+            <button className="btn" onClick={onRerun} disabled={busy}>
               {busy ? 'Solving…' : 'Re-solve now ↻'}
             </button>
           )}
-          <button className="btn ghost sm" onClick={download}>
+          <button className="btn ghost" onClick={download}>
             JSON ↓
           </button>
         </span>
@@ -145,7 +138,7 @@ export function Checks({ checks, rules }) {
             <tr key={c.rule_id}>
               <td className="num faint">{c.rule_id}</td>
               <td>{byId[c.rule_id]?.source.replace(/\.$/, '')}</td>
-              <td className="hide-sm nw num muted" style={{ fontSize: 12.5 }}>
+              <td className="hide-sm nw muted" style={{ fontSize: 12 }}>
                 {byId[c.rule_id] && formal(byId[c.rule_id])}
               </td>
               <td className="hide-sm">
@@ -156,8 +149,8 @@ export function Checks({ checks, rules }) {
               </td>
               <td className="r nw num muted">{fmtLimit(c)}</td>
               <td className="r">
-                <span className="status">
-                  <i style={{ color: c.passed ? 'var(--good)' : 'var(--bad)' }}>{c.passed ? '✓' : '✕'}</i>
+                <span className="res">
+                  [<i style={{ color: c.passed ? 'var(--good)' : 'var(--bad)' }}>{c.passed ? '✓' : '✕'}</i>]{' '}
                   {c.passed ? 'OK' : 'VIOLATED'}
                 </span>
               </td>

@@ -30,14 +30,13 @@ function Round({ client, n, draft, recorded, open }) {
   }, [open])
   const r = state.data?.receipt
   return (
-    <section className="case" style={{ marginTop: 16 }}>
-      <div className="case-head">
-        <span>
-          <b>Round {n}</b> <span className="muted small num">&nbsp;{top(draft)}…</span>
-        </span>
-        <span className="actions small">
+    <section className="exhibit" style={{ marginTop: 28 }}>
+      <span className="tag tab">Round {n}</span>
+      <div className="ex-head">
+        <span className="small muted">{top(draft)}…</span>
+        <span className="links small">
           <span className="muted">recorded: {recorded?.verdict === 'PASS' ? 'compliant' : `${recorded?.checks.filter((c) => !c.passed).length ?? '?'} violated`}</span>
-          <button className="btn ghost sm" onClick={run} disabled={state.busy}>
+          <button className="btn ghost" onClick={run} disabled={state.busy}>
             {state.busy ? 'Solving…' : r ? 'Re-solve ↻' : 'Verify live →'}
           </button>
         </span>
@@ -46,7 +45,7 @@ function Round({ client, n, draft, recorded, open }) {
       {r && (
         <>
           <div style={{ height: 14 }} />
-          <p className="small">
+          <p>
             <Verdict receipt={r} /> <span className="muted">&nbsp;{r.summary}</span>
           </p>
           <div style={{ height: 12 }} />
@@ -82,16 +81,17 @@ export default function Mandate({ clients }) {
         <Pending busy={!clients} error={clients ? `No mandate ${id}` : null} />
       ) : (
         <>
-          <span className="kicker">Mandate {mandateId(id)} · synthetic</span>
-          <h1 className="title" style={{ fontSize: 'clamp(32px, 5vw, 52px)' }}>
+          <span className="tag">Mandate {mandateId(id)} · synthetic</span>
+          <div className="gap" />
+          <h1 className="title" >
             {mandateName(client)}
           </h1>
-          <p className="lede muted" style={{ marginTop: 16 }}>
+          <p className="abstract muted" style={{ marginTop: 16 }}>
             {client.story}
           </p>
 
-          <h2 className="section-head" style={{ paddingTop: 64 }}>
-            <span className="label">§ 1</span> <span>Constraints</span>
+          <h2 style={{ fontSize: 20, fontWeight: 600, borderTop: '1px solid var(--ink)', paddingTop: 8, marginTop: 56, marginBottom: 16 }}>
+            <span className="faint">§1</span> Constraints
           </h2>
           <div className="scroll">
             <table className="tbl">
@@ -106,9 +106,9 @@ export default function Mandate({ clients }) {
               <tbody>
                 {client.rules.map((r) => (
                   <tr key={r.id}>
-                    <td className="num faint">{r.id}</td>
+                    <td className="faint">{r.id}</td>
                     <td>{r.source.replace(/\.$/, '')}</td>
-                    <td className="nw num muted" style={{ fontSize: 12.5 }}>{formal(r)}</td>
+                    <td className="nw muted" style={{ fontSize: 12.5 }}>{formal(r)}</td>
                     <td className="r">{r.hard ? 'hard' : r.priority}</td>
                   </tr>
                 ))}
@@ -116,8 +116,8 @@ export default function Mandate({ clients }) {
             </table>
           </div>
 
-          <h2 className="section-head" style={{ paddingTop: 64 }}>
-            <span className="label">§ 2</span> <span>Recorded AI drafts, verified live</span>
+          <h2 style={{ fontSize: 20, fontWeight: 600, borderTop: '1px solid var(--ink)', paddingTop: 8, marginTop: 56, marginBottom: 16 }}>
+            <span className="faint">§2</span> Recorded AI drafts, verified live
           </h2>
           <p className="muted">
             The allocator LLM's drafts for this mandate{demo.data?.extras?.model ? ` (${demo.data.extras.model})` : ''}{' '}
@@ -138,8 +138,8 @@ export default function Mandate({ clients }) {
             />
           ))}
 
-          <h2 className="section-head" style={{ paddingTop: 64 }}>
-            <span className="label">§ 3</span> <span>Shadow cost of each constraint</span>
+          <h2 style={{ fontSize: 20, fontWeight: 600, borderTop: '1px solid var(--ink)', paddingTop: 8, marginTop: 56, marginBottom: 16 }}>
+            <span className="faint">§3</span> Shadow cost of each constraint
           </h2>
           <p className="muted">
             How much risk-adjusted return the best portfolio gives up because of each constraint: re-solve without
@@ -161,7 +161,7 @@ export default function Mandate({ clients }) {
                 <tbody>
                   {prices.data.map((p) => (
                     <tr key={p.rule_id}>
-                      <td className="num faint">{p.rule_id}</td>
+                      <td className="faint">{p.rule_id}</td>
                       <td>{p.source.replace(/\.$/, '')}</td>
                       <td className={`r ${p.binds ? '' : 'faint'}`}>{p.binds ? p.utility_cost_pts.toFixed(2) : '0 · slack'}</td>
                       <td className="r nw muted">

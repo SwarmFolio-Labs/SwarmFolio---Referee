@@ -186,7 +186,7 @@ export function FeasibleRegion() {
       </div>
       <figcaption>
         <b>Fig. 1.</b> Mandate M-04 projected onto two of its dimensions. Cutting tech from 60% forces turnover of at least
-        twice the cut, so with R2 and R3 the feasible set (cobalt) is a sliver. The AI's first draft lands at 124%
+        twice the cut, so with R2 and R3 the feasible set (solid) is a sliver. The AI's first draft lands at 124%
         turnover; the verifier moves it to the nearest compliant point. Other constraints (volatility, position limits)
         cut the set further and are not drawn. Points are the verifier's own measurements.
       </figcaption>
@@ -194,66 +194,26 @@ export function FeasibleRegion() {
   )
 }
 
-// ---------- Fig. 2: the pipeline ----------
+// ---------- Fig. 2: the pipeline, as text ----------
 
-function Box({ label, title, children, accent }) {
-  return (
-    <div
-      style={{
-        border: `1px solid ${accent ? 'var(--accent)' : 'var(--rule)'}`,
-        background: accent ? 'var(--accent-wash)' : 'var(--paper)',
-        borderRadius: 8,
-        padding: '10px 12px',
-        flex: 1,
-        minWidth: 0,
-      }}
-    >
-      <div className="label" style={accent ? { color: 'var(--accent)' } : undefined}>
-        {label}
-      </div>
-      <div style={{ fontWeight: 700, fontSize: 15, lineHeight: '22px' }}>{title}</div>
-      <div className="small muted" style={{ fontSize: 13, lineHeight: '20px' }}>
-        {children}
-      </div>
-    </div>
-  )
-}
-
-const Arrow = () => (
-  <div className="faint num" aria-hidden="true" style={{ alignSelf: 'center', padding: '0 2px', fontSize: 18 }}>
-    →
-  </div>
-)
+const PIPELINE = String.raw`
+ +--------------+     +--------------+     +------------------------+     +--------------+
+ | analysts x3  | --> |  allocator   | --> |    CERTUS  verifier    | --> | certificate  |
+ | macro, fund, |     |  LLM drafts  |     | check -> feasible? ->  |     | verdict, fix |
+ | risk  (LLM)  |     |   w_draft    |     | conflict set -> repair |     | log, hashes  |
+ +--------------+     +------^-------+     +-----------+------------+     +--------------+
+                             |       violations:       |
+                             +---- actual vs limit ----+`
 
 export function Pipeline() {
   return (
     <figure>
-      <div className="fig pipeline">
-        <div className="pipe-row">
-          <Box label="LLM · ×3" title="Analysts">
-            Macro, fundamentals and risk agents write memos
-          </Box>
-          <Arrow />
-          <Box label="LLM" title="Allocator">
-            Turns memos into weights w_draft
-          </Box>
-          <Arrow />
-          <Box label="Deterministic · SCIP" title="Certus verifier" accent>
-            Check → feasibility → conflict set → repair
-          </Box>
-          <Arrow />
-          <Box label="Output" title="Certificate">
-            Verdict, violations, repaired w, solver log, hashes
-          </Box>
-        </div>
-        <div className="pipe-back small muted">
-          <span className="num" style={{ color: 'var(--accent)' }}>↺</span> violations (actual vs limit) go back to the
-          allocator for up to three revision rounds; whatever it returns is verified again
-        </div>
-      </div>
+      <pre className="diagram" aria-label="LLM analysts feed an LLM allocator, whose draft goes to the Certus verifier, which issues a certificate; violations loop back to the allocator for up to three rounds.">
+        {PIPELINE.slice(1)}
+      </pre>
       <figcaption>
         <b>Fig. 2.</b> The language models only propose. Compliance is decided by an exact solver whose answer does not
-        depend on the model, the prompt or the random seed.
+        depend on the model, the prompt or the seed.
       </figcaption>
     </figure>
   )
@@ -309,19 +269,30 @@ export function Dumbbell({ before, after, beforeLabel = 'AI draft', afterLabel =
   )
 }
 
-// ---------- constraint gauge (used in the checks table) ----------
+// ---------- constraint gauge, as text: [██████████|····] ----------
 
 const FLOOR = new Set(['min_weight', 'sector_min', 'min_holdings', 'buy_in'])
+const CELLS = 16
 
 export function Gauge({ check }) {
   if (check.type === 'exclude') return null
-  const max = Math.max(check.limit, check.actual) * 1.35 || 1
-  const at = (v) => `${Math.min(100, (v / max) * 100)}%`
+  const max = Math.max(check.limit, check.actual) * 1.25 || 1
+  const cell = (v) => Math.min(CELLS, Math.round((v / max) * CELLS))
+  const fill = cell(check.actual)
+  const tick = Math.min(CELLS - 1, cell(check.limit))
   const floor = FLOOR.has(check.type)
+  const chars = Array.from({ length: CELLS }, (_, i) => (i === tick ? '|' : i < fill ? '█' : '·'))
+  // the part of the bar past a cap (or short of a floor) is what violates the constraint
+  const bad = (i) => !check.passed && (floor ? i >= fill && i < tick : i > tick && i < fill)
   return (
-    <span className="gauge" title={`actual ${check.actual.toFixed(3)} vs ${floor ? 'floor' : 'cap'} ${check.limit}`}>
-      <span className={`gauge-fill ${check.passed ? '' : 'bad'}`} style={{ width: at(check.actual) }} />
-      <span className="gauge-tick" style={{ left: at(check.limit) }} />
+    <span className="ascii" title={`actual ${check.actual.toFixed(3)} vs ${floor ? 'floor' : 'cap'} ${check.limit}`}>
+      [
+      {chars.map((c, i) => (
+        <span key={i} className={bad(i) ? 'over' : undefined}>
+          {bad(i) && c === '·' ? '░' : c}
+        </span>
+      ))}
+      ]
     </span>
   )
 }
